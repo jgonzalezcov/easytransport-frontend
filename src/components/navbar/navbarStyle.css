@@ -1,0 +1,51 @@
+* {
+  margin: 0%;
+  padding: 0%;
+}
+.navbar {
+  background-color: var(--first-bg-color);
+  position: fixed;
+  width: 100vw;
+  z-index: 2;
+}
+.name-company {
+  margin-left: 10px;
+  font-family: var(--first-font-family), sans-serif;
+  font-size: 19.2px;
+  color: #000000cc;
+  font-weight: 600;
+}
+.link-logo {
+  margin-left: 10px;
+  height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.container {
+  margin: 0%;
+  padding: 0%;
+  margin-left: 2%;
+}
+.container-logo {
+  display: flex;
+}
+.menu-desktop {
+  margin-right: 10px;
+}
+.menu-mobile {
+  margin-right: 40px;
+}
+
+.text-menu:hover,
+.name-company:hover {
+  color: var(--text-hover-color);
+  font-weight: 600;
+  cursor: pointer;
+}
+.text-menu-select:hover {
+  color: var(--text-hover-color);
+  font-weight: 600;
+  cursor: pointer;
+  background-color: var(--first-bg-color);
+}

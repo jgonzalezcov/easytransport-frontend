@@ -1,0 +1,55 @@
+.login-form {
+  background-color: var(--first-bg-color);
+  padding: 10px;
+  border-radius: 20px;
+  border: solid 1px var(--second-bg-color);
+  margin-top: 30px;
+  width: 300px;
+}
+.title-input-login {
+  font-family: var(--first-font-family), sans-serif;
+  font-weight: 600;
+}
+.btn-submit {
+  background-color: var(--second-bg-color);
+  border: none;
+}
+.btn-submit:hover {
+  background-color: var(--bg-hover-color);
+  cursor: pointer;
+}
+.container-btn-type-account {
+  width: 100%;
+}
+
+.btn-type-account {
+  border-radius: 30%;
+  border: solid 1px var(--second-bg-color);
+  width: 50%;
+  font-family: var(--first-font-family), sans-serif;
+  margin-bottom: 5%;
+}
+.btn-type-account:hover {
+  background-color: var(--bg-hover-color);
+  cursor: pointer;
+}
+.click-on {
+  background-color: var(--second-bg-color);
+}
+.click-off {
+  color: var(--three-text-color);
+  opacity: 0.9;
+}
+.click-off.text {
+  color: var(--three-text-color);
+}
+
+.bt-accept {
+  margin-top: 15px;
+}
+@media (max-width: 576px) {
+  .login-form {
+    width: 100%;
+    height: 75%;
+  }
+}

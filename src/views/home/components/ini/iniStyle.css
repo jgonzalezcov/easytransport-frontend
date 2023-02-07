@@ -1,0 +1,42 @@
+.ini {
+  width: 100vw;
+  padding-left: 5%;
+  padding-right: 5%;
+  height: 500px;
+  background-image: url('./imgs/truck.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+}
+.ini-name-company {
+  font-family: var(--first-font-family), sans-serif;
+  color: var(--second-text-color);
+  margin-bottom: 15px;
+  font-size: xx-large;
+}
+
+.ini-descript {
+  font-family: var(--second-font-family), sans-serif;
+  color: var(--first-text-color);
+  font-size: larger;
+}
+.btn-login:hover {
+  background-color: var(--bg-hover-color);
+  cursor: pointer;
+}
+.btn-login {
+  background-color: var(--second-bg-color);
+}
+.container-btn {
+  margin-top: 25px;
+  margin-right: 5%;
+  display: flex;
+  justify-content: flex-end;
+}
+@media (max-width: 576px) {
+  .ini {
+    height: 85vh;
+  }
+}
