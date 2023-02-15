@@ -11,13 +11,23 @@ import Form from 'react-bootstrap/Form'
 import axios from 'axios'
 const Register = () => {
   // const navigate = useNavigate()
-  const [user, setUser] = useState({})
-  const [retryPassword, setRetryPassword] = useState('')
+  const [usuario, setUsuario] = useState({})
   const [typeAccount, setTypeAccount] = useState('transport')
-  const handleSetUser = ({ target: { value, name } }) => {
+  const [file, setFile] = useState(null)
+  const handleSetUsuario = ({ target: { value, name, files } }) => {
     const field = {}
     field[name] = value
-    setUser({ ...user, ...field })
+    if (name === 'img') {
+      console.log('archivos', files[0])
+    }
+    setUsuario({ ...usuario, ...field })
+  }
+
+  const getFormData = (usuario) => {
+    const formData = new FormData()
+    formData.append('email', usuario.email)
+    formData.append('img', usuario.img)
+    return formData
   }
 
   const registrarUsuario = async () => {
@@ -25,19 +35,20 @@ const Register = () => {
     const endpoint =
       typeAccount === 'transport' ? '/transport/singin' : '/client/singin'
     try {
-      await axios.post(urlServer + endpoint, user)
+      await axios.post(urlServer + endpoint, getFormData(usuario), {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      })
       alert('Usuario registrado con éxito')
-
+      console.log(typeAccount)
       // navigate('/')
     } catch (error) {
-      alert(error.response.data.message)
+      alert('Algo salió mal ...')
     }
   }
 
   const handleSubmit = (event) => {
-    retryPassword !== user.password
-      ? alert('La confirmación de contraseña no es igual a la contraseña')
-      : registrarUsuario()
+    console.log(usuario)
+    registrarUsuario()
     event.preventDefault()
   }
   return (
@@ -57,11 +68,37 @@ const Register = () => {
               <option value="transport">Transportista</option>
             </Form.Select>
           </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              value={usuario.email ? usuario.email : ''}
+              onChange={handleSetUsuario}
+              type="email"
+              name="email"
+              placeholder="Ingresa tu email"
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              value={usuario.password ? usuario.password : ''}
+              onChange={handleSetUsuario}
+              type="password"
+              name="password"
+              placeholder="Ingresa tu Password"
+            />
+          </Form.Group>
+        </div>
+        <div className="container-b">
+          <Form.Group className="mb-3" controlId="formBasicPasswordB">
+            <Form.Label>Confirma tu password</Form.Label>
+            <Form.Control type="password" placeholder="Confirma tu password" />
+          </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicTextA">
             <Form.Label>Nombre</Form.Label>
             <Form.Control
-              value={user.name ? user.name : ''}
-              onChange={handleSetUser}
+              value={usuario.name ? usuario.name : ''}
+              onChange={handleSetUsuario}
               type="text"
               name="name"
               placeholder="Ingresa tu nombre"
@@ -70,8 +107,8 @@ const Register = () => {
           <Form.Group className="mb-3" controlId="formBasicTextB">
             <Form.Label>Apellidos</Form.Label>
             <Form.Control
-              value={user.lastname ? user.lastname : ''}
-              onChange={handleSetUser}
+              value={usuario.lastname ? usuario.lastname : ''}
+              onChange={handleSetUsuario}
               type="text"
               name="lastname"
               placeholder="Ingresa tus apellidos"
@@ -79,21 +116,11 @@ const Register = () => {
           </Form.Group>
         </div>
         <div className="container-b">
-          <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Email</Form.Label>
-            <Form.Control
-              value={user.email ? user.email : ''}
-              onChange={handleSetUser}
-              type="email"
-              name="email"
-              placeholder="Ingresa tu email"
-            />
-          </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicTextC">
             <Form.Label>Telefono</Form.Label>
             <Form.Control
-              value={user.phone ? user.phone : ''}
-              onChange={handleSetUser}
+              value={usuario.phone ? usuario.phone : ''}
+              onChange={handleSetUsuario}
               type="text"
               name="phone"
               placeholder="Ingresa tu telefono"
@@ -102,42 +129,20 @@ const Register = () => {
           <Form.Group className="mb-3" controlId="formBasicTextD">
             <Form.Label>Dirección</Form.Label>
             <Form.Control
-              value={user.address ? user.address : ''}
-              onChange={handleSetUser}
+              value={usuario.address ? usuario.address : ''}
+              onChange={handleSetUsuario}
               type="text"
               name="address"
               placeholder="Ingresa tu dirección"
             />
           </Form.Group>
-        </div>
-        <div className="container-c">
-          {' '}
           <Form.Group className="mb-3 select-img" controlId="formBasicTextE">
             <Form.Label>Foto</Form.Label>
             <Form.Control
-              value={user.img ? user.img : ''}
-              onChange={handleSetUser}
+              value={usuario.img ? usuario.img : ''}
+              onChange={handleSetUsuario}
               type="file"
               name="img"
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              value={user.password ? user.password : ''}
-              onChange={handleSetUser}
-              type="password"
-              name="password"
-              placeholder="Ingresa tu Password"
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicPasswordB">
-            <Form.Label>Confirma tu password</Form.Label>
-            <Form.Control
-              value={retryPassword}
-              onChange={(e) => setRetryPassword(e.target.value)}
-              type="password"
-              placeholder="Confirma tu password"
             />
           </Form.Group>
         </div>

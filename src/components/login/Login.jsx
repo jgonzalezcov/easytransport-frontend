@@ -1,10 +1,12 @@
+import React from 'react'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import { useState } from 'react'
 import './loginStyle.css'
-
+import { DataContext } from '../../contexts/DataProvider'
 function Login(props) {
+  const { user, setUser } = React.useContext(DataContext)
   const [classState, setClassState] = useState(['click-on', 'click-off'])
   const acoountSet = (type) => {
     type === 'client'
@@ -14,6 +16,7 @@ function Login(props) {
   const handleSubmit = (event) => {
     props.setstate('ini')
     event.preventDefault()
+    console.log(user)
   }
   return (
     <Form onSubmit={handleSubmit} className="login-form">

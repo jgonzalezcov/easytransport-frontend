@@ -6,11 +6,11 @@ import End from './components/end/End'
 
 const Home = () => {
   return (
-    <body>
+    <div>
       <Ini />
       <About />
       <End />
-    </body>
+    </div>
   )
 }
 
