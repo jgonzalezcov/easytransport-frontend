@@ -1,0 +1,50 @@
+.end {
+  width: 100vw;
+  padding-left: 5%;
+  padding-right: 5%;
+  height: 500px;
+  background-image: url('./imgs/ecologico.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.end-title-container {
+  background-color: var(--first-bg-color);
+  width: 25%;
+  border-radius: 25px;
+  padding: 7px;
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.end-title {
+  font-family: var(--first-font-family), sans-serif;
+  color: var(--three-text-color);
+  font-size: x-large;
+  text-decoration: underline;
+}
+
+.end-descript {
+  font-family: var(--second-font-family), sans-serif;
+  color: var(--second-text-color);
+  background-color: var(--three-bg-color);
+  opacity: 0.9;
+  font-size: larger;
+  width: 50%;
+  border-radius: 25px;
+  padding: 10px;
+}
+
+@media (max-width: 576px) {
+  .end-descript {
+    width: 90vw;
+  }
+  .end-title-container {
+    width: 90vw;
+  }
+}

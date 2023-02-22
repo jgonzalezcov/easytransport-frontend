@@ -1,0 +1,11 @@
+.container-trip {
+  margin-top: 80px;
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+}
+
+.prueba {
+  border-color: red;
+  color: blue;
+}

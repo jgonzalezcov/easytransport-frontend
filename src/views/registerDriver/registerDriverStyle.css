@@ -1,0 +1,64 @@
+.register-form-driver {
+  margin-top: 80px;
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+}
+
+.container-input {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+}
+.mb-4 {
+  margin: 0px 10px 0px 0px;
+  width: 30vw;
+}
+.select-img {
+  margin: 0px;
+  padding: 0px;
+}
+.container-bt-register {
+  display: flex;
+  width: 100vw;
+  align-items: center;
+  justify-content: center;
+}
+.btn-register:hover {
+  background-color: var(--bg-hover-color);
+  cursor: pointer;
+}
+.btn-register {
+  background-color: var(--second-bg-color);
+  width: 150px;
+}
+.container-bt-register {
+  margin-top: 25px;
+  margin-right: 5%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+.title-register {
+  font-family: var(--first-font-family), sans-serif;
+  color: var(--second-text-color);
+  margin-bottom: 15px;
+  font-size: xx-large;
+  text-align: left;
+  margin-left: 55px;
+}
+
+@media (max-width: 576px) {
+  .container-input {
+    flex-direction: column;
+    align-items: center;
+  }
+  .mb-4 {
+    margin: 3px;
+    width: 90vw;
+  }
+  .title-register {
+    text-align: center;
+    margin-left: 0px;
+  }
+}

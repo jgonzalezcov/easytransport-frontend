@@ -1,0 +1,35 @@
+.about {
+  padding: 4%;
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+}
+.about-img {
+  width: 50%;
+  height: 100%;
+}
+.text-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.5% 3% 3% 3%;
+}
+.text-about-title {
+  font-family: var(--first-font-family), sans-serif;
+  color: var(--second-text-color);
+}
+.text-about-secondary {
+  font-family: var(--second-font-family), sans-serif;
+  color: var(--three-text-color);
+  font-size: larger;
+  margin-right: 5%;
+  text-align: justify;
+}
+@media (max-width: 576px) {
+  .about {
+    flex-direction: column;
+  }
+  .about-img {
+    width: 100%;
+  }
+}
