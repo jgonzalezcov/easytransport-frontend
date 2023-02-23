@@ -1,0 +1,43 @@
+.btn-menu {
+  width: 50px;
+  height: 50px;
+  background-image: url(./imgs/menu2.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.btn-menu:hover {
+  background-image: url(./imgs/menu.png);
+  cursor: pointer;
+}
+
+.container-btn-menu-transport {
+  padding-top: 10px;
+  height: calc(100vh - 55px);
+  width: 55px;
+  background-color: var(--second-bg-color);
+}
+
+.menu-drawer {
+  margin-top: 55px;
+}
+.body-drawer {
+  border: 3px;
+  border-style: solid;
+  border-color: var(--second-bg-color);
+}
+.header-drawer {
+  border-style: solid;
+  border-color: var(--second-bg-color);
+  border-bottom: 0px;
+  font-family: var(--first-font-family);
+  background-color: var(--second-bg-color);
+  color: var(--first-text-color);
+}
+.menu-name {
+  font-family: var(--first-font-family);
+  text-align: center;
+  margin-right: 6.5px;
+  color: var(--first-text-color);
+  font-size: medium;
+}

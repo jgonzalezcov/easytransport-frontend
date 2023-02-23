@@ -6,7 +6,7 @@ const About = () => {
     <div className="about">
       <img className="about-img" src={hands} alt="" />
       <div className="text-container">
-        <h3 className="text-about-title">Te ayudamos a trasladar tu cargas</h3>
+        <h3 className="text-about-title">Te ayudamos a trasladar tu carga</h3>
         <h4 className="text-about-secondary">
           Te ayudamos a trasladar tu carga, colocando a tu disposición la red de
           transportista.
