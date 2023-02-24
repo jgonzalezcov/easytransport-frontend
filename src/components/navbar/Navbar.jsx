@@ -7,21 +7,27 @@ import './navbarStyle.css'
 import logo from './imgs/logo.png'
 import { DataContext } from '../../contexts/DataProvider'
 function NavbarPage() {
-  const { typeProfile } = React.useContext(DataContext)
+  const { setTypeProfile, typeProfile, setShow } = React.useContext(DataContext)
+  const handleShow = () => setShow(true)
+
   return (
     <>
       {typeProfile === 'none' ? (
         <Navbar className="navbar" expand="lg">
           <Container>
             <div className="container-logo">
-              <img
-                className="link-logo"
-                src={logo}
-                alt="Logo de empresa Easytransport"
-              />
-              <Navbar.Brand className="name-company" href="/">
+              <Nav.Link className="name-company" href="/">
+                <div className="container-link-logo">
+                  <img
+                    className="link-logo"
+                    src={logo}
+                    alt="Logo de empresa Easytransport"
+                  />
+                </div>
+              </Nav.Link>
+              <h1 className="name-company" href="/">
                 Easytransport
-              </Navbar.Brand>
+              </h1>
             </div>
 
             <Navbar.Toggle
@@ -63,52 +69,51 @@ function NavbarPage() {
         <Navbar className="navbar" expand="lg">
           <Container>
             <div className="container-logo">
-              <img
-                className="link-logo"
-                src={logo}
-                alt="Logo de empresa Easytransport"
-              />
-              <Navbar.Brand className="name-company" href="/">
-                Transportista
-              </Navbar.Brand>
+              <Nav.Link className="name-company" href="/">
+                <div className="container-link-logo">
+                  <img
+                    className="link-logo"
+                    src={logo}
+                    alt="Logo de empresa Easytransport"
+                  />
+                </div>
+              </Nav.Link>
+              <h1 className="name-company" href="/">
+                Easytransport
+              </h1>
             </div>
 
-            <Navbar.Toggle
-              className="menu-mobile"
-              aria-controls="basic-navbar-nav"
-            />
-            <Navbar.Collapse
-              className="menu-desktop"
-              id="basic-navbar-nav"
-            ></Navbar.Collapse>
+            <div className="container-btn-menu-transport">
+              <div className="btn-menu" onClick={handleShow}></div>
+              <h5 className="menu-name">Menú</h5>
+            </div>
           </Container>
         </Navbar>
       ) : typeProfile === 'client' ? (
         <Navbar className="navbar" expand="lg">
           <Container>
             <div className="container-logo">
-              <img
-                className="link-logo"
-                src={logo}
-                alt="Logo de empresa Easytransport"
-              />
-              <Navbar.Brand className="name-company" href="/">
-                Cliente
-              </Navbar.Brand>
+              <Nav.Link className="name-company" href="/">
+                <div className="container-link-logo">
+                  <img
+                    className="link-logo"
+                    src={logo}
+                    alt="Logo de empresa Easytransport"
+                  />
+                </div>
+              </Nav.Link>
+              <h1 className="name-company" href="/">
+                Easytransport
+              </h1>
             </div>
-
-            <Navbar.Toggle
-              className="menu-mobile"
-              aria-controls="basic-navbar-nav"
-            />
-            <Navbar.Collapse
-              className="menu-desktop"
-              id="basic-navbar-nav"
-            ></Navbar.Collapse>
+            <div className="container-btn-menu-transport">
+              <div className="btn-menu" onClick={handleShow}></div>
+              <h5 className="menu-name">Menú</h5>
+            </div>
           </Container>
         </Navbar>
       ) : (
-        ''
+        <></>
       )}
     </>
   )

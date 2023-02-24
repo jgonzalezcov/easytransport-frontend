@@ -10,6 +10,7 @@
 }
 .name-company {
   margin-left: 10px;
+  margin-top: 10px;
   font-family: var(--first-font-family), sans-serif;
   font-size: 19.2px;
   color: #000000cc;
@@ -17,7 +18,7 @@
 }
 .link-logo {
   margin-left: 10px;
-  height: 80%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -29,6 +30,13 @@
 }
 .container-logo {
   display: flex;
+  align-items: center;
+}
+.container-link-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 10px;
 }
 .menu-desktop {
   margin-right: 10px;
@@ -38,14 +46,16 @@
 }
 
 .text-menu:hover,
-.name-company:hover {
-  color: var(--text-hover-color);
-  font-weight: 600;
-  cursor: pointer;
-}
 .text-menu-select:hover {
   color: var(--text-hover-color);
   font-weight: 600;
   cursor: pointer;
   background-color: var(--first-bg-color);
+}
+.menu-name {
+  font-family: var(--first-font-family);
+  text-align: center;
+  color: var(--first-text-color);
+  font-size: medium;
+  margin: 0px;
 }

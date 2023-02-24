@@ -13,7 +13,7 @@ const DataProvider = (props) => {
   })
   const [view, setView] = useState('profile')
   const [show, setShow] = useState(false)
-  const [typeProfile, SettypeProfile] = useState('client')
+  const [typeProfile, SetTypeProfile] = useState('transport')
 
   return (
     <DataContext.Provider
@@ -25,7 +25,7 @@ const DataProvider = (props) => {
         show,
         setShow,
         typeProfile,
-        SettypeProfile,
+        SetTypeProfile,
       }}
     >
       {props.children}

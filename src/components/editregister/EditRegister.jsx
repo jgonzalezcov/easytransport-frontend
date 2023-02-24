@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 //import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import ImgEdit from '../../components/imgEdit/ImgEdit'
+import ImgEdit from '../imgEdit/ImgEdit'
 const EditRegister = () => {
   // const navigate = useNavigate()
   const [user, setUser] = useState({})

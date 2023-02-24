@@ -6,7 +6,7 @@ import End from './components/end/End'
 
 const Home = () => {
   return (
-    <div>
+    <div className="home">
       <Ini />
       <About />
       <End />
