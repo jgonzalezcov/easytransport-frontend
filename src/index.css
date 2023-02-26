@@ -30,3 +30,7 @@
   --first-font-family: 'Nunito';
   --second-font-family: 'Roboto';
 }
+
+.view-container {
+  padding-top: 60px;
+}
