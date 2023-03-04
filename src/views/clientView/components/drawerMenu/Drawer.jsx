@@ -16,7 +16,7 @@ function DrawerMenu() {
           closeVariant="white"
           className="header-drawer"
         >
-          <Offcanvas.Title>Menú Tranportista</Offcanvas.Title>
+          <Offcanvas.Title>Menú Cliente</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body className="body-drawer">
           <AcordionMenu />
