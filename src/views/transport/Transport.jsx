@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const Transport = () => {
-  return <div>hola</div>
-}
+  return <div>Transport View</div>;
+};
 
-export default Transport
+export default Transport;

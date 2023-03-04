@@ -1,0 +1,70 @@
+.change-file {
+  display: none;
+}
+.change-file-btn {
+  margin-left: 15px;
+  margin-right: 5px;
+  margin-top: 10px;
+  padding: 7px;
+  border-radius: 8px;
+  color: var(--first-text-color);
+  background-image: url(./imgs/camara.png);
+  background-repeat: no-repeat;
+  background-size: auto;
+  width: 50px;
+  height: 35px;
+}
+.btn-password-edit {
+  margin-left: 15px;
+  margin-right: 5px;
+  margin-top: 10px;
+  padding: 7px;
+  border-radius: 8px;
+  color: var(--first-text-color);
+  background-image: url(./imgs/contrasena.png);
+  background-repeat: no-repeat;
+  background-size: auto;
+  width: 50px;
+  height: 35px;
+}
+.btn-profile-edit {
+  margin-left: 15px;
+  margin-right: 5px;
+  margin-top: 10px;
+  padding: 7px;
+  border-radius: 8px;
+  color: var(--first-text-color);
+  background-image: url(./imgs/usuarioEditBtn.png);
+  background-repeat: no-repeat;
+  background-size: auto;
+  width: 50px;
+  height: 35px;
+}
+.change-file-btn:hover {
+  background-color: var(--second-bg-color);
+}
+.btn-password-edit:hover {
+  background-color: var(--second-bg-color);
+}
+.btn-profile-edit:hover {
+  background-color: var(--second-bg-color);
+}
+.container-card-component {
+  border-radius: 16px;
+  width: '15rem';
+  border-radius: 20px 0px 0px 20px;
+  border-right: 3px solid var(--second-bg-color);
+}
+.img-card-component {
+  border-radius: 16px 0px 0px 0px;
+  width: 16rem;
+}
+.container-card-component-all {
+  display: flex;
+  border: 3px solid var(--second-bg-color);
+  border-radius: 20px;
+}
+.container-btn-edit {
+  background-color: #c0d1e7;
+  border-radius: 0px 18px 18px 0px;
+}
