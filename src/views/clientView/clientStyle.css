@@ -1,12 +1,11 @@
 .container-transport {
-  margin-top: 55px;
-  position: absolute;
+  margin-top: 70px;
   z-index: 1;
   width: 100%;
-  display: flex;
 }
 .container-view {
   z-index: 0;
+  padding-top: 10px;
 }
 .prueba {
   padding-top: 90px;

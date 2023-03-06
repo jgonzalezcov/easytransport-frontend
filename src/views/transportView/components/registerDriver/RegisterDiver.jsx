@@ -1,17 +1,17 @@
-import React from 'react'
-import './registerDriverStyle.css'
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
+import React from 'react';
+import './registerDriverStyle.css';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
-const RegisterDiver = () => {
+export const RegisterDiver = () => {
   const handleSubmit = (event) => {
-    event.preventDefault()
-  }
+    event.preventDefault();
+  };
   return (
     <Form onSubmit={handleSubmit} className="register-form-driver">
       <h3 className="title-register">Registro de conductores</h3>
       <div className="container-input">
-        <div className="container-a">
+        <div className="container-b">
           <Form.Group className="mb-4" controlId="formBasicText">
             <Form.Label>Nombre</Form.Label>
             <Form.Control
@@ -54,7 +54,5 @@ const RegisterDiver = () => {
         </Button>
       </div>
     </Form>
-  )
-}
-
-export default RegisterDiver
+  );
+};

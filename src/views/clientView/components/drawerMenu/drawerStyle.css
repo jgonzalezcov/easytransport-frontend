@@ -1,14 +1,20 @@
 .btn-menu {
   width: 50px;
   height: 50px;
-  background-image: url(./imgs/menu2.png);
+  border-radius: 50%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 24px;
+  transition: 0.3s all ease;
 }
 .btn-menu:hover {
-  background-image: url(./imgs/menu.png);
   cursor: pointer;
+  background-color: var(--second-bg-color);
 }
 
 .menu-drawer {
@@ -17,13 +23,14 @@
 .body-drawer {
   border: 3px;
   border-style: solid;
-  border-color: var(--second-bg-color);
+  border: none;
+  /* border-color: var(--second-bg-color); */
 }
 .header-drawer {
   border-style: solid;
-  border-color: var(--second-bg-color);
+  border-color: #fff;
   border-bottom: 0px;
   font-family: var(--first-font-family);
-  background-color: var(--second-bg-color);
-  color: var(--first-text-color);
+  /* background-color: var(--second-bg-color); */
+  /* color: var(--first-text-color); */
 }

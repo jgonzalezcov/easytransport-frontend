@@ -1,19 +1,19 @@
-import React from 'react'
-import { DataContext } from '../../contexts/DataProvider'
-import './transportStyle.css'
-import Drawer from './components/drawerMenu/Drawer'
-import Trip from './components/trip/Trip'
-import Truck from './components/registerTruck/RegisterTruck'
-import RegisterDiver from './components/registerDriver/RegisterDiver'
-import EditRegister from '../../components/editregister/EditRegister'
+import React from 'react';
+import { DataContext } from '../../contexts/DataProvider';
+import './transportStyle.css';
+import Drawer from './components/drawerMenu/Drawer';
+import EditRegister from '../../components/editregister/EditRegister';
+import { Outlet } from 'react-router-dom';
 const Transport = () => {
-  const { view } = React.useContext(DataContext)
+  const { view } = React.useContext(DataContext);
   return (
     <div className="container-transport">
       <Drawer />
 
       <div className="container-view">
-        {view === 'newTrip' ? (
+        <Outlet />
+
+        {/* {view === 'newTrip' ? (
           <Trip />
         ) : view === 'newTruck' ? (
           <Truck />
@@ -26,10 +26,10 @@ const Transport = () => {
             {' '}
             <h3>{view}</h3>
           </div>
-        )}
+        )} */}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Transport
+export default Transport;

@@ -1,16 +1,16 @@
-import React from 'react'
-import './tripStyle.css'
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
-const Trip = () => {
+import React from 'react';
+import './tripStyle.css';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+export const RegisterTrip = () => {
   const handleSubmit = (event) => {
-    event.preventDefault()
-  }
+    event.preventDefault();
+  };
   return (
     <Form onSubmit={handleSubmit} className="register-form-truck">
       <h3 className="title-register">Nuevo viaje.</h3>
       <div className="container-input">
-        <div className="container-a">
+        <div className="container-b">
           <Form.Group className="mb-3" controlId="formBasicText">
             <Form.Label>Nombre Camión</Form.Label>
             <Form.Control
@@ -125,7 +125,5 @@ const Trip = () => {
         </Button>
       </div>
     </Form>
-  )
-}
-
-export default Trip
+  );
+};

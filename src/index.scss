@@ -1,0 +1,92 @@
+@import './assets/styles/vars.scss';
+
+@font-face {
+  font-family: 'Nunito';
+  src: url('./assets/fonts/Nunito/Nunito-VariableFont_wght.ttf')
+    format('truetype');
+  font-style: normal;
+  font-weight: normal;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('./assets/fonts/Roboto/Roboto-Light.ttf') format('truetype');
+  font-style: normal;
+  font-weight: normal;
+}
+* {
+  margin: 0%;
+  padding: 0%;
+}
+
+.view-container {
+  padding-top: 65px;
+  min-height: 100vh;
+  background-color: #f1f1f1;
+  padding: 15px;
+}
+
+.view-body {
+  background-color: #fff;
+  border-radius: 25px 25px 25px 25px;
+  padding: 15px;
+  margin-top: 30px;
+}
+
+.card {
+  border: none;
+  padding: 15px;
+  box-shadow: 3px 3px 10px -5px var(--fourth-bg-color);
+}
+
+.card-row {
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.cell {
+  vertical-align: middle;
+  min-width: 150px;
+}
+
+.right-cell {
+  width: 90%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.actions-cell {
+  button {
+    font-size: 16px !important;
+    padding: 10px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .view-container {
+    padding: 0px;
+    padding-top: 65px;
+  }
+
+  .view-body {
+    padding: 15px;
+  }
+
+  .mobile-hidden {
+    display: none;
+  }
+
+  .container-logo {
+    margin-top: 0px;
+    margin-left: 0px;
+  }
+
+  .btn-menu {
+    width: 40px !important;
+    height: 40px !important;
+  }
+}

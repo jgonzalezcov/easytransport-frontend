@@ -1,14 +1,23 @@
-import React from 'react'
-import Accordion from 'react-bootstrap/Accordion'
-import './acordionMenuStyle.css'
-import { DataContext } from '../../../../contexts/DataProvider'
-const iconImages = require.context('./imgs', true)
+import React from 'react';
+import Accordion from 'react-bootstrap/Accordion';
+import './acordionMenuStyle.css';
+import { DataContext } from '../../../../contexts/DataProvider';
+import { useNavigate } from 'react-router-dom';
+const iconImages = require.context('./imgs', true);
 function AcordionMenu() {
-  const { setView, setShow } = React.useContext(DataContext)
+  const navigate = useNavigate();
+  const { setView, setShow, SetTypeProfile } = React.useContext(DataContext);
+
   const setStatus = (view) => {
-    setView(view)
-    setShow(false)
-  }
+    if (view === 'logout') {
+      SetTypeProfile('none');
+      navigate('/');
+      localStorage.removeItem('token');
+      return;
+    }
+    navigate(`./${view}`);
+    setShow(false);
+  };
   return (
     <Accordion>
       <Accordion.Item eventKey="0">
@@ -111,7 +120,7 @@ function AcordionMenu() {
           {' '}
           <div
             className="item-select-accordion"
-            onClick={() => setStatus('editProfile')}
+            onClick={() => setStatus('logout')}
           >
             <img src={iconImages('./out.png')} alt="" />
             <h3 className="title-item-accordion">Cerrar Sesión</h3>
@@ -119,7 +128,7 @@ function AcordionMenu() {
         </Accordion.Body>
       </Accordion.Item>
     </Accordion>
-  )
+  );
 }
 
-export default AcordionMenu
+export default AcordionMenu;

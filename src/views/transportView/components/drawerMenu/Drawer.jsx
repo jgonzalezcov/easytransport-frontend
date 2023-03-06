@@ -1,19 +1,19 @@
-import React from 'react'
-import Offcanvas from 'react-bootstrap/Offcanvas'
-import AcordionMenu from '../accordionMenu/AccordionMenu'
-import './drawerStyle.css'
-import { DataContext } from '../../../../contexts/DataProvider'
+import React from 'react';
+import Offcanvas from 'react-bootstrap/Offcanvas';
+import AcordionMenu from '../accordionMenu/AccordionMenu';
+import './drawerStyle.css';
+import { DataContext } from '../../../../contexts/DataProvider';
 function DrawerMenu() {
-  const handleClose = () => setShow(false)
+  const handleClose = () => setShow(false);
 
-  const { show, setShow } = React.useContext(DataContext)
+  const { show, setShow } = React.useContext(DataContext);
 
   return (
     <div className="container-drawer">
       <Offcanvas className="menu-drawer" show={show} onHide={handleClose}>
         <Offcanvas.Header
           closeButton
-          closeVariant="white"
+          closeVariant="black"
           className="header-drawer"
         >
           <Offcanvas.Title>Menú Tranportista</Offcanvas.Title>
@@ -23,7 +23,7 @@ function DrawerMenu() {
         </Offcanvas.Body>
       </Offcanvas>
     </div>
-  )
+  );
 }
 
-export default DrawerMenu
+export default DrawerMenu;

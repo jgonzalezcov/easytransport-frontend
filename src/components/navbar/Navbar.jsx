@@ -1,14 +1,18 @@
-import React from 'react'
-import Container from 'react-bootstrap/Container'
-import Nav from 'react-bootstrap/Nav'
-import Navbar from 'react-bootstrap/Navbar'
-import NavDropdown from 'react-bootstrap/NavDropdown'
-import './navbarStyle.css'
-import logo from './imgs/logo.png'
-import { DataContext } from '../../contexts/DataProvider'
+import React from 'react';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import './navbarStyle.css';
+import logo from './imgs/logo.png';
+import { DataContext } from '../../contexts/DataProvider';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { IconButton } from '@mui/material';
 function NavbarPage() {
-  const { setTypeProfile, typeProfile, setShow } = React.useContext(DataContext)
-  const handleShow = () => setShow(true)
+  const { setTypeProfile, typeProfile, setShow } =
+    React.useContext(DataContext);
+  const handleShow = () => setShow(true);
 
   return (
     <>
@@ -67,7 +71,7 @@ function NavbarPage() {
         </Navbar>
       ) : typeProfile === 'transport' ? (
         <Navbar className="navbar" expand="lg">
-          <Container>
+          <Container fluid>
             <div className="container-logo">
               <Nav.Link className="name-company" href="/">
                 <div className="container-link-logo">
@@ -84,8 +88,10 @@ function NavbarPage() {
             </div>
 
             <div className="container-btn-menu-transport">
-              <div className="btn-menu" onClick={handleShow}></div>
-              <h5 className="menu-name">Menú</h5>
+              <div className="btn-menu" onClick={handleShow}>
+                <FontAwesomeIcon icon={faBars} />
+              </div>
+              <h5 className="menu-name mobile-hidden">Menú</h5>
             </div>
           </Container>
         </Navbar>
@@ -107,8 +113,14 @@ function NavbarPage() {
               </h1>
             </div>
             <div className="container-btn-menu-transport">
-              <div className="btn-menu" onClick={handleShow}></div>
-              <h5 className="menu-name">Menú</h5>
+              <IconButton
+                className="btn-menu"
+                size="large"
+                onClick={handleShow}
+              >
+                <FontAwesomeIcon icon={faBars} />
+              </IconButton>
+              <h5 className="menu-name mobile-hidden">Menú</h5>
             </div>
           </Container>
         </Navbar>
@@ -116,7 +128,7 @@ function NavbarPage() {
         <></>
       )}
     </>
-  )
+  );
 }
 
-export default NavbarPage
+export default NavbarPage;

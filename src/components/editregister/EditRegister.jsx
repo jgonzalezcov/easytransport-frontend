@@ -1,54 +1,54 @@
-import { useState } from 'react'
-import './editRegisterStyle.css'
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
+import { useState } from 'react';
+import './editRegisterStyle.css';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 //import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import ImgEdit from '../imgEdit/ImgEdit'
+import axios from 'axios';
+import ImgEdit from '../imgEdit/ImgEdit';
 const EditRegister = () => {
   // const navigate = useNavigate()
-  const [user, setUser] = useState({})
-  const [viewEdit, setViewEdit] = useState('ini')
-  const [retryPassword, setRetryPassword] = useState('')
-  const [typeAccount, setTypeAccount] = useState('transport')
+  const [user, setUser] = useState({});
+  const [viewEdit, setViewEdit] = useState('ini');
+  const [retryPassword, setRetryPassword] = useState('');
+  const [typeAccount, setTypeAccount] = useState('transport');
   const handleSetUser = ({ target: { value, name } }) => {
-    const field = {}
-    field[name] = value
-    setUser({ ...user, ...field })
-  }
+    const field = {};
+    field[name] = value;
+    setUser({ ...user, ...field });
+  };
 
   const edit = async () => {
-    const urlServer = 'http://localhost:5000'
+    const urlServer = 'http://localhost:5000';
     const endpoint =
-      typeAccount === 'transport' ? '/transport/singin' : '/client/singin'
+      typeAccount === 'transport' ? '/transport/singin' : '/client/singin';
     try {
-      await axios.post(urlServer + endpoint, user)
-      alert('Usuario registrado con éxito')
+      await axios.post(urlServer + endpoint, user);
+      alert('Usuario registrado con éxito');
 
       // navigate('/')
     } catch (error) {
-      alert(error.response.data.message)
+      alert(error.response.data.message);
     }
-  }
+  };
 
   const handleSubmit = (event) => {
     if (viewEdit === 'ini') {
-      edit()
-      setViewEdit('ini')
+      edit();
+      setViewEdit('ini');
     } else if (viewEdit === 'password') {
       if (retryPassword !== user.password) {
-        alert('La confirmación de contraseña no es igual a la contraseña')
+        alert('La confirmación de contraseña no es igual a la contraseña');
       } else {
-        edit()
-        setViewEdit('ini')
+        edit();
+        setViewEdit('ini');
       }
     } else if (viewEdit === 'edit') {
-      edit()
-      setViewEdit('ini')
+      edit();
+      setViewEdit('ini');
     }
 
-    event.preventDefault()
-  }
+    event.preventDefault();
+  };
   return (
     <Form onSubmit={handleSubmit} className="register-form">
       <h3 className="title-register">Editar Usuario.</h3>
@@ -58,7 +58,7 @@ const EditRegister = () => {
       {viewEdit === 'ini' ? (
         ''
       ) : viewEdit === 'password' ? (
-        <div className="container-c confirm-password">
+        <div className="container-b mt-3 confirm-password">
           {' '}
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
@@ -81,8 +81,8 @@ const EditRegister = () => {
           </Form.Group>
         </div>
       ) : viewEdit === 'edit' ? (
-        <div className="container-input">
-          <div className="container-a">
+        <div className="container-input mt-3">
+          <div className="container-b">
             <Form.Group className="mb-3" controlId="formBasicTextA">
               <Form.Label>Nombre</Form.Label>
               <Form.Control
@@ -137,7 +137,7 @@ const EditRegister = () => {
         </Button>
       </div>
     </Form>
-  )
-}
+  );
+};
 
-export default EditRegister
+export default EditRegister;

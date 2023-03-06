@@ -6,22 +6,25 @@
 .item-select-accordion {
   display: flex;
   align-items: center;
-  border-bottom: 1px solid;
-  background-color: #c0d1e7;
+  background-color: var(--second-bg-color-30);
   border-radius: 5px;
   padding: 5px;
+}
+
+.accordion-button {
+  border: none;
 }
 
 .accordion-button:hover {
   cursor: pointer;
   background-color: var(--second-bg-color);
+  color: #fff;
 }
 .item-select-accordion-2 {
   display: flex;
   align-items: center;
   margin-top: 10px;
-  border-bottom: 1px solid;
-  background-color: #c0d1e7;
+  background-color: var(--second-bg-color-30);
   border-radius: 5px;
   padding: 5px;
 }
@@ -29,12 +32,35 @@
 .item-select-accordion-2:hover {
   cursor: pointer;
   background-color: var(--second-bg-color);
+  color: #fff;
 }
 .item-select-accordion:hover {
   cursor: pointer;
   background-color: var(--second-bg-color);
+  color: #fff;
 }
 .container-btn-out {
   display: flex;
   justify-content: space-around;
+}
+
+.accordion-button:focus {
+  box-shadow: none !important;
+}
+
+.accordion-item {
+  border: none !important;
+}
+
+.accordion-item {
+  border-top-left-radius: 10px !important;
+  border-top-right-radius: 10px !important;
+  border-bottom-left-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
+}
+
+.accordion-button:not(.collapsed) {
+  color: var(--second-bg-color);
+  background-color: transparent !important;
+  box-shadow: none !important;
 }

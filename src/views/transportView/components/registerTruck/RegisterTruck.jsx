@@ -1,17 +1,17 @@
-import React from 'react'
-import './RegistertruckStyle.css'
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
+import React from 'react';
+import './RegistertruckStyle.css';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
-const Truck = () => {
+export const RegisterTruck = () => {
   const handleSubmit = (event) => {
-    event.preventDefault()
-  }
+    event.preventDefault();
+  };
   return (
     <Form onSubmit={handleSubmit} className="register-form-truck">
       <h3 className="title-register">Registro de Camiones.</h3>
       <div className="container-input">
-        <div className="container-a">
+        <div className="container-b">
           <Form.Group className="mb-3" controlId="formBasicText">
             <Form.Label>Nombre Camión</Form.Label>
             <Form.Control
@@ -110,7 +110,5 @@ const Truck = () => {
         </Button>
       </div>
     </Form>
-  )
-}
-
-export default Truck
+  );
+};

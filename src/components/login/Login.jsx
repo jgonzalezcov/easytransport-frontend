@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Login(props) {
   const navigate = useNavigate();
+  const { SetTypeProfile } = useContext(DataContext);
   const [classState, setClassState] = useState(['click-on', 'click-off']);
   const [accountType, setAccountType] = useState('client');
   const [email, setEmail] = useState('');
@@ -31,6 +32,7 @@ function Login(props) {
     props.setstate('ini');
     event.preventDefault();
     await AuthService.login(email, password, accountType);
+    SetTypeProfile(accountType);
     redirectUserHome(accountType);
   };
 
