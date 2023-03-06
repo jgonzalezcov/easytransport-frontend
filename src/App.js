@@ -4,23 +4,19 @@ import Navbar from './components/navbar/Navbar';
 import Home from './views/home/Home';
 import Register from './views/register/Register';
 import DataProvider from './contexts/DataProvider';
-import Transport from './views/transportView/Transport';
-import Client from './views/clientView/Client';
-import { NewShipment } from './views/clientView/views/NewShipment';
-import { ClientIndex } from './views/clientView/views/ClientIndex';
-import { ListShipment } from './views/clientView/views/ListShipment';
-import { EditProfile } from './views/clientView/views/EditProfile';
-import { TransportIndex } from './views/transportView/views/TransportIndex';
-import { TransportNewTrip } from './views/transportView/views/TransportNewTrip';
-import { TransportListTrip } from './views/transportView/views/TransportListTrip';
-import { TransportNewTruck } from './views/transportView/views/TransportNewTruck';
-import {
-  TransportConfigTruck,
-  TransportconfigTruck,
-} from './views/transportView/views/TransportConfigTruck';
-import { TransportNewDriver } from './views/transportView/views/TransportNewDriver';
-import { TransportEditProfile } from './views/transportView/views/TransportEditProfile';
-import { TransportConfigDriver } from './views/transportView/views/TransportConfigDriver';
+import Transport from './views/transport/Transport';
+import Client from './views/client/Client';
+import { NewShipment } from './views/client/views/NewShipment';
+import { ClientIndex } from './views/client/views/ClientIndex';
+import { ListShipment } from './views/client/views/ListShipment';
+import { EditProfile } from './views/client/views/EditProfile';
+import { TransportNewTrip } from './views/transport/views/TransportNewTrip';
+import { TransportListTrip } from './views/transport/views/TransportListTrip';
+import { TransportNewTruck } from './views/transport/views/TransportNewTruck';
+import { TransportConfigTruck } from './views/transport/views/TransportConfigTruck';
+import { TransportNewDriver } from './views/transport/views/TransportNewDriver';
+import { TransportEditProfile } from './views/transport/views/TransportEditProfile';
+import { TransportConfigDriver } from './views/transport/views/TransportConfigDriver';
 
 function App() {
   return (

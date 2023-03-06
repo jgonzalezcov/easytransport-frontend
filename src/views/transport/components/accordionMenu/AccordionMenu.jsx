@@ -4,9 +4,10 @@ import './acordionMenuStyle.css';
 import { DataContext } from '../../../../contexts/DataProvider';
 import { useNavigate } from 'react-router-dom';
 const iconImages = require.context('./imgs', true);
+
 function AcordionMenu() {
   const navigate = useNavigate();
-  const { setView, setShow, SetTypeProfile } = React.useContext(DataContext);
+  const { setShow, SetTypeProfile } = React.useContext(DataContext);
 
   const setStatus = (view) => {
     if (view === 'logout') {
@@ -18,6 +19,7 @@ function AcordionMenu() {
     navigate(`./${view}`);
     setShow(false);
   };
+
   return (
     <Accordion>
       <Accordion.Item eventKey="0">
