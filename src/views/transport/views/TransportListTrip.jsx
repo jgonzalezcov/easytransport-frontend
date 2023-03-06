@@ -54,7 +54,7 @@ const trips = [
     status: 'En progreso',
   },
   {
-    id: 1,
+    id: 2,
     transport_id: 1,
     truck_id: 1,
     drive_id: 1,
@@ -75,7 +75,7 @@ const trips = [
     status: 'Finalizado',
   },
   {
-    id: 1,
+    id: 3,
     transport_id: 1,
     truck_id: 1,
     drive_id: 1,
@@ -122,7 +122,7 @@ export const TransportListTrip = () => {
           </thead>
           <tbody>
             {trips.map((e) => (
-              <tr>
+              <tr key={e.id}>
                 <td>
                   <UserData
                     userName={e.drive_name}

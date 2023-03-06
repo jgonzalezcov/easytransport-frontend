@@ -1,8 +1,10 @@
 import React from 'react';
 import { useState } from 'react';
+import { getDefaultProfile } from '../helpers/Menu.helpers';
 export const DataContext = React.createContext();
 
 const DataProvider = (props) => {
+  const defaultProfile = getDefaultProfile();
   const [profile, setProfile] = useState({
     name: 'Juan',
     lastName: 'González',
@@ -13,7 +15,7 @@ const DataProvider = (props) => {
   });
   const [view, setView] = useState('profile');
   const [show, setShow] = useState(false);
-  const [typeProfile, SetTypeProfile] = useState('none');
+  const [typeProfile, SetTypeProfile] = useState(defaultProfile);
 
   return (
     <DataContext.Provider

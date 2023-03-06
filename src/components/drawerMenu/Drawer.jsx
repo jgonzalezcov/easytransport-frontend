@@ -2,8 +2,9 @@ import React from 'react';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import AcordionMenu from '../accordionMenu/AccordionMenu';
 import './drawerStyle.css';
-import { DataContext } from '../../../../contexts/DataProvider';
-function DrawerMenu() {
+import { DataContext } from '../../contexts/DataProvider';
+
+function DrawerMenu({ menus }) {
   const handleClose = () => setShow(false);
 
   const { show, setShow } = React.useContext(DataContext);
@@ -16,10 +17,10 @@ function DrawerMenu() {
           closeVariant="black"
           className="header-drawer"
         >
-          <Offcanvas.Title>Menú Tranportista</Offcanvas.Title>
+          <Offcanvas.Title>{/* Menú Tranportista */}</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body className="body-drawer">
-          <AcordionMenu />
+          <AcordionMenu menus={menus} />
         </Offcanvas.Body>
       </Offcanvas>
     </div>

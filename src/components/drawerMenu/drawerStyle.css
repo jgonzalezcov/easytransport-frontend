@@ -15,16 +15,11 @@
   overflow: hidden;
 }
 .body-drawer {
-  border: 3px;
-  border-style: solid;
-  /* border-color: var(--second-bg-color); */
+  border: none;
 }
 .header-drawer {
-  border-style: solid;
-  /* border-color: var(--second-bg-color); */
+  border: none;
   border-bottom: 0px;
   font-family: var(--first-font-family);
-  /* background-color: var(--second-bg-color); */
-  /* color: var(--first-text-color); */
   color: var(--second-bg-color);
 }

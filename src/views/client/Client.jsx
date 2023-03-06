@@ -1,12 +1,15 @@
 import React from 'react';
-import { DataContext } from '../../contexts/DataProvider';
 import './clientStyle.css';
-import Drawer from './components/drawerMenu/Drawer';
 import { Outlet } from 'react-router-dom';
+import DrawerMenu from '../../components/drawerMenu/Drawer';
+import { getMenu } from '../../helpers/Menu.helpers';
+
+const menus = getMenu('client');
+
 const Client = () => {
   return (
     <div className="container-transport">
-      <Drawer />
+      <DrawerMenu menus={menus} />
 
       <div className="container-view">
         <Outlet />

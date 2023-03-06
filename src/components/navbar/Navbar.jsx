@@ -88,16 +88,20 @@ function NavbarPage() {
             </div>
 
             <div className="container-btn-menu-transport">
-              <div className="btn-menu" onClick={handleShow}>
+              <IconButton
+                className="btn-menu"
+                size="large"
+                onClick={handleShow}
+              >
                 <FontAwesomeIcon icon={faBars} />
-              </div>
+              </IconButton>
               <h5 className="menu-name mobile-hidden">Menú</h5>
             </div>
           </Container>
         </Navbar>
       ) : typeProfile === 'client' ? (
         <Navbar className="navbar" expand="lg">
-          <Container>
+          <Container fluid>
             <div className="container-logo">
               <Nav.Link className="name-company" href="/">
                 <div className="container-link-logo">
