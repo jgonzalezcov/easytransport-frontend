@@ -5,7 +5,7 @@
 .navbar {
   background-color: var(--first-bg-color);
   position: fixed;
-  width: 100vw;
+  width: 100%;
   z-index: 2;
 }
 .name-company {
@@ -58,4 +58,13 @@
   color: var(--first-text-color);
   font-size: medium;
   margin: 0px;
+}
+.container-btn-menu-transport {
+  padding-right: 10px;
+}
+
+@media screen and (max-width: 576px) {
+  .link-logo {
+    height: 22px;
+  }
 }
