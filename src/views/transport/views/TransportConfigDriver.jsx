@@ -1,7 +1,7 @@
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconButton } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Container, Table } from 'react-bootstrap'
 import { UserData } from '../../../components/userData/UserData'
@@ -33,7 +33,7 @@ const drivers = [
     status: 'Activo',
   },
   {
-    id: 1,
+    id: 2,
     name: 'Elsa',
     last_name: 'Pato',
     email: 'epatp@gmail.com',
@@ -50,9 +50,18 @@ export const TransportConfigDriver = () => {
   const deleteDriver = (idDriver) => {
     setViewDelete(false)
   }
-  const updateDriver = () => {
-    navigate(`/transport/editDriver`)
+
+  const [id, setId] = useState(0)
+
+  const updateDriver = (idTrip) => {
+    setId(idTrip)
   }
+
+  useEffect(() => {
+    if (id !== 0) {
+      navigate(`/transport/editDriver/${id}`)
+    }
+  }, [id])
   return (
     <Container fluid className="mx-0 trip-list-container">
       <h3 className="title-register">Listado de Conductores</h3>
@@ -88,7 +97,7 @@ export const TransportConfigDriver = () => {
                   <div className="right-cell actions-cell">
                     <IconButton
                       onClick={() => {
-                        updateDriver()
+                        updateDriver(e.id)
                       }}
                     >
                       <FontAwesomeIcon icon={faPen} />

@@ -2,9 +2,11 @@ import React from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { useNavigate } from 'react-router-dom'
-export const ClientEditShipment = () => {
-  const navigate = useNavigate()
+import { useParams } from 'react-router-dom'
 
+export const ClientEditShipment = () => {
+  const { id } = useParams() //Este id es para entregar el valor de id al backend
+  const navigate = useNavigate()
   const handleSubmit = (event) => {
     event.preventDefault()
     navigate('/client/listShipment')
@@ -12,6 +14,7 @@ export const ClientEditShipment = () => {
   return (
     <div>
       <Form onSubmit={handleSubmit}>
+        {console.log(id)}
         <h3 className="title-register">
           Edita las caracteristicas de tu envío
         </h3>

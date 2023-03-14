@@ -7,7 +7,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconButton } from '@mui/material'
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Container, Table } from 'react-bootstrap'
 import { Status } from '../../../components/status/Status'
 import { UserData } from '../../../components/userData/UserData'
@@ -140,9 +140,19 @@ export const ClientListShipment = () => {
   const deleteShipment = (idShipment) => {
     setViewDelete(false)
   }
-  const updateShipment = (shipment) => {
-    navigate(`/client/editShipment`)
+
+  const [id, setId] = useState(0)
+
+  const updateShipment = (idShipment) => {
+    setId(idShipment)
   }
+
+  useEffect(() => {
+    if (id !== 0) {
+      navigate(`/client/editShipment/${id}`)
+    }
+  }, [id])
+
   return (
     <Container fluid className="mx-0 trip-list-container">
       <h3 className="title-register">Listado de Envíos</h3>
@@ -186,7 +196,7 @@ export const ClientListShipment = () => {
                     {e.status === 'No comenzado' ? (
                       <IconButton
                         onClick={() => {
-                          updateShipment()
+                          updateShipment(e.id)
                         }}
                       >
                         <FontAwesomeIcon icon={faPen} />

@@ -2,7 +2,9 @@ import React from 'react'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import { useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 export const TransportEditDriver = () => {
+  const { id } = useParams() //Este id es para entregar el valor de id al backend
   const navigate = useNavigate()
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -10,6 +12,7 @@ export const TransportEditDriver = () => {
   }
   return (
     <Form onSubmit={handleSubmit} className="register-form-driver">
+      {console.log(id)}
       <h3 className="title-register">Editar Conductor</h3>
       <div className="container-input">
         <div className="container-b">

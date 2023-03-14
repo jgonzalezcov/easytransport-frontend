@@ -30,28 +30,33 @@ function App() {
           <div className="view-container">
             <Routes>
               <Route path="/register" element={<Register />} />
-              <Route path="/transport" element={<Transport />} />
               <Route path="/transport" element={<Transport />}>
                 <Route index element={<TransportListTrip />} />
                 <Route path="newTrip" element={<TransportNewTrip />} />
                 <Route path="listTrip" element={<TransportListTrip />} />
                 <Route path="newTruck" element={<TransportNewTruck />} />
-                <Route path="editTruck" element={<TransportEditTruck />} />
+                <Route path="editTrip/:id" element={<TransportEditTrip />} />
+                <Route path="editTruck/:id" element={<TransportEditTruck />} />
                 <Route path="configTruck" element={<TransportConfigTruck />} />
-                <Route path="editTrip" element={<TransportEditTrip />} />
                 <Route
                   path="configDriver"
                   element={<TransportConfigDriver />}
                 />
                 <Route path="newDriver" element={<TransportNewDriver />} />
-                <Route path="editDriver" element={<TransportEditDriver />} />
+                <Route
+                  path="editDriver/:id"
+                  element={<TransportEditDriver />}
+                />
                 <Route path="editProfile" element={<TransportEditProfile />} />
               </Route>
               <Route path="/client" element={<Client />}>
                 <Route index element={<ClientListShipment />} />
                 <Route path="newShipment" element={<ClientNewShipment />} />
                 <Route path="listShipment" element={<ClientListShipment />} />
-                <Route path="editShipment" element={<ClientEditShipment />} />
+                <Route
+                  path="editShipment/:id"
+                  element={<ClientEditShipment />}
+                />
                 <Route path="editProfile" element={<ClientEditProfile />} />
               </Route>
               <Route path="/" element={<Home />} />

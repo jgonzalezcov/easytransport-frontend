@@ -1,7 +1,7 @@
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconButton } from '@mui/material'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Container, Table } from 'react-bootstrap'
 import { UserData } from '../../../components/userData/UserData'
 import Button from 'react-bootstrap/Button'
@@ -71,9 +71,17 @@ export const TransportConfigTruck = () => {
   const deleteTruck = (idShipment) => {
     setViewDelete(false)
   }
-  const updateTruck = (shipment) => {
-    navigate(`/transport/editTruck`)
+  const [id, setId] = useState(0)
+
+  const updateTruck = (idTrip) => {
+    setId(idTrip)
   }
+  useEffect(() => {
+    if (id !== 0) {
+      navigate(`/transport/editTruck/${id}`)
+    }
+  }, [id])
+
   return (
     <Container fluid className="mx-0 trip-list-container">
       <h3 className="title-register">Listado de Camiones</h3>
@@ -109,7 +117,7 @@ export const TransportConfigTruck = () => {
                   <div className="right-cell actions-cell">
                     <IconButton
                       onClick={() => {
-                        updateTruck()
+                        updateTruck(e.id)
                       }}
                     >
                       <FontAwesomeIcon icon={faPen} />
