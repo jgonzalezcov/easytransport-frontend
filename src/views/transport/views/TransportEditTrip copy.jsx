@@ -1,22 +1,23 @@
-import React from 'react';
-import './RegistertruckStyle.css';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-
-export const RegisterTruck = () => {
+import React from 'react'
+import Button from 'react-bootstrap/Button'
+import Form from 'react-bootstrap/Form'
+import { useNavigate } from 'react-router-dom'
+export const TransportEditTrip = () => {
+  const navigate = useNavigate()
   const handleSubmit = (event) => {
-    event.preventDefault();
-  };
+    event.preventDefault()
+    navigate(`/transport/listTrip`)
+  }
   return (
     <Form onSubmit={handleSubmit} className="register-form-truck">
-      <h3 className="title-register">Registro de Camiones.</h3>
+      <h3 className="title-register">Editar Viaje</h3>
       <div className="container-input">
         <div className="container-b">
           <Form.Group className="mb-3" controlId="formBasicText">
             <Form.Label>Nombre Camión</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Ingresa un nombre para identificar"
+              placeholder="Ingresa el nombre del camión"
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -29,78 +30,94 @@ export const RegisterTruck = () => {
             </Form.Select>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicText">
-            <Form.Label>Nacionalidad Patente</Form.Label>
+            <Form.Label>Nombre del Conductor</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Ingresa la nacionalidad de la patente"
+              placeholder="Ingresa el nombre del Conductor"
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicText">
-            <Form.Label>Número de Patente</Form.Label>
+            <Form.Label>Pais de carga</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Ingresa el numero de patente"
-            />
-          </Form.Group>
-        </div>
-        <div className="container-b">
-          <Form.Group className="mb-3" controlId="formBasicText">
-            <Form.Label>Marca</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Ingresa la Marca del camión"
+              placeholder="Ingresa el pais en que comienza el viaje que ofreces"
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicText">
-            <Form.Label>Modelo</Form.Label>
+            <Form.Label>Ciudad de carga</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Ingresa el modelo del camión"
+              placeholder="Ingresa la ciudad en donde estaras disponible"
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicText">
-            <Form.Label>Color</Form.Label>
+            <Form.Label>Pais destino</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Ingresa el color de la carrocería"
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="formBasicText">
-            <Form.Label>Metros cubicos remolque</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Metros cúbicos del remolque"
+              placeholder="Ingresa el pais de destino del viaje que ofreces"
             />
           </Form.Group>
         </div>
         <div className="container-b">
           <Form.Group className="mb-3" controlId="formBasicText">
-            <Form.Label>Alto del remolque</Form.Label>
+            <Form.Label>Ciudad de destino</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Ingresa en metros el alto del remolque"
+              placeholder="Ingresa la ciudad de destino"
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicText">
-            <Form.Label>Ancho del remolque</Form.Label>
+            <Form.Label>Metros cubicos disponibles</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Ingresa en metros el ancho del remolque"
+              placeholder="Ingresa los metros cubicos que estaran disponibles"
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicText">
-            <Form.Label>Largo del remolque</Form.Label>
+            <Form.Label>Alto disponible del remolque</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Ingresa en metros el largo del remolque"
+              placeholder="Ingresa en metros el alto disponible del remolque"
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicText">
-            <Form.Label>Peso máximo de carga</Form.Label>
+            <Form.Label>Ancho disponible del remolque</Form.Label>
             <Form.Control
               type="text"
-              placeholder="Ingresa el peso máximo de carga"
+              placeholder="Ingresa en metros el ancho disponible del remolque"
             />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicText">
+            <Form.Label>Largo disponible del remolque</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Ingresa en metros el largo disponible del remolque"
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicText">
+            <Form.Label>Peso máximo disponible de carga</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Ingresa el peso máximo disponoble de carga"
+            />
+          </Form.Group>
+        </div>
+        <div className="container-b">
+          <Form.Group className="mb-3" controlId="formBasicText">
+            <Form.Label>Fecha de inicio del viaje</Form.Label>
+            <Form.Control type="date" />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicText">
+            <Form.Label>Hora inicio del viaje</Form.Label>
+            <Form.Control type="time" />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicText">
+            <Form.Label>Fecha de fin del viaje</Form.Label>
+            <Form.Control type="date" />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicText">
+            <Form.Label>Hora fin del viaje</Form.Label>
+            <Form.Control type="time" />
           </Form.Group>
         </div>
       </div>
@@ -110,5 +127,5 @@ export const RegisterTruck = () => {
         </Button>
       </div>
     </Form>
-  );
-};
+  )
+}

@@ -1,17 +1,18 @@
 import React from 'react'
-import './RegistertruckStyle.css'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
-
-const Truck = () => {
+import { useNavigate } from 'react-router-dom'
+export const TransportEditTruck = () => {
+  const navigate = useNavigate()
   const handleSubmit = (event) => {
     event.preventDefault()
+    navigate(`/transport/configTruck`)
   }
   return (
     <Form onSubmit={handleSubmit} className="register-form-truck">
-      <h3 className="title-register">Registro de Camiones.</h3>
+      <h3 className="title-register">Editar camión.</h3>
       <div className="container-input">
-        <div className="container-a">
+        <div className="container-b">
           <Form.Group className="mb-3" controlId="formBasicText">
             <Form.Label>Nombre Camión</Form.Label>
             <Form.Control
@@ -112,5 +113,3 @@ const Truck = () => {
     </Form>
   )
 }
-
-export default Truck

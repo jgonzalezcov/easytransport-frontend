@@ -1,10 +1,12 @@
-import { faPen, faPhone, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IconButton } from '@mui/material';
-import React from 'react';
-import { Container, Table } from 'react-bootstrap';
-import { UserData } from '../../../components/userData/UserData';
-
+import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { IconButton } from '@mui/material'
+import React, { useState } from 'react'
+import { Container, Table } from 'react-bootstrap'
+import { UserData } from '../../../components/userData/UserData'
+import Button from 'react-bootstrap/Button'
+import CloseButton from 'react-bootstrap/CloseButton'
+import { useNavigate } from 'react-router-dom'
 /**
  * id
  * transport_id
@@ -61,16 +63,17 @@ const trucks = [
     height_load: '',
     condition: '',
   },
-];
+]
 
 export const TransportConfigTruck = () => {
-  const getStatus = (status) => {
-    if (status === 'No comenzado') return 'not_started';
-    if (status === 'En progreso') return 'in_progress';
-    if (status === 'Finalizado') return 'finalized';
-    return '';
-  };
-
+  const navigate = useNavigate()
+  const [viewDelete, setViewDelete] = useState(false)
+  const deleteTruck = (idShipment) => {
+    setViewDelete(false)
+  }
+  const updateTruck = (shipment) => {
+    navigate(`/transport/editTruck`)
+  }
   return (
     <Container fluid className="mx-0 trip-list-container">
       <h3 className="title-register">Listado de Camiones</h3>
@@ -104,10 +107,14 @@ export const TransportConfigTruck = () => {
                 <td className="cell">{e.model}</td>
                 <td className="cell">
                   <div className="right-cell actions-cell">
-                    <IconButton>
+                    <IconButton
+                      onClick={() => {
+                        updateTruck()
+                      }}
+                    >
                       <FontAwesomeIcon icon={faPen} />
                     </IconButton>
-                    <IconButton>
+                    <IconButton onClick={() => setViewDelete(true)}>
                       <FontAwesomeIcon icon={faTrash} />
                     </IconButton>
                   </div>
@@ -117,6 +124,38 @@ export const TransportConfigTruck = () => {
           </tbody>
         </Table>
       </div>
+      {viewDelete === true ? (
+        <div className="confirm-delete">
+          <div className="container-confirm-delete">
+            <div className="container-close-button">
+              <CloseButton
+                onClick={() => {
+                  setViewDelete(false)
+                }}
+              />
+            </div>
+
+            <h3 className="view-delete">
+              Estas seguro de eliminar este camión
+            </h3>
+            <div className="container-btn-delete">
+              <FontAwesomeIcon className="faTrash" icon={faTrash} />
+              <Button
+                onClick={() => {
+                  deleteTruck()
+                }}
+                className="btn-register btn-delete"
+                variant="primary"
+                type="submit"
+              >
+                Eliminar
+              </Button>
+            </div>
+          </div>
+        </div>
+      ) : (
+        ''
+      )}
     </Container>
-  );
-};
+  )
+}

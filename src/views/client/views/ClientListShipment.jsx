@@ -6,130 +6,156 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconButton } from '@mui/material'
-import React, { useState } from 'react'
+import React from 'react'
+import { useState } from 'react'
 import { Container, Table } from 'react-bootstrap'
 import { Status } from '../../../components/status/Status'
 import { UserData } from '../../../components/userData/UserData'
-import { useNavigate } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
+import { useNavigate } from 'react-router-dom'
 import CloseButton from 'react-bootstrap/CloseButton'
 /**
- * id
- * transport_id
- * truck_id
- * drive_id
- * drive_phone
- * drive_name
- * origin
- * destiny
- * trip_date_ini
- * time_ini
- * time_end
- * time_date_end
- * type_load_trip
- * cubic_meters_trip
- * max_height_trip
- * long_load_trip
- * wide_load_trip
- * height_load_trip
- * status
- * created_at
- * updated_at
- * deleted_at
+ id
+ trip_id
+ transport_id
+ client_id
+ drive_phone
+ drive_name
+ origin_address
+ destiny_address
+ date_retirement
+ time_ini_retirement
+ time_end_retirement
+ date_delivery
+ time_ini_delivery
+ time_end_delivery
+ type_load_shipping
+ cubic_meters_shipping
+ weight_shipping
+ long_load_shipping
+ wide_load_shipping
+ high_load_shipping
+ status
+ created_at
+ updated_at
+ deleted_at
  * */
 
 const trips = [
   {
     id: 1,
+    trip_id: 1,
     transport_id: 1,
-    truck_id: 1,
-    drive_id: 1,
+    client_id: 1,
+    description: 'Cajas Filete de Salmon',
+    drive_name: 'Alan brito',
     drive_phone: '12345678',
-    drive_name: 'Aquiles Baeza',
-    origin: 'Valdivia',
-    destiny: 'Santiago',
-    trip_date_ini: '2023-01-01',
-    time_ini: '06:00',
-    time_end: '16:00',
-    time_date_end: '06:00',
-    type_load_trip: '',
-    cubic_meters_trip: 20,
-    max_height_trip: 1,
-    long_load_trip: 1,
-    wide_load_trip: 1,
-    height_load_trip: 1,
-    status: 'En progreso',
+    origin_address: 'Puerto Mont calle x',
+    destiny_address: 'San Antonio calle x',
+    date_retirement: '2023-01-01',
+    time_ini_retirement: '06:00',
+    time_end_retirement: '08:00',
+    date_ini_delivery: '2023-01-01',
+    date_end_delivery: '2023-01-02',
+    time_ini_delivery: '10:00',
+    time_end_delivery: '08:00',
+    type_load_shipping: 'container',
+    cubic_meters_shipping: 2,
+    weight_shipping: 1,
+    long_load_shipping: 2,
+    wide_load_shipping: 1,
+    high_load_shipping: 1,
+    status: 'Finalizado',
+    created_at: '2023-01-01',
+    updated_at: '2023-01-01',
+    deleted_at: null,
   },
   {
     id: 2,
+    trip_id: 2,
     transport_id: 1,
-    truck_id: 1,
-    drive_id: 1,
+    client_id: 1,
+    description: '100 Cajas de Zapatos',
+    drive_name: 'Elba Lazo',
     drive_phone: '12345678',
-    drive_name: 'Alan brito',
-    origin: 'Puerto Mont',
-    destiny: 'San antonio',
-    trip_date_ini: '2023-01-01',
-    time_ini: '06:00',
-    time_end: '16:00',
-    time_date_end: '06:00',
-    type_load_trip: '',
-    cubic_meters_trip: 20,
-    max_height_trip: 1,
-    long_load_trip: 1,
-    wide_load_trip: 1,
-    height_load_trip: 1,
-    status: 'Finalizado',
+    origin_address: 'Concepción calle x',
+    destiny_address: 'Santiago calle x',
+    date_retirement: '2023-01-03',
+    time_ini_retirement: '07:00',
+    time_end_retirement: '09:00',
+    date_ini_delivery: '2023-01-03',
+    date_end_delivery: '2023-01-04',
+    time_ini_delivery: '11:00',
+    time_end_delivery: '15:00',
+    type_load_shipping: 'container',
+    cubic_meters_shipping: 1,
+    weight_shipping: 1,
+    long_load_shipping: 1,
+    wide_load_shipping: 1,
+    high_load_shipping: 1,
+    status: 'En progreso',
+    created_at: '2023-01-03',
+    updated_at: '2023-01-03',
+    deleted_at: null,
   },
   {
     id: 3,
+    trip_id: 2,
     transport_id: 1,
-    truck_id: 1,
-    drive_id: 1,
+    client_id: 1,
+    description: '10 sacos de papas',
+    drive_name: 'Aquiles Baeza',
     drive_phone: '12345678',
-    drive_name: 'Elba Lazo',
-    origin: 'Arica',
-    destiny: 'Valparaíso',
-    trip_date_ini: '2023-01-01',
-    time_ini: '06:00',
-    time_end: '16:00',
-    time_date_end: '06:00',
-    type_load_trip: '',
-    cubic_meters_trip: 20,
-    max_height_trip: 1,
-    long_load_trip: 1,
-    wide_load_trip: 1,
-    height_load_trip: 1,
+    origin_address: 'Melipilla calle x',
+    destiny_address: 'Curacabi calle x',
+    date_retirement: '2023-01-05',
+    time_ini_retirement: '05:00',
+    time_end_retirement: '06:00',
+    date_ini_delivery: '2023-01-05',
+    date_end_delivery: '2023-01-06',
+    time_ini_delivery: '13:00',
+    time_end_delivery: '18:00',
+    type_load_shipping: 'remolque cerrado',
+    cubic_meters_shipping: 1,
+    weight_shipping: 1,
+    long_load_shipping: 1,
+    wide_load_shipping: 1,
+    high_load_shipping: 1,
     status: 'No comenzado',
+    created_at: '2023-01-05',
+    updated_at: '2023-01-05',
+    deleted_at: null,
   },
 ]
 
-export const TransportListTrip = () => {
+export const ClientListShipment = () => {
+  const [viewDelete, setViewDelete] = useState(false)
   const navigate = useNavigate()
-  const deleteTrip = (idShipment) => {
-    setViewDelete(false)
-  }
   const getStatus = (status) => {
     if (status === 'No comenzado') return 'not_started'
     if (status === 'En progreso') return 'in_progress'
     if (status === 'Finalizado') return 'finalized'
     return ''
   }
-  const [viewDelete, setViewDelete] = useState(false)
-  const updateTrip = (shipment) => {
-    navigate(`/transport/editTrip`)
+  const deleteShipment = (idShipment) => {
+    setViewDelete(false)
+  }
+  const updateShipment = (shipment) => {
+    navigate(`/client/editShipment`)
   }
   return (
     <Container fluid className="mx-0 trip-list-container">
-      <h3 className="title-register">Listado de Viajes</h3>
+      <h3 className="title-register">Listado de Envíos</h3>
 
       <div className="view-body">
         <Table hover responsive size="sm">
           <thead>
             <tr>
               <th>Conductor</th>
-              <th>Origen</th>
-              <th>Destino</th>
+              <th>Descripción</th>
+              <th>Dirección Origen</th>
+              <th>Dirección Destino</th>
+              <th>Metros Cubicos</th>
               <th>Estado</th>
               <th>&nbsp;</th>
             </tr>
@@ -148,8 +174,10 @@ export const TransportListTrip = () => {
                     }
                   />
                 </td>
-                <td className="cell">{e.origin}</td>
-                <td className="cell">{e.destiny}</td>
+                <td className="cell">{e.description}</td>
+                <td className="cell">{e.origin_address}</td>
+                <td className="cell">{e.destiny_address}</td>
+                <td className="cell">{e.cubic_meters_shipping}</td>
                 <td className="cell">
                   <Status text={e.status} status={getStatus(e.status)} />
                 </td>
@@ -158,7 +186,7 @@ export const TransportListTrip = () => {
                     {e.status === 'No comenzado' ? (
                       <IconButton
                         onClick={() => {
-                          updateTrip()
+                          updateShipment()
                         }}
                       >
                         <FontAwesomeIcon icon={faPen} />
@@ -205,7 +233,7 @@ export const TransportListTrip = () => {
               <FontAwesomeIcon className="faTrash" icon={faTrash} />
               <Button
                 onClick={() => {
-                  deleteTrip()
+                  deleteShipment()
                 }}
                 className="btn-register btn-delete"
                 variant="primary"

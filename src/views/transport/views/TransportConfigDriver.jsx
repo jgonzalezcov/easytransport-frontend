@@ -1,10 +1,12 @@
-import { faPen, faPhone, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IconButton } from '@mui/material';
-import React from 'react';
-import { Container, Table } from 'react-bootstrap';
-import { UserData } from '../../../components/userData/UserData';
-
+import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { IconButton } from '@mui/material'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Container, Table } from 'react-bootstrap'
+import { UserData } from '../../../components/userData/UserData'
+import Button from 'react-bootstrap/Button'
+import CloseButton from 'react-bootstrap/CloseButton'
 /**
  * id
  * name
@@ -40,9 +42,17 @@ const drivers = [
     img: '',
     status: 'Activo',
   },
-];
+]
 
 export const TransportConfigDriver = () => {
+  const navigate = useNavigate()
+  const [viewDelete, setViewDelete] = useState(false)
+  const deleteDriver = (idDriver) => {
+    setViewDelete(false)
+  }
+  const updateDriver = () => {
+    navigate(`/transport/editDriver`)
+  }
   return (
     <Container fluid className="mx-0 trip-list-container">
       <h3 className="title-register">Listado de Conductores</h3>
@@ -76,10 +86,18 @@ export const TransportConfigDriver = () => {
                 <td className="cell">{e.status}</td>
                 <td className="cell">
                   <div className="right-cell actions-cell">
-                    <IconButton>
+                    <IconButton
+                      onClick={() => {
+                        updateDriver()
+                      }}
+                    >
                       <FontAwesomeIcon icon={faPen} />
                     </IconButton>
-                    <IconButton>
+                    <IconButton
+                      onClick={() => {
+                        setViewDelete(true)
+                      }}
+                    >
                       <FontAwesomeIcon icon={faTrash} />
                     </IconButton>
                   </div>
@@ -89,6 +107,38 @@ export const TransportConfigDriver = () => {
           </tbody>
         </Table>
       </div>
+      {viewDelete === true ? (
+        <div className="confirm-delete">
+          <div className="container-confirm-delete">
+            <div className="container-close-button">
+              <CloseButton
+                onClick={() => {
+                  setViewDelete(false)
+                }}
+              />
+            </div>
+
+            <h3 className="view-delete">
+              Estas seguro de eliminar a este conductor
+            </h3>
+            <div className="container-btn-delete">
+              <FontAwesomeIcon className="faTrash" icon={faTrash} />
+              <Button
+                onClick={() => {
+                  deleteDriver()
+                }}
+                className="btn-register btn-delete"
+                variant="primary"
+                type="submit"
+              >
+                Eliminar
+              </Button>
+            </div>
+          </div>
+        </div>
+      ) : (
+        ''
+      )}
     </Container>
-  );
-};
+  )
+}

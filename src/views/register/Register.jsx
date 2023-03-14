@@ -3,40 +3,41 @@
 //Hacer un use State que guarde el tipo de cuenta y dependiendo de esto seleccionar a
 //cual endpoint se dirigira.
 
-import { useState } from 'react';
-import './registerStyle.css';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import { useNavigate } from 'react-router-dom';
-import { AuthService } from '../../services/authService';
+import { useState } from 'react'
+import './registerStyle.css'
+import Button from 'react-bootstrap/Button'
+import Form from 'react-bootstrap/Form'
+import { useNavigate } from 'react-router-dom'
+import { AuthService } from '../../services/authService'
 
 const Register = () => {
-  const navigate = useNavigate();
-  const [user, setUser] = useState({});
-  const [retryPassword, setRetryPassword] = useState('');
-  const [typeAccount, setTypeAccount] = useState('transport');
+  const navigate = useNavigate()
+  const [user, setUser] = useState({})
+  const [retryPassword, setRetryPassword] = useState('')
+  const [typeAccount, setTypeAccount] = useState('client')
   const handleSetUser = ({ target: { value, name } }) => {
-    const field = {};
-    field[name] = value;
-    setUser({ ...user, ...field });
-  };
+    const field = {}
+    field[name] = value
+    setUser({ ...user, ...field })
+  }
 
   const registrarUsuario = async () => {
     try {
-      await AuthService.singin(user, typeAccount);
-      alert('Usuario registrado con éxito');
-      navigate('/');
+      console.log('Enviado al backend:', typeAccount)
+      await AuthService.singin(user, typeAccount)
+      alert('Usuario registrado con éxito')
+      navigate('/')
     } catch (error) {
-      alert(error.response.data.message);
+      alert(error.response.data.message)
     }
-  };
+  }
 
   const handleSubmit = (event) => {
     retryPassword !== user.password
       ? alert('La confirmación de contraseña no es igual a la contraseña')
-      : registrarUsuario();
-    event.preventDefault();
-  };
+      : registrarUsuario()
+    event.preventDefault()
+  }
   return (
     <>
       <Form onSubmit={handleSubmit} className="register-form">
@@ -48,7 +49,8 @@ const Register = () => {
               <Form.Select
                 size="md"
                 onChange={(e) => {
-                  setTypeAccount(e.target.value);
+                  setTypeAccount(e.target.value)
+                  console.log('target:', typeAccount)
                 }}
               >
                 <option value="client">Cliente</option>
@@ -147,7 +149,7 @@ const Register = () => {
         </div>
       </Form>
     </>
-  );
-};
+  )
+}
 
-export default Register;
+export default Register

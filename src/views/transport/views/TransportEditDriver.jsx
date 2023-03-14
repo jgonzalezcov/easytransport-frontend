@@ -1,17 +1,18 @@
 import React from 'react'
-import './registerDriverStyle.css'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
-
-const RegisterDiver = () => {
+import { useNavigate } from 'react-router-dom'
+export const TransportEditDriver = () => {
+  const navigate = useNavigate()
   const handleSubmit = (event) => {
     event.preventDefault()
+    navigate(`/transport/configDriver`)
   }
   return (
     <Form onSubmit={handleSubmit} className="register-form-driver">
-      <h3 className="title-register">Registro de conductores</h3>
+      <h3 className="title-register">Editar Conductor</h3>
       <div className="container-input">
-        <div className="container-a">
+        <div className="container-b">
           <Form.Group className="mb-4" controlId="formBasicText">
             <Form.Label>Nombre</Form.Label>
             <Form.Control
@@ -56,5 +57,3 @@ const RegisterDiver = () => {
     </Form>
   )
 }
-
-export default RegisterDiver
