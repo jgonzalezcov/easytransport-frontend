@@ -8,10 +8,12 @@ import { DataContext } from '../../contexts/DataProvider'
 function DrawerMenu({ menus }) {
   const navigate = useNavigate()
   const handleClose = () => setShow(false)
-  const { show, setShow, SetTypeProfile } = React.useContext(DataContext)
+  const { show, setShow, SetTypeProfile, setIsAuth } =
+    React.useContext(DataContext)
   const goTo = (view) => {
     if (view === 'logout') {
       SetTypeProfile('none')
+      setIsAuth(false)
       navigate('/')
       localStorage.removeItem('token')
       return

@@ -46,31 +46,12 @@ function NavbarPage() {
             />
             <Navbar.Collapse className="menu-desktop" id="basic-navbar-nav">
               <Nav className="me-auto">
-                <Nav.Link className="text-menu" href="/">
+                <Nav.Link className="text-menu home" href="/">
                   Home
-                </Nav.Link>
-                <Nav.Link className="text-menu" href="/trip">
-                  Viaje
                 </Nav.Link>
                 <Nav.Link className="text-menu register" href="/register">
                   Registrate
                 </Nav.Link>
-                <NavDropdown
-                  id="basic-nav-dropdown"
-                  title="Configuración"
-                  className="text-menu"
-                >
-                  <NavDropdown.Item className="text-menu-select" href="truck">
-                    Camiones
-                  </NavDropdown.Item>
-                  <NavDropdown.Item className="text-menu-select" href="driver">
-                    Conductores
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item className="text-menu-select" href="account">
-                    Mi cuenta
-                  </NavDropdown.Item>
-                </NavDropdown>
               </Nav>
             </Navbar.Collapse>
           </Container>

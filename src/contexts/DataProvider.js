@@ -15,6 +15,8 @@ const DataProvider = (props) => {
   })
   const [view, setView] = useState('profile')
   const [show, setShow] = useState(false)
+  const [isAuth, setIsAuth] = useState(false)
+
   const [typeProfile, SetTypeProfile] = useState(defaultProfile)
 
   return (
@@ -28,6 +30,8 @@ const DataProvider = (props) => {
         setShow,
         typeProfile,
         SetTypeProfile,
+        isAuth,
+        setIsAuth,
       }}
     >
       {props.children}

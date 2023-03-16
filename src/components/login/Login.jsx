@@ -1,40 +1,41 @@
-import React, { useContext } from 'react';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import { useState } from 'react';
-import './loginStyle.css';
-import { DataContext } from '../../contexts/DataProvider';
-import { AuthService } from '../../services/authService';
-import { useNavigate } from 'react-router-dom';
+import React, { useContext } from 'react'
+import Button from 'react-bootstrap/Button'
+import Form from 'react-bootstrap/Form'
+import ButtonGroup from 'react-bootstrap/ButtonGroup'
+import { useState } from 'react'
+import './loginStyle.css'
+import { DataContext } from '../../contexts/DataProvider'
+import { AuthService } from '../../services/authService'
+import { useNavigate } from 'react-router-dom'
 
 function Login(props) {
-  const navigate = useNavigate();
-  const { SetTypeProfile } = useContext(DataContext);
-  const [classState, setClassState] = useState(['click-on', 'click-off']);
-  const [accountType, setAccountType] = useState('client');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const navigate = useNavigate()
+  const { SetTypeProfile, setIsAuth } = useContext(DataContext)
+  const [classState, setClassState] = useState(['click-on', 'click-off'])
+  const [accountType, setAccountType] = useState('client')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   const acoountSet = (type) => {
-    setAccountType(type);
+    setAccountType(type)
     type === 'client'
       ? setClassState(['click-on', 'click-off'])
-      : setClassState(['click-off', 'click-on']);
-  };
+      : setClassState(['click-off', 'click-on'])
+  }
 
   const redirectUserHome = (accountType) => {
-    const url = accountType === 'transport' ? '/transport' : 'client';
-    navigate(url);
-  };
+    const url = accountType === 'transport' ? '/transport' : 'client'
+    navigate(url)
+  }
 
   const handleSubmit = async (event) => {
-    props.setstate('ini');
-    event.preventDefault();
-    await AuthService.login(email, password, accountType);
-    SetTypeProfile(accountType);
-    redirectUserHome(accountType);
-  };
+    props.setstate('ini')
+    event.preventDefault()
+    await AuthService.login(email, password, accountType)
+    setIsAuth(true)
+    SetTypeProfile(accountType)
+    redirectUserHome(accountType)
+  }
 
   return (
     <Form onSubmit={handleSubmit} className="login-form">
@@ -79,7 +80,7 @@ function Login(props) {
         Ingresar
       </Button>
     </Form>
-  );
+  )
 }
 
-export default Login;
+export default Login

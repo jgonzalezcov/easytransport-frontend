@@ -1,0 +1,17 @@
+.register-form {
+  margin-top: 80px;
+  z-index: 1;
+  width: 100%;
+}
+.container-error-authorized {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.icon-not-authorized {
+  font-size: 100px;
+  color: var(--fivebg-bg-color);
+}
+.title-not-authorized {
+  text-align: center;
+}

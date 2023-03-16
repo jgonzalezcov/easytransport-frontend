@@ -1,10 +1,12 @@
 import React from 'react'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
+import { DriverService } from '../../../services/driverService'
 
 export const TransportNewDriver = () => {
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
+    await DriverService.createDriver({ nombre: 'juan' })
   }
   return (
     <Form onSubmit={handleSubmit} className="register-form-driver">
