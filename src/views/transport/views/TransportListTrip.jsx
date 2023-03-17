@@ -106,15 +106,24 @@ const trips = [
 
 export const TransportListTrip = () => {
   const navigate = useNavigate()
-  const deleteTrip = (idShipment) => {
-    setViewDelete(false)
-  }
+
   const getStatus = (status) => {
     if (status === 'No comenzado') return 'not_started'
     if (status === 'En progreso') return 'in_progress'
     if (status === 'Finalizado') return 'finalized'
     return ''
   }
+  const [idDelete, setIdDelete] = useState(0)
+  const deleteTrip = (idShipment) => {
+    setViewDelete(false)
+    console.log('id:', idDelete)
+    setIdDelete(0)
+  }
+  const PreviewDeleteDriver = (id) => {
+    setViewDelete(true)
+    setIdDelete(id)
+  }
+
   const [viewDelete, setViewDelete] = useState(false)
   const [id, setId] = useState(0)
   const updateTrip = (idTrip) => {
@@ -179,7 +188,7 @@ export const TransportListTrip = () => {
                     {e.status === 'No comenzado' ? (
                       <IconButton
                         onClick={() => {
-                          setViewDelete(true)
+                          PreviewDeleteDriver(e.id)
                         }}
                       >
                         <FontAwesomeIcon icon={faTrash} />

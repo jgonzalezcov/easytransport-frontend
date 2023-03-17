@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom'
 
 function Login(props) {
   const navigate = useNavigate()
+
   const { SetTypeProfile, setIsAuth } = useContext(DataContext)
   const [classState, setClassState] = useState(['click-on', 'click-off'])
   const [accountType, setAccountType] = useState('client')

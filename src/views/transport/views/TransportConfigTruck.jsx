@@ -66,16 +66,25 @@ const trucks = [
 ]
 
 export const TransportConfigTruck = () => {
+  const [idDelete, setIdDelete] = useState(0)
   const navigate = useNavigate()
   const [viewDelete, setViewDelete] = useState(false)
-  const deleteTruck = (idShipment) => {
+  const deleteTruck = () => {
     setViewDelete(false)
+    console.log('id:', idDelete)
+    setIdDelete(0)
   }
+  const PreviewDeleteDriver = (id) => {
+    setViewDelete(true)
+    setIdDelete(id)
+  }
+
   const [id, setId] = useState(0)
 
   const updateTruck = (idTrip) => {
     setId(idTrip)
   }
+
   useEffect(() => {
     if (id !== 0) {
       navigate(`/transport/editTruck/${id}`)
@@ -122,7 +131,11 @@ export const TransportConfigTruck = () => {
                     >
                       <FontAwesomeIcon icon={faPen} />
                     </IconButton>
-                    <IconButton onClick={() => setViewDelete(true)}>
+                    <IconButton
+                      onClick={() => {
+                        PreviewDeleteDriver(e.id)
+                      }}
+                    >
                       <FontAwesomeIcon icon={faTrash} />
                     </IconButton>
                   </div>

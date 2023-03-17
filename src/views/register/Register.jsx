@@ -21,7 +21,7 @@ const Register = () => {
     setUser({ ...user, ...field })
   }
 
-  const registrarUsuario = async () => {
+  const registerUsuario = async () => {
     try {
       console.log('Enviado al backend:', typeAccount)
       await AuthService.singin(user, typeAccount)
@@ -35,7 +35,7 @@ const Register = () => {
   const handleSubmit = (event) => {
     retryPassword !== user.password
       ? alert('La confirmación de contraseña no es igual a la contraseña')
-      : registrarUsuario()
+      : registerUsuario()
     event.preventDefault()
   }
   return (

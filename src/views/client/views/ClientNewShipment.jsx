@@ -11,8 +11,13 @@ import { UserData } from '../../../components/userData/UserData'
 export const ClientNewShipment = () => {
   const [id, setId] = useState(0)
   const [viewFind, setViewFind] = useState(1)
+  const [object, setObject] = useState({})
   const navigate = useNavigate()
-
+  const handleSet = ({ target: { value, name } }) => {
+    const field = {}
+    field[name] = value
+    setObject({ ...object, ...field })
+  }
   const cancel = (event) => {
     setViewFind(1)
   }
@@ -21,15 +26,18 @@ export const ClientNewShipment = () => {
     setViewFind(2)
   }
   const next2 = (event) => {
+    setObject({ ...object, ...{ trip_id: id } })
     setViewFind(3)
-  }
-  const handleSubmit = (event) => {
-    setViewFind(1)
-    navigate('/client')
   }
   const selectTrip = (i) => {
     setId(i)
   }
+  const handleSubmit = (event) => {
+    setViewFind(1)
+    navigate('/client')
+    console.log(object)
+  }
+
   const getStatus = (status) => {
     if (status === 'No comenzado') return 'not_started'
     if (status === 'En progreso') return 'in_progress'
@@ -111,7 +119,11 @@ export const ClientNewShipment = () => {
             <div className="container-b">
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Tipo de transporte</Form.Label>
-                <Form.Select size="md">
+                <Form.Select
+                  size="md"
+                  onChange={handleSet}
+                  name="type_load_shipping"
+                >
                   <option value="client">Container</option>
                   <option value="transport">Container refrigerado</option>
                   <option value="transport">Remolque cerrado</option>
@@ -121,6 +133,8 @@ export const ClientNewShipment = () => {
               <Form.Group className="mb-3" controlId="formBasicText">
                 <Form.Label>Pais de carga</Form.Label>
                 <Form.Control
+                  onChange={handleSet}
+                  name="country_origin"
                   type="text"
                   placeholder="Ingresa el pais en que comienza el viaje que ofreces"
                 />
@@ -128,6 +142,8 @@ export const ClientNewShipment = () => {
               <Form.Group className="mb-3" controlId="formBasicText">
                 <Form.Label>Ciudad de carga</Form.Label>
                 <Form.Control
+                  onChange={handleSet}
+                  name="city_origin"
                   type="text"
                   placeholder="Ingresa la ciudad en donde estaras disponible"
                 />
@@ -135,6 +151,8 @@ export const ClientNewShipment = () => {
               <Form.Group className="mb-3" controlId="formBasicText">
                 <Form.Label>Pais destino</Form.Label>
                 <Form.Control
+                  onChange={handleSet}
+                  name="country_destiny"
                   type="text"
                   placeholder="Ingresa el pais de destino del viaje que ofreces"
                 />
@@ -142,6 +160,8 @@ export const ClientNewShipment = () => {
               <Form.Group className="mb-3" controlId="formBasicText">
                 <Form.Label>Ciudad de destino</Form.Label>
                 <Form.Control
+                  onChange={handleSet}
+                  name="city_destiny"
                   type="text"
                   placeholder="Ingresa la ciudad de destino"
                 />
@@ -151,6 +171,8 @@ export const ClientNewShipment = () => {
               <Form.Group className="mb-3" controlId="formBasicText">
                 <Form.Label>Metros cubicos del envío</Form.Label>
                 <Form.Control
+                  onChange={handleSet}
+                  name="cubic_meters_Shipping"
                   type="text"
                   placeholder="Ingresa los metros cubicos que estaran disponibles"
                 />
@@ -158,6 +180,8 @@ export const ClientNewShipment = () => {
               <Form.Group className="mb-3" controlId="formBasicText">
                 <Form.Label>Alto del envío</Form.Label>
                 <Form.Control
+                  onChange={handleSet}
+                  name="high_load_Shipping"
                   type="text"
                   placeholder="Ingresa en metros el alto disponible del remolque"
                 />
@@ -165,6 +189,8 @@ export const ClientNewShipment = () => {
               <Form.Group className="mb-3" controlId="formBasicText">
                 <Form.Label>Ancho del envío</Form.Label>
                 <Form.Control
+                  onChange={handleSet}
+                  name="wide_load_Shipping"
                   type="text"
                   placeholder="Ingresa en metros el ancho disponible del remolque"
                 />
@@ -172,6 +198,8 @@ export const ClientNewShipment = () => {
               <Form.Group className="mb-3" controlId="formBasicText">
                 <Form.Label>Largo del envío</Form.Label>
                 <Form.Control
+                  onChange={handleSet}
+                  name="long_load_Shipping"
                   type="text"
                   placeholder="Ingresa en metros el largo disponible del remolque"
                 />
@@ -179,6 +207,8 @@ export const ClientNewShipment = () => {
               <Form.Group className="mb-3" controlId="formBasicText">
                 <Form.Label>Peso del envío</Form.Label>
                 <Form.Control
+                  onChange={handleSet}
+                  name="weight_Shipping"
                   type="text"
                   placeholder="Ingresa el peso máximo disponoble de carga"
                 />
@@ -187,19 +217,35 @@ export const ClientNewShipment = () => {
             <div className="container-b">
               <Form.Group className="mb-3" controlId="formBasicText">
                 <Form.Label>Desde fecha</Form.Label>
-                <Form.Control type="date" />
+                <Form.Control
+                  type="date"
+                  onChange={handleSet}
+                  name="trip_date_ini"
+                />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicText">
                 <Form.Label>Desde hora</Form.Label>
-                <Form.Control type="time" />
+                <Form.Control
+                  type="time"
+                  onChange={handleSet}
+                  name="time_ini"
+                />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicText">
                 <Form.Label>Hasta fecha</Form.Label>
-                <Form.Control type="date" />
+                <Form.Control
+                  type="date"
+                  onChange={handleSet}
+                  name="trip_date_end"
+                />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicText">
                 <Form.Label>Hasta hora</Form.Label>
-                <Form.Control type="time" />
+                <Form.Control
+                  type="time"
+                  onChange={handleSet}
+                  name="time_end"
+                />
               </Form.Group>
             </div>
           </div>
@@ -254,6 +300,7 @@ export const ClientNewShipment = () => {
                         id={`default-checkbox`}
                         label={`Seleccionar`}
                         checked={e.id === id ? true : false}
+                        readOnly
                       />
                     </td>
                   </tr>

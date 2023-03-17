@@ -47,14 +47,21 @@ const drivers = [
 export const TransportConfigDriver = () => {
   const navigate = useNavigate()
   const [viewDelete, setViewDelete] = useState(false)
-  const deleteDriver = (idDriver) => {
+  const [id, setId] = useState(0)
+  const [idDelete, setIdDelete] = useState(0)
+  const deleteDriver = () => {
     setViewDelete(false)
+    console.log('id:', idDelete)
+    setIdDelete(0)
   }
 
-  const [id, setId] = useState(0)
+  const PreviewDeleteDriver = (id) => {
+    setViewDelete(true)
+    setIdDelete(id)
+  }
 
-  const updateDriver = (idTrip) => {
-    setId(idTrip)
+  const updateDriver = (idDriver) => {
+    setId(idDriver)
   }
 
   useEffect(() => {
@@ -104,7 +111,7 @@ export const TransportConfigDriver = () => {
                     </IconButton>
                     <IconButton
                       onClick={() => {
-                        setViewDelete(true)
+                        PreviewDeleteDriver(e.id)
                       }}
                     >
                       <FontAwesomeIcon icon={faTrash} />
