@@ -3,8 +3,8 @@ import {
   faShippingFast,
   faTruck,
   faUser,
-} from '@fortawesome/free-solid-svg-icons';
-import { getTokenData } from './Token.helper';
+} from '@fortawesome/free-solid-svg-icons'
+import { getTokenData } from './Token.helper'
 
 const getMenuClient = () => {
   return [
@@ -39,19 +39,13 @@ const getMenuClient = () => {
       parent: false,
     },
     {
-      title: 'Configurar Conductores',
-      icon: null,
-      url: 'configDriver',
-      parent: false,
-    },
-    {
       title: 'Cerrar Sesión',
       icon: null,
       url: 'logout',
       parent: false,
     },
-  ];
-};
+  ]
+}
 
 const getMenuTransport = () => {
   return [
@@ -122,32 +116,26 @@ const getMenuTransport = () => {
       parent: false,
     },
     {
-      title: 'Configurar Conductores',
-      icon: null,
-      url: 'configDriver',
-      parent: false,
-    },
-    {
       title: 'Cerrar Sesión',
       icon: null,
       url: 'logout',
       parent: false,
     },
-  ];
-};
+  ]
+}
 
 export const getDefaultProfile = () => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('token')
   if (token) {
-    const tokenData = getTokenData();
-    return tokenData.role; // Debiese retornar "transport" o "client"
+    const tokenData = getTokenData()
+    return tokenData.role // Debiese retornar "transport" o "client"
   } else {
-    return 'none';
+    return 'none'
   }
-};
+}
 
 export const getMenu = (role) => {
-  if (role === 'client') return getMenuClient();
-  if (role === 'transport') return getMenuTransport();
-  return [];
-};
+  if (role === 'client') return getMenuClient()
+  if (role === 'transport') return getMenuTransport()
+  return []
+}

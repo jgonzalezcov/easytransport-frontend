@@ -38,6 +38,9 @@
   justify-content: center;
   padding-bottom: 10px;
 }
+.container-link-logo:hover {
+  cursor: pointer;
+}
 .menu-desktop {
   margin-right: 10px;
 }

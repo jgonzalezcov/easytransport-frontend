@@ -1,17 +1,29 @@
-import React from 'react';
-import Offcanvas from 'react-bootstrap/Offcanvas';
-import AcordionMenu from '../accordionMenu/AccordionMenu';
-import './drawerStyle.css';
-import { DataContext } from '../../contexts/DataProvider';
+import React from 'react'
+import Offcanvas from 'react-bootstrap/Offcanvas'
+import { useNavigate } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import styles from './Drawer.module.scss'
+import { DataContext } from '../../contexts/DataProvider'
 
 function DrawerMenu({ menus }) {
-  const handleClose = () => setShow(false);
-
-  const { show, setShow } = React.useContext(DataContext);
-
+  const navigate = useNavigate()
+  const handleClose = () => setShow(false)
+  const { show, setShow, SetTypeProfile, setIsAuth } =
+    React.useContext(DataContext)
+  const goTo = (view) => {
+    if (view === 'logout') {
+      SetTypeProfile('none')
+      setIsAuth(false)
+      navigate('/')
+      localStorage.removeItem('token')
+      return
+    }
+    navigate(`./${view}`)
+    setShow(false)
+  }
   return (
     <div className="container-drawer">
-      <Offcanvas className="menu-drawer" show={show} onHide={handleClose}>
+      <Offcanvas className={styles.MenuDrawer} show={show} onHide={handleClose}>
         <Offcanvas.Header
           closeButton
           closeVariant="black"
@@ -20,11 +32,27 @@ function DrawerMenu({ menus }) {
           <Offcanvas.Title>{/* Menú Tranportista */}</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body className="body-drawer">
-          <AcordionMenu menus={menus} />
+          <div>
+            {menus.map((e, i) => (
+              <div className={styles.AccordionMenu} key={`${e.url}-${i}`}>
+                {e.parent && e.icon && (
+                  <div className={styles.parent}>
+                    <FontAwesomeIcon className={styles.icon} icon={e.icon} />
+                    <span>{e.title}</span>
+                  </div>
+                )}
+                {!e.parent && (
+                  <div className={styles.child} onClick={() => goTo(e.url)}>
+                    {e.title}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
         </Offcanvas.Body>
       </Offcanvas>
     </div>
-  );
+  )
 }
 
-export default DrawerMenu;
+export default DrawerMenu

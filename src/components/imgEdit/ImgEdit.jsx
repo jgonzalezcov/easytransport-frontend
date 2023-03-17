@@ -5,16 +5,16 @@ import {
   faTruck,
   faUser,
   faUsers,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
-import Card from 'react-bootstrap/Card';
-import { DataContext } from '../../contexts/DataProvider';
-import('./imgEditStyle.css');
-const ImgProfile = require.context('./imgs', true);
-function ImgEdit({ viewEdit, setViewEdit }) {
-  const { profile } = React.useContext(DataContext);
-  const { name, lastName, email, img } = profile;
+} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React from 'react'
+import Card from 'react-bootstrap/Card'
+import { DataContext } from '../../contexts/DataProvider'
+import('./imgEditStyle.css')
+const ImgProfile = require.context('./imgs', true)
+function ImgEdit({ viewEdit, setViewEdit, setUser }) {
+  const { profile } = React.useContext(DataContext)
+  const { name, lastName, email, img } = profile
   return (
     <div className="container-card-component-all">
       <Card className="container-card-component">
@@ -59,13 +59,9 @@ function ImgEdit({ viewEdit, setViewEdit }) {
             type="file"
             id="fileImg"
             accept="image/*"
+            name="img"
           />
-          <label
-            for="fileImg"
-            onClick={() => {
-              setViewEdit('ini');
-            }}
-          >
+          <label for="fileImg" onClick={() => {}}>
             <div className="btn-profile-action">
               <FontAwesomeIcon icon={faCamera} />
             </div>
@@ -74,7 +70,7 @@ function ImgEdit({ viewEdit, setViewEdit }) {
         <div
           className="btns-item-edit"
           onClick={() => {
-            setViewEdit('password');
+            setViewEdit('password')
           }}
         >
           <div className="btn-profile-action">
@@ -84,7 +80,7 @@ function ImgEdit({ viewEdit, setViewEdit }) {
         <div
           className="btns-item-edit"
           onClick={() => {
-            setViewEdit('edit');
+            setViewEdit('edit')
           }}
         >
           <div className="btn-profile-action">
@@ -93,7 +89,7 @@ function ImgEdit({ viewEdit, setViewEdit }) {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default ImgEdit;
+export default ImgEdit
