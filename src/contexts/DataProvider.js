@@ -1,10 +1,10 @@
-import React from 'react';
-import { useState } from 'react';
-import { getDefaultProfile } from '../helpers/Menu.helpers';
-export const DataContext = React.createContext();
+import React from 'react'
+import { useState } from 'react'
+import { getDefaultProfile } from '../helpers/Menu.helpers'
+export const DataContext = React.createContext()
 
 const DataProvider = (props) => {
-  const defaultProfile = getDefaultProfile();
+  const defaultProfile = getDefaultProfile()
   const [profile, setProfile] = useState({
     name: 'Juan',
     lastName: 'González',
@@ -12,10 +12,12 @@ const DataProvider = (props) => {
     email: 'jgonzalez@gmail.com',
     address: 'Mi casa',
     img: './foto.jpg',
-  });
-  const [view, setView] = useState('profile');
-  const [show, setShow] = useState(false);
-  const [typeProfile, SetTypeProfile] = useState(defaultProfile);
+  })
+  const [view, setView] = useState('profile')
+  const [show, setShow] = useState(false)
+  const [isAuth, setIsAuth] = useState(false)
+
+  const [typeProfile, SetTypeProfile] = useState(defaultProfile)
 
   return (
     <DataContext.Provider
@@ -28,11 +30,13 @@ const DataProvider = (props) => {
         setShow,
         typeProfile,
         SetTypeProfile,
+        isAuth,
+        setIsAuth,
       }}
     >
       {props.children}
     </DataContext.Provider>
-  );
-};
+  )
+}
 
-export default DataProvider;
+export default DataProvider

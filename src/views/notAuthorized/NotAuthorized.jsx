@@ -4,13 +4,13 @@
 //cual endpoint se dirigira.
 
 import { useState } from 'react'
-import './notFoundStyle.css'
+import './notAuthorizedStyle.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLock } from '@fortawesome/free-solid-svg-icons'
 import Button from 'react-bootstrap/Button'
 import { useNavigate } from 'react-router-dom'
 
-const NotFound = () => {
+const NotAuthorized = () => {
   const navigate = useNavigate()
 
   return (
@@ -18,11 +18,13 @@ const NotFound = () => {
       <div className="register-form container-error-authorized">
         <FontAwesomeIcon icon={faLock} className="icon-not-authorized" />
         <h3 className="title-register title-not-authorized">
-          Pagina no existe.
+          Sin autorización para acceder a este contenido. Inicia sesión para
+          acceder a este contenido con el tipo de cuenta registrada (cliente o
+          transportista).
         </h3>
       </div>
     </>
   )
 }
 
-export default NotFound
+export default NotAuthorized
