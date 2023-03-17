@@ -1,8 +1,10 @@
-import React from 'react'
-import { useState } from 'react'
-export const DataContext = React.createContext()
+import React from 'react';
+import { useState } from 'react';
+import { getDefaultProfile } from '../helpers/Menu.helpers';
+export const DataContext = React.createContext();
 
 const DataProvider = (props) => {
+  const defaultProfile = getDefaultProfile();
   const [profile, setProfile] = useState({
     name: 'Juan',
     lastName: 'González',
@@ -10,10 +12,10 @@ const DataProvider = (props) => {
     email: 'jgonzalez@gmail.com',
     address: 'Mi casa',
     img: './foto.jpg',
-  })
-  const [view, setView] = useState('profile')
-  const [show, setShow] = useState(false)
-  const [typeProfile, SetTypeProfile] = useState('transport')
+  });
+  const [view, setView] = useState('profile');
+  const [show, setShow] = useState(false);
+  const [typeProfile, SetTypeProfile] = useState(defaultProfile);
 
   return (
     <DataContext.Provider
@@ -30,7 +32,7 @@ const DataProvider = (props) => {
     >
       {props.children}
     </DataContext.Provider>
-  )
-}
+  );
+};
 
-export default DataProvider
+export default DataProvider;

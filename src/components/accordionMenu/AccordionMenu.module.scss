@@ -1,0 +1,46 @@
+.AccordionMenu {
+  display: flex;
+  padding-left: 40px;
+  flex-direction: column;
+  gap: 20px;
+  align-items: flex-start;
+  [class~='offcanvas-header'] {
+    button[class~='btn-close'] {
+      margin-right: 20px !important;
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+
+  .parent {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    // border-bottom: 3px solid var(--first-bg-color);
+    font-size: 1.3rem;
+    width: 100%;
+    margin-bottom: 20px;
+    margin-top: 15px;
+    color: var(--second-bg-color);
+
+    .icon {
+      color: var(--first-bg-color);
+    }
+  }
+
+  .child {
+    margin-left: 20px;
+    padding: 8px;
+    width: 75%;
+    transition: 0.3s all ease;
+    border-radius: 0px 20px 20px 0px;
+    cursor: pointer;
+    &:hover {
+      padding-left: 30px;
+      width: 85%;
+      background-color: var(--second-bg-color-30);
+    }
+  }
+}

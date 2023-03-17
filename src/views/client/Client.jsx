@@ -1,16 +1,21 @@
-import React, { useEffect } from 'react';
-import { TripService } from '../../services/tripService';
+import React from 'react';
+import './clientStyle.css';
+import { Outlet } from 'react-router-dom';
+import DrawerMenu from '../../components/drawerMenu/Drawer';
+import { getMenu } from '../../helpers/Menu.helpers';
 
-export const Client = () => {
-  /** @description La llamada a este endpoint es solo uno de prueba para el envio del token en el servicio, un usuarios nunca debiese poder ver todos los viajes por lo cual despues habra que cambiar la llamada por un endpoint que realmente corresponda para esta vista  */
-  const getAllTrips = async () => {
-    const trips = await TripService.all();
-    console.log('trips', trips);
-  };
+const menus = getMenu('client');
 
-  useEffect(() => {
-    getAllTrips();
-  }, []);
+const Client = () => {
+  return (
+    <div className="container-transport">
+      <DrawerMenu menus={menus} />
 
-  return <div>Client view</div>;
+      <div className="container-view">
+        <Outlet />
+      </div>
+    </div>
+  );
 };
+
+export default Client;

@@ -1,0 +1,22 @@
+.Status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-direction: row;
+  .circle {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 1rem;
+    background-color: var(--fourth-bg-color);
+
+    &[class~='not_started'] {
+      background-color: var(--not-started-color);
+    }
+    &[class~='in_progress'] {
+      background-color: var(--in-progress-color);
+    }
+    &[class~='finalized'] {
+      background-color: var(--finalized-color);
+    }
+  }
+}
