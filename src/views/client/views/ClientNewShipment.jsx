@@ -1,49 +1,52 @@
-import React, { useState } from 'react'
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
-import { useNavigate } from 'react-router-dom'
-import { faSave, faPhone } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Container, Table } from 'react-bootstrap'
-import { Status } from '../../../components/status/Status'
-import { UserData } from '../../../components/userData/UserData'
+import React, { useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import { useNavigate } from 'react-router-dom';
+import { faSave, faPhone } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Container, Table } from 'react-bootstrap';
+import { Status } from '../../../components/status/Status';
+import { UserData } from '../../../components/userData/UserData';
+import { Loader } from '../../../components/loader/Loader';
 
 export const ClientNewShipment = () => {
-  const [id, setId] = useState(0)
-  const [viewFind, setViewFind] = useState(1)
-  const [object, setObject] = useState({})
-  const navigate = useNavigate()
+  const [id, setId] = useState(0);
+  const [viewFind, setViewFind] = useState(1);
+  const [isSaving, setIsSaving] = useState(false);
+  const [object, setObject] = useState({});
+  const navigate = useNavigate();
   const handleSet = ({ target: { value, name } }) => {
-    const field = {}
-    field[name] = value
-    setObject({ ...object, ...field })
-  }
+    const field = {};
+    field[name] = value;
+    setObject({ ...object, ...field });
+  };
   const cancel = (event) => {
-    setViewFind(1)
-  }
+    setViewFind(1);
+  };
   const next = (event) => {
-    event.preventDefault()
-    setViewFind(2)
-  }
+    event.preventDefault();
+    setViewFind(2);
+  };
   const next2 = (event) => {
-    setObject({ ...object, ...{ trip_id: id } })
-    setViewFind(3)
-  }
+    setObject({ ...object, ...{ trip_id: id } });
+    setViewFind(3);
+  };
   const selectTrip = (i) => {
-    setId(i)
-  }
+    setId(i);
+  };
   const handleSubmit = (event) => {
-    setViewFind(1)
-    navigate('/client')
-    console.log(object)
-  }
+    setViewFind(1);
+    setIsSaving(true);
+    // navigate('/client');
+    console.log(object);
+  };
 
   const getStatus = (status) => {
-    if (status === 'No comenzado') return 'not_started'
-    if (status === 'En progreso') return 'in_progress'
-    if (status === 'Finalizado') return 'finalized'
-    return ''
-  }
+    if (status === 'No comenzado') return 'not_started';
+    if (status === 'En progreso') return 'in_progress';
+    if (status === 'Finalizado') return 'finalized';
+    return '';
+  };
   const trips = [
     {
       id: 1,
@@ -108,7 +111,7 @@ export const ClientNewShipment = () => {
       height_load_trip: 1,
       status: 'No comenzado',
     },
-  ]
+  ];
 
   return (
     <div className="container-filter-component">
@@ -250,9 +253,13 @@ export const ClientNewShipment = () => {
             </div>
           </div>
           <div className="container-bt-register">
-            <Button className="btn-register" variant="primary" type="submit">
-              Buscar viaje
-            </Button>
+            {isSaving ? (
+              <Loader />
+            ) : (
+              <Button className="btn-register" variant="primary" type="submit">
+                Buscar viaje
+              </Button>
+            )}
           </div>
         </Form>
       ) : viewFind === 2 ? (
@@ -312,7 +319,7 @@ export const ClientNewShipment = () => {
                 className="btn-register btn-shipping"
                 variant="primary"
                 onClick={() => {
-                  cancel()
+                  cancel();
                 }}
               >
                 Cancelar
@@ -321,7 +328,7 @@ export const ClientNewShipment = () => {
                 className="btn-register btn-shipping"
                 variant="primary"
                 onClick={() => {
-                  next2()
+                  next2();
                 }}
               >
                 Guardar Envío
@@ -337,7 +344,7 @@ export const ClientNewShipment = () => {
               <FontAwesomeIcon className="faTrash" icon={faSave} />
               <Button
                 onClick={() => {
-                  handleSubmit()
+                  handleSubmit();
                 }}
                 className="btn-register btn-delete"
                 variant="primary"
@@ -352,5 +359,5 @@ export const ClientNewShipment = () => {
         ''
       )}
     </div>
-  )
-}
+  );
+};
