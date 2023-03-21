@@ -24,4 +24,14 @@ export class ShippingService extends Service {
       return null;
     }
   }
+
+  static async getById(shippingId) {
+    try {
+      const shippings = await this.get(`shipping/${shippingId}`);
+      return shippings.data;
+    } catch (error) {
+      toast('Ha ocurrido un error');
+      return null;
+    }
+  }
 }
