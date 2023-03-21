@@ -10,6 +10,7 @@ import toast, { Toaster } from 'react-hot-toast';
 export const ClientEditShipment = () => {
   const navigate = useNavigate();
   const [isSaving, setIsSaving] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const { id } = useParams(); //Este id es para entregar el valor de id al backend
   const [object, setObject] = useState({
     id: id,
@@ -36,6 +37,16 @@ export const ClientEditShipment = () => {
     }
   };
 
+  const init = async () => {
+    const shipping = await ShippingService.getById(id);
+    setIsLoading(false);
+    setObject(shipping);
+  };
+
+  useEffect(() => {
+    init();
+  }, []);
+
   return (
     <div>
       <Form onSubmit={handleSubmit}>
@@ -45,69 +56,79 @@ export const ClientEditShipment = () => {
           Edita las caracteristicas de tu envío
         </h3>
 
-        <div className="container-input">
-          <div className="container-b">
-            <Form.Group className="mb-3" controlId="formBasicText">
-              <Form.Label>Metros cubicos del envío</Form.Label>
-              <Form.Control
-                defaultValue={object.cubic_meters_shipping}
-                onChange={handleSet}
-                name="cubic_meters_Shipping"
-                type="text"
-                placeholder="Ingresa los metros cubicos que estaran disponibles"
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicText">
-              <Form.Label>Alto del envío</Form.Label>
-              <Form.Control
-                defaultValue={object.high_load_shipping}
-                onChange={handleSet}
-                name="high_load_shipping"
-                type="text"
-                placeholder="Ingresa en metros el alto disponible del remolque"
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicText">
-              <Form.Label>Ancho del envío</Form.Label>
-              <Form.Control
-                defaultValue={object.wide_load_shipping}
-                onChange={handleSet}
-                name="wide_load_shipping"
-                type="text"
-                placeholder="Ingresa en metros el ancho disponible del remolque"
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicText">
-              <Form.Label>Largo del envío</Form.Label>
-              <Form.Control
-                defaultValue={object.long_load_shipping}
-                onChange={handleSet}
-                name="long_load_shipping"
-                type="text"
-                placeholder="Ingresa en metros el largo disponible del remolque"
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicText">
-              <Form.Label>Peso del envío</Form.Label>
-              <Form.Control
-                defaultValue={object.high_load_shipping}
-                onChange={handleSet}
-                name="high_load_shipping"
-                type="text"
-                placeholder="Ingresa el peso máximo disponoble de carga"
-              />
-            </Form.Group>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <div>
+            <div className="container-input">
+              <div className="container-b">
+                <Form.Group className="mb-3" controlId="formBasicText">
+                  <Form.Label>Metros cubicos del envío</Form.Label>
+                  <Form.Control
+                    defaultValue={object.cubic_meters_shipping}
+                    onChange={handleSet}
+                    name="cubic_meters_shipping"
+                    type="text"
+                    placeholder="Ingresa los metros cubicos que estaran disponibles"
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicText">
+                  <Form.Label>Alto del envío</Form.Label>
+                  <Form.Control
+                    defaultValue={object.high_load_shipping}
+                    onChange={handleSet}
+                    name="high_load_shipping"
+                    type="text"
+                    placeholder="Ingresa en metros el alto disponible del remolque"
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicText">
+                  <Form.Label>Ancho del envío</Form.Label>
+                  <Form.Control
+                    defaultValue={object.wide_load_shipping}
+                    onChange={handleSet}
+                    name="wide_load_shipping"
+                    type="text"
+                    placeholder="Ingresa en metros el ancho disponible del remolque"
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicText">
+                  <Form.Label>Largo del envío</Form.Label>
+                  <Form.Control
+                    defaultValue={object.long_load_shipping}
+                    onChange={handleSet}
+                    name="long_load_shipping"
+                    type="text"
+                    placeholder="Ingresa en metros el largo disponible del remolque"
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3" controlId="formBasicText">
+                  <Form.Label>Peso del envío</Form.Label>
+                  <Form.Control
+                    defaultValue={object.high_load_shipping}
+                    onChange={handleSet}
+                    name="high_load_shipping"
+                    type="text"
+                    placeholder="Ingresa el peso máximo disponoble de carga"
+                  />
+                </Form.Group>
+              </div>
+            </div>
+            <div className="container-bt-register">
+              {isSaving ? (
+                <Loader />
+              ) : (
+                <Button
+                  className="btn-register"
+                  variant="primary"
+                  type="submit"
+                >
+                  Guardar cambios
+                </Button>
+              )}
+            </div>
           </div>
-        </div>
-        <div className="container-bt-register">
-          {isSaving ? (
-            <Loader />
-          ) : (
-            <Button className="btn-register" variant="primary" type="submit">
-              Guardar cambios
-            </Button>
-          )}
-        </div>
+        )}
       </Form>
     </div>
   );
