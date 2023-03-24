@@ -50,7 +50,7 @@ function NavbarPage() {
                   Home
                 </Nav.Link>
                 <Nav.Link className="text-menu register" href="/register">
-                  Registrate
+                  Regístrate
                 </Nav.Link>
               </Nav>
             </Navbar.Collapse>
@@ -122,4 +122,4 @@ function NavbarPage() {
   )
 }
 
-export default NavbarPage
+export default NavbarPage;

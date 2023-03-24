@@ -9,7 +9,7 @@ const Ini = () => {
     <div className="ini">
       {state === 'ini' ? (
         <div className="ini-container-text">
-          <h3 className="ini-name-company">EasyTransport.</h3>
+          <h3 className="ini-name-company">EasyTransport</h3>
           <h4 className="ini-descript">
             Te ayudamos a buscar un transporte a tu medida.
           </h4>

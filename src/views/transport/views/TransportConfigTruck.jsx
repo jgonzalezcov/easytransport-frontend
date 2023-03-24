@@ -157,7 +157,7 @@ export const TransportConfigTruck = () => {
             </div>
 
             <h3 className="view-delete">
-              Estas seguro de eliminar este camión
+              ¿Estas seguro de eliminar este camión?
             </h3>
             <div className="container-btn-delete">
               <FontAwesomeIcon className="faTrash" icon={faTrash} />

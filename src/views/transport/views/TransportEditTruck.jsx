@@ -39,8 +39,8 @@ export const TransportEditTruck = () => {
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Tipo de Transporte</Form.Label>
             <Form.Select size="md" onChange={handleSet} name="type_load">
-              <option value="client">Conatainer</option>
-              <option value="transport">Conatainer refrigerado</option>
+              <option value="client">Container</option>
+              <option value="transport">Container refrigerado</option>
               <option value="transport">Remolque cerrado</option>
               <option value="transport">Remolque abierto</option>
             </Form.Select>
@@ -93,7 +93,7 @@ export const TransportEditTruck = () => {
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicText">
-            <Form.Label>Metros cubicos remolque</Form.Label>
+            <Form.Label>Metros cúbicos remolque</Form.Label>
             <Form.Control
               onChange={handleSet}
               name="cubic_meters"

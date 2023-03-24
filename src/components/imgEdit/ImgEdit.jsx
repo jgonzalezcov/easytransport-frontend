@@ -46,7 +46,7 @@ function ImgEdit({ viewEdit, setViewEdit, setUser }) {
 
           <div className="user-info-element">
             <FontAwesomeIcon className="user-info-icon" icon={faShippingFast} />
-            Envios:
+            Envíos:
             <b>100</b>
           </div>
         </div>

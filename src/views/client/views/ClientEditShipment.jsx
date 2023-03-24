@@ -63,7 +63,7 @@ export const ClientEditShipment = () => {
             <div className="container-input">
               <div className="container-b">
                 <Form.Group className="mb-3" controlId="formBasicText">
-                  <Form.Label>Metros cubicos del envío</Form.Label>
+                  <Form.Label>Metros cúbicos del envío</Form.Label>
                   <Form.Control
                     defaultValue={object.cubic_meters_shipping}
                     onChange={handleSet}
@@ -109,7 +109,7 @@ export const ClientEditShipment = () => {
                     onChange={handleSet}
                     name="high_load_shipping"
                     type="text"
-                    placeholder="Ingresa el peso máximo disponoble de carga"
+                    placeholder="Ingresa el peso máximo disponible de carga"
                   />
                 </Form.Group>
               </div>

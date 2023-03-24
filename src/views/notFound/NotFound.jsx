@@ -18,11 +18,11 @@ const NotFound = () => {
       <div className="register-form container-error-authorized">
         <FontAwesomeIcon icon={faLock} className="icon-not-authorized" />
         <h3 className="title-register title-not-authorized">
-          Pagina no existe.
+          Página no existe.
         </h3>
       </div>
     </>
   )
 }
 
-export default NotFound
+export default NotFound;

@@ -18,7 +18,7 @@ export const TransportNewTrip = () => {
   }
   return (
     <Form onSubmit={handleSubmit} className="register-form-truck">
-      <h3 className="title-register">Nuevo viaje.</h3>
+      <h3 className="title-register">Nuevo viaje</h3>
       <div className="container-input">
         <div className="container-b">
           <Form.Group className="mb-3" controlId="formBasicText">
@@ -33,8 +33,8 @@ export const TransportNewTrip = () => {
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Tipo de Transporte</Form.Label>
             <Form.Select size="md" onChange={handleSet} name="type_load_trip">
-              <option value="client">Conatainer</option>
-              <option value="transport">Conatainer refrigerado</option>
+              <option value="client">Container</option>
+              <option value="transport">Container refrigerado</option>
               <option value="transport">Remolque cerrado</option>
               <option value="transport">Remolque abierto</option>
             </Form.Select>
@@ -87,7 +87,7 @@ export const TransportNewTrip = () => {
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicText">
-            <Form.Label>Metros cubicos disponibles</Form.Label>
+            <Form.Label>Metros cúbicos disponibles</Form.Label>
             <Form.Control
               onChange={handleSet}
               name="cubic_meters_trip"
