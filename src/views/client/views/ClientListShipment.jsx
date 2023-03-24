@@ -224,16 +224,6 @@ export const ClientListShipment = () => {
                             <FontAwesomeIcon icon={faBan} />
                           </IconButton>
                         )}
-
-                        {e.status === 'No comenzado' ? (
-                          <IconButton onClick={() => setViewDelete(true)}>
-                            <FontAwesomeIcon icon={faTrash} />
-                          </IconButton>
-                        ) : (
-                          <IconButton>
-                            <FontAwesomeIcon icon={faBan} />
-                          </IconButton>
-                        )}
                       </div>
                     </td>
                   </tr>
@@ -257,7 +247,9 @@ export const ClientListShipment = () => {
               />
             </div>
 
-            <h3 className="view-delete">Estas seguro de eliminar este viaje</h3>
+            <h3 className="view-delete">
+              ¿Estas seguro de eliminar este viaje?
+            </h3>
             <div className="container-btn-delete">
               <FontAwesomeIcon className="faTrash" icon={faTrash} />
               <Button

@@ -172,7 +172,7 @@ export const ClientNewShipment = () => {
             </div>
             <div className="container-b">
               <Form.Group className="mb-3" controlId="formBasicText">
-                <Form.Label>Metros cubicos del envío</Form.Label>
+                <Form.Label>Metros cúbicos del envío</Form.Label>
                 <Form.Control
                   onChange={handleSet}
                   name="cubic_meters_Shipping"

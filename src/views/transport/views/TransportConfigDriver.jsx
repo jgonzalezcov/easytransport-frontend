@@ -79,7 +79,7 @@ export const TransportConfigDriver = () => {
             <tr>
               <th>Nombre del conductor</th>
               <th>email</th>
-              <th>Telefono</th>
+              <th>Teléfono</th>
               <th>Estado</th>
               <th>&nbsp;</th>
             </tr>
@@ -135,7 +135,7 @@ export const TransportConfigDriver = () => {
             </div>
 
             <h3 className="view-delete">
-              Estas seguro de eliminar a este conductor
+              ¿Estás seguro de eliminar a este conductor?
             </h3>
             <div className="container-btn-delete">
               <FontAwesomeIcon className="faTrash" icon={faTrash} />

@@ -216,7 +216,7 @@ export const TransportListTrip = () => {
               />
             </div>
 
-            <h3 className="view-delete">Estas seguro de eliminar este viaje</h3>
+            <h3 className="view-delete">¿Estas seguro de eliminar este viaje?</h3>
             <div className="container-btn-delete">
               <FontAwesomeIcon className="faTrash" icon={faTrash} />
               <Button

@@ -90,7 +90,7 @@ const Register = () => {
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicTextC">
-              <Form.Label>Telefono</Form.Label>
+              <Form.Label>Teléfono</Form.Label>
               <Form.Control
                 value={user.phone ? user.phone : ''}
                 onChange={handleSetUser}
