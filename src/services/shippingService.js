@@ -34,4 +34,14 @@ export class ShippingService extends Service {
       return null;
     }
   }
+
+  static async create(body) {
+    try {
+      const shippings = await this.post(`shipping`, body);
+      return shippings.data;
+    } catch (error) {
+      toast('Ha ocurrido un error');
+      return null;
+    }
+  }
 }
