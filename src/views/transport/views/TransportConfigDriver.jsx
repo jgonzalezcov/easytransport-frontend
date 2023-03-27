@@ -1,74 +1,46 @@
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconButton } from '@mui/material'
-import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState, useEffect, useContext } from 'react'
 import { Container, Table } from 'react-bootstrap'
 import { UserData } from '../../../components/userData/UserData'
 import Button from 'react-bootstrap/Button'
 import CloseButton from 'react-bootstrap/CloseButton'
-/**
- * id
- * name
- * last_name
- * email
- * phone
- * dni
- * img
- * status
- * created_at
- * updated_at
- * deleted_at
- * */
-
-const drivers = [
-  {
-    id: 1,
-    name: 'Juan',
-    last_name: 'Valdez',
-    email: 'JValdez@gmail.com',
-    phone: '9324422',
-    dni: '11.111.111-1',
-    img: '',
-    status: 'Activo',
-  },
-  {
-    id: 2,
-    name: 'Elsa',
-    last_name: 'Pato',
-    email: 'epatp@gmail.com',
-    phone: '902232345',
-    dni: '22.222.222-2',
-    img: '',
-    status: 'Activo',
-  },
-]
+import { useNavigate } from 'react-router-dom'
+import { DataContext } from '../../../contexts/DataProvider'
+import { DriverService } from '../../../services/driverService'
+import { getTokenData } from '../../../helpers/Token.helper'
 
 export const TransportConfigDriver = () => {
+  const getToken = getTokenData()
+  const { drivers, setDrivers } = useContext(DataContext)
+  const [idDelete, setIdDelete] = useState(0)
   const navigate = useNavigate()
   const [viewDelete, setViewDelete] = useState(false)
-  const [id, setId] = useState(0)
-  const [idDelete, setIdDelete] = useState(0)
-  const deleteDriver = () => {
+  const deleteDriver = async () => {
+    const tokenDataId = getToken.id
+    await DriverService.softdeletedriver(idDelete)
     setViewDelete(false)
-    console.log('id:', idDelete)
     setIdDelete(0)
+    const respDrivers = await DriverService.list(tokenDataId)
+    setDrivers(respDrivers.data)
   }
-
   const PreviewDeleteDriver = (id) => {
     setViewDelete(true)
     setIdDelete(id)
   }
 
-  const updateDriver = (idDriver) => {
-    setId(idDriver)
+  const [id, setId] = useState(0)
+
+  const updateDriver = (idTrip) => {
+    setId(idTrip)
   }
 
   useEffect(() => {
     if (id !== 0) {
       navigate(`/transport/editDriver/${id}`)
     }
-  }, [id])
+  }, [id, drivers])
   return (
     <Container fluid className="mx-0 trip-list-container">
       <h3 className="title-register">Listado de Conductores</h3>
@@ -78,49 +50,53 @@ export const TransportConfigDriver = () => {
           <thead>
             <tr>
               <th>Nombre del conductor</th>
-              <th>email</th>
-              <th>Teléfono</th>
+              <th>Rut</th>
+              <th>Telefono</th>
               <th>Estado</th>
               <th>&nbsp;</th>
             </tr>
           </thead>
-          <tbody>
-            {drivers.map((e) => (
-              <tr>
-                <td>
-                  <UserData
-                    userName={`${e.name} ${e.last_name}`}
-                    extraInfo={
-                      <div>
-                        <b>{e.dni}</b>
-                      </div>
-                    }
-                  />
-                </td>
-                <td className="cell">{e.email}</td>
-                <td className="cell">{e.phone}</td>
-                <td className="cell">{e.status}</td>
-                <td className="cell">
-                  <div className="right-cell actions-cell">
-                    <IconButton
-                      onClick={() => {
-                        updateDriver(e.id)
-                      }}
-                    >
-                      <FontAwesomeIcon icon={faPen} />
-                    </IconButton>
-                    <IconButton
-                      onClick={() => {
-                        PreviewDeleteDriver(e.id)
-                      }}
-                    >
-                      <FontAwesomeIcon icon={faTrash} />
-                    </IconButton>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
+          {drivers ? (
+            <tbody>
+              {drivers.map((e) => (
+                <tr>
+                  <td>
+                    <UserData
+                      userName={`${e.name} ${e.last_name}`}
+                      extraInfo={
+                        <div>
+                          <b>{e.phone}</b>
+                        </div>
+                      }
+                    />
+                  </td>
+                  <td className="cell">{e.dni}</td>
+                  <td className="cell">{e.phone}</td>
+                  <td className="cell">{e.status}</td>
+                  <td className="cell">
+                    <div className="right-cell actions-cell">
+                      <IconButton
+                        onClick={() => {
+                          updateDriver(e.id)
+                        }}
+                      >
+                        <FontAwesomeIcon icon={faPen} />
+                      </IconButton>
+                      <IconButton
+                        onClick={() => {
+                          PreviewDeleteDriver(e.id)
+                        }}
+                      >
+                        <FontAwesomeIcon icon={faTrash} />
+                      </IconButton>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          ) : (
+            ''
+          )}
         </Table>
       </div>
       {viewDelete === true ? (

@@ -1,21 +1,70 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './editRegisterStyle.css'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import { getTokenData } from '../../helpers/Token.helper'
-
+import { AuthService } from '../../services/authService'
 import ImgEdit from '../imgEdit/ImgEdit'
+
 const EditRegister = (type) => {
   const tokenData = getTokenData()
   const [user, setUser] = useState({})
+  const [passw, setPass] = useState({})
   const [viewEdit, setViewEdit] = useState('ini')
   const [retryPassword, setRetryPassword] = useState('')
   const [typeAccount, setTypeAccount] = useState('transport')
+
   const handleSetUser = ({ target: { value, name } }) => {
     const field = {}
     field[name] = value
     setUser({ ...user, ...field })
   }
+
+  const handleSetPassword = ({ target: { value, name } }) => {
+    const field = {}
+    field[name] = value
+    setPass({ ...passw, ...field })
+  }
+
+  const editUser = async () => {
+    try {
+      const id = tokenData.id
+      console.log('Enviado al backend:', typeAccount)
+      await AuthService.editUser(user, id, typeAccount)
+      setUser({})
+      alert('Usuario editado con éxito')
+    } catch (error) {
+      alert(error.response.data.message)
+      setUser({})
+    }
+  }
+
+  const editPassword = async () => {
+    try {
+      const id = tokenData.id
+      console.log('Enviado al backend:', typeAccount)
+      await AuthService.editPasword(passw, id, typeAccount)
+      setPass({})
+      setRetryPassword('')
+      alert('Contraseña modificada con éxito')
+    } catch (error) {
+      alert(error.response.data.message)
+      setPass({})
+    }
+  }
+
+  useEffect(() => {
+    setUser({
+      ...user,
+      ...{
+        name: tokenData.name,
+        last_name: tokenData.last_name,
+        phone: tokenData.phone,
+        address: tokenData.address,
+        email: tokenData.email,
+      },
+    })
+  }, [viewEdit])
 
   const handleSubmit = (event) => {
     console.log(tokenData)
@@ -25,13 +74,13 @@ const EditRegister = (type) => {
       console.log('picture')
       console.log(user.img)
     } else if (viewEdit === 'password') {
-      if (retryPassword !== user.password) {
+      if (retryPassword !== passw.password) {
         alert('La confirmación de contraseña no es igual a la contraseña')
       } else {
-        //aca va para cambiar contraseña
-        console.log('password')
+        editPassword()
       }
     } else if (viewEdit === 'edit') {
+      editUser()
       console.log('edit')
     }
     setViewEdit('ini')
@@ -57,8 +106,8 @@ const EditRegister = (type) => {
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control
-              value={user.password ? user.password : ''}
-              onChange={handleSetUser}
+              value={passw.password ? passw.password : ''}
+              onChange={handleSetPassword}
               type="password"
               name="password"
               placeholder="Ingresa tu Password"
@@ -90,10 +139,10 @@ const EditRegister = (type) => {
             <Form.Group className="mb-3" controlId="formBasicTextB">
               <Form.Label>Apellidos</Form.Label>
               <Form.Control
-                value={user.lastname ? user.lastname : ''}
+                value={user.last_name ? user.last_name : ''}
                 onChange={handleSetUser}
                 type="text"
-                name="lastname"
+                name="last_name"
                 placeholder="Ingresa tus apellidos"
               />
             </Form.Group>

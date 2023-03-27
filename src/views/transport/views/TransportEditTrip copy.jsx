@@ -1,10 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import { useNavigate } from 'react-router-dom'
 import { useParams } from 'react-router-dom'
+import { DataContext } from '../../../contexts/DataProvider'
+import { getTokenData } from '../../../helpers/Token.helper'
+import { TripService } from '../../../services/tripService'
 export const TransportEditTrip = () => {
+  const { trips, setTrips, trucks, drivers } = useContext(DataContext)
   const [object, setObject] = useState({})
+  const getToken = getTokenData()
   const { id } = useParams() //Este id es para entregar el valor de id al backend
   const navigate = useNavigate()
   const handleSet = ({ target: { value, name } }) => {
@@ -12,62 +17,104 @@ export const TransportEditTrip = () => {
     field[name] = value
     setObject({ ...object, ...field })
   }
+
   useEffect(() => {
     setObject({ ...object, ...{ id: id } })
+    const tripEdit = trips.filter((t) => t.id === Number.parseInt(id, 10))[0]
+    console.log(tripEdit)
+    setObject({})
+    setObject({ ...object, ...tripEdit })
   }, [])
 
+  const editTrip = async () => {
+    try {
+      const tokenDataId = getToken.id
+      console.log('Enviado al backend')
+      await TripService.updateTrip(object, object.id)
+      alert('Viaje editado con éxito')
+      const respTrips = await TripService.list(tokenDataId)
+      setTrips(respTrips.data)
+      navigate(`/transport/listTrip`)
+    } catch (error) {
+      alert(error.response.data.message)
+    }
+  }
   const handleSubmit = (event) => {
     event.preventDefault()
-    console.log(object)
-    navigate(`/transport/listTrip`)
+    editTrip()
   }
+
   return (
     <Form onSubmit={handleSubmit} className="register-form-truck">
-      {console.log(id)}
-      <h3 className="title-register">Editar Viaje</h3>
+      <h3 className="title-register">Nuevo viaje.</h3>
       <div className="container-input">
         <div className="container-b">
           <Form.Group className="mb-3" controlId="formBasicText">
             <Form.Label>Nombre Camión</Form.Label>
-            <Form.Control
+            <Form.Select
               onChange={handleSet}
-              name="name-truck"
-              type="text"
-              placeholder="Ingresa el nombre del camión"
-            />
+              value={object.truck_id ? object.truck_id : ''}
+              size="md"
+              name="truck_id"
+            >
+              {trucks
+                .sort((a, b) => {
+                  return Number.parseInt(b.value) - Number.parseInt(a.value)
+                })
+                .map((e) => (
+                  <option value={e.id}>{e.name}</option>
+                ))}
+            </Form.Select>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Tipo de Transporte</Form.Label>
-            <Form.Select size="md" onChange={handleSet} name="type_load_trip">
-              <option value="client">Container</option>
-              <option value="transport">Container refrigerado</option>
-              <option value="transport">Remolque cerrado</option>
-              <option value="transport">Remolque abierto</option>
+            <Form.Select
+              onChange={handleSet}
+              value={object.type_load_trip ? object.type_load_trip : ''}
+              size="md"
+              name="type_load_trip"
+            >
+              <option value="container">Container</option>
+              <option value="container refrigerado">
+                Container refrigerado
+              </option>
+              <option value="Remolque cerrado">Remolque cerrado</option>
+              <option value="Remolque abierto">Remolque abierto</option>
             </Form.Select>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicText">
             <Form.Label>Nombre del Conductor</Form.Label>
-            <Form.Control
+            <Form.Select
               onChange={handleSet}
-              name="name_driver"
-              type="text"
-              placeholder="Ingresa el nombre del Conductor"
-            />
+              value={object.driver_id ? object.driver_id : ''}
+              size="md"
+              name="driver_id"
+            >
+              {drivers
+                .sort((a, b) => {
+                  return Number.parseInt(b.value) - Number.parseInt(a.value)
+                })
+                .map((e) => (
+                  <option value={e.id}>{`${e.name} ${e.last_name}`}</option>
+                ))}
+            </Form.Select>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicText">
             <Form.Label>Pais de carga</Form.Label>
             <Form.Control
               onChange={handleSet}
+              value={object.country_origin ? object.country_origin : ''}
               name="country_origin"
               type="text"
               placeholder="Ingresa el pais en que comienza el viaje que ofreces"
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicText">
-            <Form.Label>Ciudad de origen</Form.Label>
+            <Form.Label>Ciudad de carga</Form.Label>
             <Form.Control
               onChange={handleSet}
-              name="cubic_meters_Shipping"
+              value={object.city_origin ? object.city_origin : ''}
+              name="city_origin"
               type="text"
               placeholder="Ingresa la ciudad en donde estaras disponible"
             />
@@ -76,6 +123,7 @@ export const TransportEditTrip = () => {
             <Form.Label>Pais destino</Form.Label>
             <Form.Control
               onChange={handleSet}
+              value={object.country_destiny ? object.country_destiny : ''}
               name="country_destiny"
               type="text"
               placeholder="Ingresa el pais de destino del viaje que ofreces"
@@ -87,6 +135,7 @@ export const TransportEditTrip = () => {
             <Form.Label>Ciudad de destino</Form.Label>
             <Form.Control
               onChange={handleSet}
+              value={object.city_destiny ? object.city_destiny : ''}
               name="city_destiny"
               type="text"
               placeholder="Ingresa la ciudad de destino"
@@ -96,7 +145,8 @@ export const TransportEditTrip = () => {
             <Form.Label>Metros cúbicos disponibles</Form.Label>
             <Form.Control
               onChange={handleSet}
-              name="cubic_meters_Shipping"
+              value={object.cubic_meters_trip ? object.cubic_meters_trip : ''}
+              name="cubic_meters_trip"
               type="text"
               placeholder="Ingresa los metros cubicos que estaran disponibles"
             />
@@ -105,6 +155,7 @@ export const TransportEditTrip = () => {
             <Form.Label>Alto disponible del remolque</Form.Label>
             <Form.Control
               onChange={handleSet}
+              value={object.high_load_trip ? object.high_load_trip : ''}
               name="high_load_trip"
               type="text"
               placeholder="Ingresa en metros el alto disponible del remolque"
@@ -114,6 +165,7 @@ export const TransportEditTrip = () => {
             <Form.Label>Ancho disponible del remolque</Form.Label>
             <Form.Control
               onChange={handleSet}
+              value={object.wide_load_trip ? object.wide_load_trip : ''}
               name="wide_load_trip"
               type="text"
               placeholder="Ingresa en metros el ancho disponible del remolque"
@@ -123,6 +175,7 @@ export const TransportEditTrip = () => {
             <Form.Label>Largo disponible del remolque</Form.Label>
             <Form.Control
               onChange={handleSet}
+              value={object.long_load_trip ? object.long_load_trip : ''}
               name="long_load_trip"
               type="text"
               placeholder="Ingresa en metros el largo disponible del remolque"
@@ -132,6 +185,7 @@ export const TransportEditTrip = () => {
             <Form.Label>Peso máximo disponible de carga</Form.Label>
             <Form.Control
               onChange={handleSet}
+              value={object.max_weight_trip ? object.max_weight_trip : ''}
               name="max_weight_trip"
               type="text"
               placeholder="Ingresa el peso máximo disponoble de carga"
@@ -144,24 +198,44 @@ export const TransportEditTrip = () => {
             <Form.Control
               type="date"
               onChange={handleSet}
+              value={
+                object.trip_date_ini
+                  ? object.trip_date_ini.substring(0, 10)
+                  : ''
+              }
               name="trip_date_ini"
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicText">
             <Form.Label>Hora inicio del viaje</Form.Label>
-            <Form.Control type="time" onChange={handleSet} name="time_ini" />
+            <Form.Control
+              type="time"
+              onChange={handleSet}
+              value={object.time_ini ? object.time_ini : ''}
+              name="time_ini"
+            />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicText">
             <Form.Label>Fecha de fin del viaje</Form.Label>
             <Form.Control
               type="date"
               onChange={handleSet}
+              value={
+                object.trip_date_end
+                  ? object.trip_date_end.substring(0, 10)
+                  : ''
+              }
               name="trip_date_end"
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicText">
             <Form.Label>Hora fin del viaje</Form.Label>
-            <Form.Control type="time" onChange={handleSet} name="time_end" />
+            <Form.Control
+              type="time"
+              onChange={handleSet}
+              value={object.time_end ? object.time_end : ''}
+              name="time_end"
+            />
           </Form.Group>
         </div>
       </div>
