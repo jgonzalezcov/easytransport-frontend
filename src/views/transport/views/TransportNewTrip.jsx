@@ -1,52 +1,92 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import { useNavigate } from 'react-router-dom'
-
+import { getTokenData } from '../../../helpers/Token.helper'
+import { TripService } from '../../../services/tripService'
+import { DataContext } from '../../../contexts/DataProvider'
 export const TransportNewTrip = () => {
+  const { setTrips, trucks, drivers } = useContext(DataContext)
+  const getToken = getTokenData()
   const navigate = useNavigate()
-  const [object, setObject] = useState({})
+  const [object, setObject] = useState({ type_load: 'Container' })
   const handleSet = ({ target: { value, name } }) => {
     const field = {}
     field[name] = value
     setObject({ ...object, ...field })
   }
+
+  const register = async () => {
+    try {
+      console.log('Enviado al backend')
+      await TripService.createTrip(object)
+      alert('Creación de viaje exitoso')
+
+      navigate('/transport')
+    } catch (error) {
+      alert(error.response.data.message)
+    }
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault()
-    console.log(object)
-    navigate('/transport')
+    register()
   }
+  useEffect(() => {
+    setObject({
+      ...object,
+      ...{
+        transport_id: getToken.id,
+        driver_id: drivers.sort((a, b) => {
+          return Number.parseInt(b.value) - Number.parseInt(a.value)
+        })[0].id,
+
+        truck_id: trucks.sort((a, b) => {
+          return Number.parseInt(b.value) - Number.parseInt(a.value)
+        })[0].id,
+      },
+    })
+  }, [])
+
   return (
     <Form onSubmit={handleSubmit} className="register-form-truck">
-      <h3 className="title-register">Nuevo viaje.</h3>
+      <h3 className="title-register">Nuevo viaje</h3>
       <div className="container-input">
         <div className="container-b">
           <Form.Group className="mb-3" controlId="formBasicText">
             <Form.Label>Nombre Camión</Form.Label>
-            <Form.Control
-              onChange={handleSet}
-              name="truck_name"
-              type="text"
-              placeholder="Ingresa el nombre del camión"
-            />
+            <Form.Select size="md" onChange={handleSet} name="truck_id">
+              {trucks
+                .sort((a, b) => {
+                  return Number.parseInt(b.value) - Number.parseInt(a.value)
+                })
+                .map((e) => (
+                  <option value={e.id}>{e.name}</option>
+                ))}
+            </Form.Select>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Tipo de Transporte</Form.Label>
             <Form.Select size="md" onChange={handleSet} name="type_load_trip">
-              <option value="client">Conatainer</option>
-              <option value="transport">Conatainer refrigerado</option>
-              <option value="transport">Remolque cerrado</option>
-              <option value="transport">Remolque abierto</option>
+              <option value="container">Container</option>
+              <option value="container refrigerado">
+                Container refrigerado
+              </option>
+              <option value="Remolque cerrado">Remolque cerrado</option>
+              <option value="Remolque abierto">Remolque abierto</option>
             </Form.Select>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicText">
             <Form.Label>Nombre del Conductor</Form.Label>
-            <Form.Control
-              onChange={handleSet}
-              name="name_driver"
-              type="text"
-              placeholder="Ingresa el nombre del Conductor"
-            />
+            <Form.Select size="md" onChange={handleSet} name="driver_id">
+              {drivers
+                .sort((a, b) => {
+                  return Number.parseInt(b.value) - Number.parseInt(a.value)
+                })
+                .map((e) => (
+                  <option value={e.id}>{`${e.name} ${e.last_name}`}</option>
+                ))}
+            </Form.Select>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicText">
             <Form.Label>Pais de carga</Form.Label>
@@ -87,7 +127,7 @@ export const TransportNewTrip = () => {
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicText">
-            <Form.Label>Metros cubicos disponibles</Form.Label>
+            <Form.Label>Metros cúbicos disponibles</Form.Label>
             <Form.Control
               onChange={handleSet}
               name="cubic_meters_trip"
@@ -117,7 +157,7 @@ export const TransportNewTrip = () => {
             <Form.Label>Largo disponible del remolque</Form.Label>
             <Form.Control
               onChange={handleSet}
-              name="high_load_trip"
+              name="long_load_trip"
               type="text"
               placeholder="Ingresa en metros el largo disponible del remolque"
             />

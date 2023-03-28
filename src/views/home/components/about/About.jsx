@@ -9,15 +9,15 @@ const About = () => {
         <h3 className="text-about-title">Te ayudamos a trasladar tu carga</h3>
         <h4 className="text-about-secondary">
           Te ayudamos a trasladar tu carga, colocando a tu disposición la red de
-          transportista.
+          transportistas.
         </h4>
         <h4 className="text-about-secondary">
-          Como lo hacemos, dejamos a disposición de los transportista la
+          ¿Cómo lo hacemos? dejamos a disposición de los transportistas la
           posibilidad de publicar sus viajes y la carga que ellos pueden
           transportar en dicho viaje.
         </h4>
         <h4 className="text-about-secondary">
-          Por que usar Easytransport, porque te ayudaremos a encontrar el
+          ¿Por qué usar Easytransport? porque te ayudaremos a encontrar el
           transporte a tu medida.
         </h4>
       </div>

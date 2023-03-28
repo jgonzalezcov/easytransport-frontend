@@ -12,13 +12,13 @@ const End = () => {
 
         <h4 className="end-descript">
           <p>
-            Optimisemos nuestros transportes.
+            Optimicemos nuestros transportes.
             <br />
             <br />
             Al optimizar el traslado de nuestras cargas, podemos evitar el uso
-            de transportes solo en el viaje de ida ya que al utilizar los viajes
-            de retornos estaremos ayudando a evitar viajes incesarios y con ello
-            bajar la emision de co2 para el traslado de nuestras cargas.
+            de transportes solo en el viaje de ida, ya que al utilizar los viajes
+            de retornos, estaremos ayudando a evitar viajes incesarios y con ello
+            bajar la emision de CO2 para el traslado de nuestras cargas.
           </p>
         </h4>
       </div>

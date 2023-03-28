@@ -1,85 +1,34 @@
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconButton } from '@mui/material'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Container, Table } from 'react-bootstrap'
 import { UserData } from '../../../components/userData/UserData'
 import Button from 'react-bootstrap/Button'
 import CloseButton from 'react-bootstrap/CloseButton'
 import { useNavigate } from 'react-router-dom'
-/**
- * id
- * transport_id
- * name
- * country_patent
- * patent
- * maken
- * model
- * color
- * type_load
- * cubic_meters
- * max_weight
- * long_load
- * wide_loag
- * height_load
- * condition
- * created_at
- * updated_at
- * deleted_at
- * */
-
-const trucks = [
-  {
-    id: 1,
-    transport_id: 1,
-    name: 'maria',
-    country_patent: 'chile',
-    patent: 'QASW-12',
-    maken: 'Mercedez',
-    model: 'Actros',
-    color: 'Blanco',
-    type_load: '',
-    cubic_meters: '',
-    max_weight: '',
-    long_load: '',
-    wide_loag: '',
-    height_load: '',
-    condition: '',
-  },
-  {
-    id: 2,
-    transport_id: 2,
-    name: 'Luz Maria',
-    country_patent: 'chile',
-    patent: 'SADE-13',
-    maken: 'Kia',
-    model: 'Frontier',
-    color: 'Blanco',
-    type_load: '',
-    cubic_meters: '',
-    max_weight: '',
-    long_load: '',
-    wide_loag: '',
-    height_load: '',
-    condition: '',
-  },
-]
-
+import { DataContext } from '../../../contexts/DataProvider'
+import { TruckService } from '../../../services/truckService'
+import { getTokenData } from '../../../helpers/Token.helper'
 export const TransportConfigTruck = () => {
+  const getToken = getTokenData()
+  const { trucks, setTrucks } = useContext(DataContext)
   const [idDelete, setIdDelete] = useState(0)
   const navigate = useNavigate()
   const [viewDelete, setViewDelete] = useState(false)
-  const deleteTruck = () => {
+  const [id, setId] = useState(0)
+  const deleteTruck = async () => {
+    const tokenDataId = getToken.id
+    await TruckService.softdeletetruck(idDelete)
     setViewDelete(false)
-    console.log('id:', idDelete)
     setIdDelete(0)
+    const respTrucks = await TruckService.list(tokenDataId)
+    setTrucks(respTrucks.data)
   }
   const PreviewDeleteDriver = (id) => {
     setViewDelete(true)
     setIdDelete(id)
   }
-
-  const [id, setId] = useState(0)
 
   const updateTruck = (idTrip) => {
     setId(idTrip)
@@ -89,7 +38,7 @@ export const TransportConfigTruck = () => {
     if (id !== 0) {
       navigate(`/transport/editTruck/${id}`)
     }
-  }, [id])
+  }, [id, trucks])
 
   return (
     <Container fluid className="mx-0 trip-list-container">
@@ -106,43 +55,47 @@ export const TransportConfigTruck = () => {
               <th>&nbsp;</th>
             </tr>
           </thead>
-          <tbody>
-            {trucks.map((e) => (
-              <tr>
-                <td>
-                  <UserData
-                    userName={e.name}
-                    extraInfo={
-                      <div>
-                        <b>{e.country_patent}</b>
-                      </div>
-                    }
-                  />
-                </td>
-                <td className="cell">{e.patent}</td>
-                <td className="cell">{e.maken}</td>
-                <td className="cell">{e.model}</td>
-                <td className="cell">
-                  <div className="right-cell actions-cell">
-                    <IconButton
-                      onClick={() => {
-                        updateTruck(e.id)
-                      }}
-                    >
-                      <FontAwesomeIcon icon={faPen} />
-                    </IconButton>
-                    <IconButton
-                      onClick={() => {
-                        PreviewDeleteDriver(e.id)
-                      }}
-                    >
-                      <FontAwesomeIcon icon={faTrash} />
-                    </IconButton>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
+          {trucks ? (
+            <tbody>
+              {trucks.map((e) => (
+                <tr>
+                  <td>
+                    <UserData
+                      userName={e.name}
+                      extraInfo={
+                        <div>
+                          <b>{e.country_patent}</b>
+                        </div>
+                      }
+                    />
+                  </td>
+                  <td className="cell">{e.patent}</td>
+                  <td className="cell">{e.maken}</td>
+                  <td className="cell">{e.model}</td>
+                  <td className="cell">
+                    <div className="right-cell actions-cell">
+                      <IconButton
+                        onClick={() => {
+                          updateTruck(e.id)
+                        }}
+                      >
+                        <FontAwesomeIcon icon={faPen} />
+                      </IconButton>
+                      <IconButton
+                        onClick={() => {
+                          PreviewDeleteDriver(e.id)
+                        }}
+                      >
+                        <FontAwesomeIcon icon={faTrash} />
+                      </IconButton>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          ) : (
+            ''
+          )}
         </Table>
       </div>
       {viewDelete === true ? (
@@ -157,7 +110,7 @@ export const TransportConfigTruck = () => {
             </div>
 
             <h3 className="view-delete">
-              Estas seguro de eliminar este camión
+              ¿Estas seguro de eliminar este camión?
             </h3>
             <div className="container-btn-delete">
               <FontAwesomeIcon className="faTrash" icon={faTrash} />

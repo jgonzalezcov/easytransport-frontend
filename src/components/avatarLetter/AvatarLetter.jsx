@@ -14,6 +14,6 @@ const style = {
 };
 
 export const AvatarLetter = ({ text }) => {
-  const letter = text.length > 0 ? text.slice(0, 1) : '';
+  const letter = text && text.length > 0 ? text.slice(0, 1) : '';
   return <div style={style}>{letter}</div>;
 };

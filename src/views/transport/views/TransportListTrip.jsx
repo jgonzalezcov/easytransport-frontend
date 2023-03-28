@@ -6,13 +6,16 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconButton } from '@mui/material'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Container, Table } from 'react-bootstrap'
 import { Status } from '../../../components/status/Status'
 import { UserData } from '../../../components/userData/UserData'
 import { useNavigate } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import CloseButton from 'react-bootstrap/CloseButton'
+import { DataContext } from '../../../contexts/DataProvider'
+import { TripService } from '../../../services/tripService'
+import { getTokenData } from '../../../helpers/Token.helper'
 /**
  * id
  * transport_id
@@ -38,7 +41,7 @@ import CloseButton from 'react-bootstrap/CloseButton'
  * deleted_at
  * */
 
-const trips = [
+const tripss = [
   {
     id: 1,
     transport_id: 1,
@@ -105,40 +108,55 @@ const trips = [
 ]
 
 export const TransportListTrip = () => {
-  const navigate = useNavigate()
-
   const getStatus = (status) => {
     if (status === 'No comenzado') return 'not_started'
     if (status === 'En progreso') return 'in_progress'
     if (status === 'Finalizado') return 'finalized'
     return ''
   }
+  const getToken = getTokenData()
+  const { trips, setTrips } = useContext(DataContext)
   const [idDelete, setIdDelete] = useState(0)
-  const deleteTrip = (idShipment) => {
+  const navigate = useNavigate()
+  const [viewDelete, setViewDelete] = useState(false)
+  const [id, setId] = useState(0)
+  const deleteTrip = async () => {
+    const tokenDataId = getToken.id
+    await TripService.deleteTrip(idDelete)
     setViewDelete(false)
-    console.log('id:', idDelete)
     setIdDelete(0)
+    const respTrips = await TripService.list(tokenDataId)
+    setTrips(respTrips.data)
   }
   const PreviewDeleteDriver = (id) => {
     setViewDelete(true)
     setIdDelete(id)
   }
 
-  const [viewDelete, setViewDelete] = useState(false)
-  const [id, setId] = useState(0)
   const updateTrip = (idTrip) => {
     setId(idTrip)
   }
+  const viewTrips = async () => {
+    const tokenDataId = getToken.id
+    const respTrips = await TripService.list(tokenDataId)
+    setTrips(respTrips.data)
+    console.log(respTrips)
+  }
+
+  useEffect(() => {
+    viewTrips()
+  }, [])
 
   useEffect(() => {
     if (id !== 0) {
       navigate(`/transport/editTrip/${id}`)
     }
-  }, [id])
+  }, [id, trips])
+
   return (
     <Container fluid className="mx-0 trip-list-container">
       <h3 className="title-register">Listado de Viajes</h3>
-
+      {console.log('Holas soy trips', trips)}
       <div className="view-body">
         <Table hover responsive size="sm">
           <thead>
@@ -155,23 +173,23 @@ export const TransportListTrip = () => {
               <tr key={e.id}>
                 <td>
                   <UserData
-                    userName={e.drive_name}
+                    userName={`${e.driver_name} ${e.driver_last_name} `}
                     extraInfo={
                       <div>
                         <FontAwesomeIcon icon={faPhone} /> Contacto:{' '}
-                        <b>{e.drive_phone}</b>
+                        <b>{e.phone}</b>
                       </div>
                     }
                   />
                 </td>
-                <td className="cell">{e.origin}</td>
-                <td className="cell">{e.destiny}</td>
+                <td className="cell">{e.city_origin}</td>
+                <td className="cell">{e.city_destiny}</td>
                 <td className="cell">
                   <Status text={e.status} status={getStatus(e.status)} />
                 </td>
                 <td className="cell">
                   <div className="right-cell actions-cell">
-                    {e.status === 'No comenzado' ? (
+                    {e.status === 'no iniciado' ? (
                       <IconButton
                         onClick={() => {
                           updateTrip(e.id)
@@ -185,7 +203,7 @@ export const TransportListTrip = () => {
                       </IconButton>
                     )}
 
-                    {e.status === 'No comenzado' ? (
+                    {e.status === 'no iniciado' ? (
                       <IconButton
                         onClick={() => {
                           PreviewDeleteDriver(e.id)
@@ -216,7 +234,7 @@ export const TransportListTrip = () => {
               />
             </div>
 
-            <h3 className="view-delete">Estas seguro de eliminar este viaje</h3>
+            <h3 className="view-delete">¿Estas seguro de eliminar este viaje?</h3>
             <div className="container-btn-delete">
               <FontAwesomeIcon className="faTrash" icon={faTrash} />
               <Button

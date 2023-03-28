@@ -70,10 +70,10 @@ const Register = () => {
             <Form.Group className="mb-3" controlId="formBasicTextB">
               <Form.Label>Apellidos</Form.Label>
               <Form.Control
-                value={user.lastname ? user.lastname : ''}
+                value={user.last_name ? user.last_name : ''}
                 onChange={handleSetUser}
                 type="text"
-                name="lastname"
+                name="last_name"
                 placeholder="Ingresa tus apellidos"
               />
             </Form.Group>
@@ -90,7 +90,7 @@ const Register = () => {
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicTextC">
-              <Form.Label>Telefono</Form.Label>
+              <Form.Label>Teléfono</Form.Label>
               <Form.Control
                 value={user.phone ? user.phone : ''}
                 onChange={handleSetUser}
