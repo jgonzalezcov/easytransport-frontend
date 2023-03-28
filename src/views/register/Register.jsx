@@ -70,10 +70,10 @@ const Register = () => {
             <Form.Group className="mb-3" controlId="formBasicTextB">
               <Form.Label>Apellidos</Form.Label>
               <Form.Control
-                value={user.lastname ? user.lastname : ''}
+                value={user.last_name ? user.last_name : ''}
                 onChange={handleSetUser}
                 type="text"
-                name="lastname"
+                name="last_name"
                 placeholder="Ingresa tus apellidos"
               />
             </Form.Group>

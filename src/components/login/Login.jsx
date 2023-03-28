@@ -6,12 +6,15 @@ import { useState } from 'react'
 import './loginStyle.css'
 import { DataContext } from '../../contexts/DataProvider'
 import { AuthService } from '../../services/authService'
+import { TruckService } from '../../services/truckService'
+import { DriverService } from '../../services/driverService'
 import { useNavigate } from 'react-router-dom'
-
+import { getTokenData } from '../../helpers/Token.helper'
 function Login(props) {
   const navigate = useNavigate()
 
-  const { SetTypeProfile, setIsAuth } = useContext(DataContext)
+  const { SetTypeProfile, setIsAuth, setTrucks, setDrivers } =
+    useContext(DataContext)
   const [classState, setClassState] = useState(['click-on', 'click-off'])
   const [accountType, setAccountType] = useState('client')
   const [email, setEmail] = useState('')
@@ -30,12 +33,25 @@ function Login(props) {
   }
 
   const handleSubmit = async (event) => {
-    props.setstate('ini')
-    event.preventDefault()
-    await AuthService.login(email, password, accountType)
-    setIsAuth(true)
-    SetTypeProfile(accountType)
-    redirectUserHome(accountType)
+    try {
+      props.setstate('ini')
+      event.preventDefault()
+      await AuthService.login(email, password, accountType)
+      const tokenDataId = await getTokenData().id
+      setIsAuth(true)
+
+      if (accountType === 'transport') {
+        const respTrucks = await TruckService.list(tokenDataId)
+        setTrucks(respTrucks.data)
+        const respDrivers = await DriverService.list(tokenDataId)
+        setDrivers(respDrivers.data)
+      } else {
+      }
+      SetTypeProfile(accountType)
+      redirectUserHome(accountType)
+    } catch (error) {
+      alert('No se logro iniciar tu sesion')
+    }
   }
 
   return (
