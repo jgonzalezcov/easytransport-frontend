@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 export class Service {
-  static baseUrl = 'http://easytransport-backend-production.up.railway.app'
-  //static baseUrl = 'http://localhost:3333/'
+  static baseUrl = 'https://easytransport-backend-production.up.railway.app/'
+  // static baseUrl = 'http://localhost:3333/'
   static async get(url) {
     const data = await axios.get(this.baseUrl + url, this.getHeader(url))
     return data
