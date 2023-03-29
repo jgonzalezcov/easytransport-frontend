@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import { useNavigate } from 'react-router-dom'
 import { DriverService } from '../../../services/driverService'
-
+import { getTokenData } from '../../../helpers/Token.helper'
+import { DataContext } from '../../../contexts/DataProvider'
 export const TransportNewDriver = () => {
+  const { setDrivers } = useContext(DataContext)
+  const getToken = getTokenData()
   const navigate = useNavigate()
   const [object, setObject] = useState({})
   const handleSet = ({ target: { value, name } }) => {
@@ -12,12 +15,29 @@ export const TransportNewDriver = () => {
     field[name] = value
     setObject({ ...object, ...field })
   }
+
+  const registerDriver = async () => {
+    try {
+      const tokenDataId = getToken.id
+      console.log('Enviado al backend')
+      console.log(object)
+      await DriverService.createdriver(object)
+      alert('Conductor registrado con éxito')
+      const respDrivers = await DriverService.list(tokenDataId)
+      setDrivers(respDrivers.data)
+      navigate('/transport/configDriver')
+    } catch (error) {
+      alert(error.response.data.message)
+    }
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault()
-    console.log(object)
-    navigate('/transport/configDriver')
-    await DriverService.createDriver(object)
+    registerDriver()
   }
+  useEffect(() => {
+    setObject({ ...object, ...{ transport_id: getToken.id } })
+  }, [])
   return (
     <Form onSubmit={handleSubmit} className="register-form-driver">
       <h3 className="title-register">Registro de Conductor</h3>

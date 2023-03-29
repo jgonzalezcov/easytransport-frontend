@@ -1,21 +1,42 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import { useNavigate } from 'react-router-dom'
-
+import { getTokenData } from '../../../helpers/Token.helper'
+import { TruckService } from '../../../services/truckService'
+import { DataContext } from '../../../contexts/DataProvider'
 export const TransportNewTruck = () => {
+  const { setTrucks } = useContext(DataContext)
+  const getToken = getTokenData()
   const navigate = useNavigate()
-  const [object, setObject] = useState({})
+  const [object, setObject] = useState({ type_load: 'Container' })
   const handleSet = ({ target: { value, name } }) => {
     const field = {}
     field[name] = value
     setObject({ ...object, ...field })
   }
+
+  const registerTruck = async () => {
+    try {
+      const tokenDataId = getToken.id
+      console.log('Enviado al backend')
+      await TruckService.createtruck(object)
+      alert('Camion registrado con éxito')
+      navigate('/transport/configTruck')
+      const respTrucks = await TruckService.list(tokenDataId)
+      setTrucks(respTrucks.data)
+    } catch (error) {
+      alert(error.response.data.message)
+    }
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault()
-    console.log(object)
-    navigate('/transport/configTruck')
+    registerTruck()
   }
+  useEffect(() => {
+    setObject({ ...object, ...{ transport_id: getToken.id } })
+  }, [])
   return (
     <Form onSubmit={handleSubmit} className="register-form-truck">
       <h3 className="title-register">Registro de camión.</h3>
@@ -33,10 +54,12 @@ export const TransportNewTruck = () => {
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Tipo de Transporte</Form.Label>
             <Form.Select size="md" onChange={handleSet} name="type_load">
-              <option value="client">Container</option>
-              <option value="transport">Container refrigerado</option>
-              <option value="transport">Remolque cerrado</option>
-              <option value="transport">Remolque abierto</option>
+              <option value="container">Container</option>
+              <option value="container refrigerado">
+                Container refrigerado
+              </option>
+              <option value="Remolque cerrado">Remolque cerrado</option>
+              <option value="Remolque abierto">Remolque abierto</option>
             </Form.Select>
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicText">
