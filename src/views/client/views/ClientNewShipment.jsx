@@ -1,25 +1,25 @@
-import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import { useNavigate } from 'react-router-dom';
-import { faSave, faPhone } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Container, Table } from 'react-bootstrap';
-import { Status } from '../../../components/status/Status';
-import { UserData } from '../../../components/userData/UserData';
-import { Loader } from '../../../components/loader/Loader';
-import { getTokenData } from '../../../helpers/Token.helper';
-import { TripService } from '../../../services/tripService';
-import { ShippingService } from '../../../services/shippingService';
+import React, { useState } from 'react'
+import Button from 'react-bootstrap/Button'
+import Form from 'react-bootstrap/Form'
+import { useNavigate } from 'react-router-dom'
+import { faSave, faPhone } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Container, Table } from 'react-bootstrap'
+import { Status } from '../../../components/status/Status'
+import { UserData } from '../../../components/userData/UserData'
+import { Loader } from '../../../components/loader/Loader'
+import { getTokenData } from '../../../helpers/Token.helper'
+import { TripService } from '../../../services/tripService'
+import { ShippingService } from '../../../services/shippingService'
 
 export const ClientNewShipment = () => {
-  const [id, setId] = useState(0);
-  const [viewFind, setViewFind] = useState(1);
-  const [isSaving, setIsSaving] = useState(false);
-  const [trips, setTrips] = useState([]);
-  const [isLoadingTrip, setIsLoadingTrips] = useState(false);
+  const [id, setId] = useState(0)
+  const [viewFind, setViewFind] = useState(1)
+  const [isSaving, setIsSaving] = useState(false)
+  const [trips, setTrips] = useState([])
+  const [isLoadingTrip, setIsLoadingTrips] = useState(false)
 
-  const userData = getTokenData();
+  const userData = getTokenData()
   const [object, setObject] = useState({
     trip_id: null,
     transport_id: null,
@@ -41,51 +41,51 @@ export const ClientNewShipment = () => {
     wide_load_shipping: 0,
     high_load_shipping: 0,
     status: 'No comenzado',
-  });
+  })
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const handleSet = ({ target: { value, name } }) => {
-    const field = {};
-    field[name] = value;
-    setObject({ ...object, ...field });
-  };
+    const field = {}
+    field[name] = value
+    setObject({ ...object, ...field })
+  }
   const cancel = (event) => {
-    setViewFind(1);
-  };
+    setViewFind(1)
+  }
   const next = async (event) => {
-    event.preventDefault();
-    setViewFind(2);
-    setIsLoadingTrips(true);
-    const trips = await TripService.allTrips();
-    setTrips(trips.data);
-    setIsLoadingTrips(false);
-  };
+    event.preventDefault()
+    setViewFind(2)
+    setIsLoadingTrips(true)
+    const trips = await TripService.allTrips()
+    setTrips(trips.data)
+    setIsLoadingTrips(false)
+  }
   const next2 = (event) => {
-    setObject({ ...object, trip_id: id });
-    setViewFind(3);
-  };
+    setObject({ ...object, trip_id: id })
+    setViewFind(3)
+  }
   const selectTrip = (shipping) => {
-    setId(shipping.id);
-  };
+    setId(shipping.id)
+  }
   const handleSubmit = async (event) => {
-    setViewFind(1);
-    setIsSaving(true);
+    setViewFind(1)
+    setIsSaving(true)
     // navigate('/client');
-    console.log(object);
+    console.log(object)
     try {
-      await ShippingService.create(object);
-      navigate('/client/listShipment');
+      await ShippingService.create(object)
+      navigate('/client/listShipment')
     } catch (e) {
-      console.log(e);
+      console.log(e)
     }
-  };
+  }
 
   const getStatus = (status) => {
-    if (status === 'No comenzado') return 'not_started';
-    if (status === 'En progreso') return 'in_progress';
-    if (status === 'Finalizado') return 'finalized';
-    return '';
-  };
+    if (status === 'No comenzado') return 'not_started'
+    if (status === 'En progreso') return 'in_progress'
+    if (status === 'Finalizado') return 'finalized'
+    return ''
+  }
 
   return (
     <div className="container-filter-component">
@@ -298,7 +298,7 @@ export const ClientNewShipment = () => {
                   className="btn-register btn-shipping"
                   variant="primary"
                   onClick={() => {
-                    cancel();
+                    cancel()
                   }}
                 >
                   Cancelar
@@ -307,7 +307,7 @@ export const ClientNewShipment = () => {
                   className="btn-register btn-shipping"
                   variant="primary"
                   onClick={() => {
-                    next2();
+                    next2()
                   }}
                 >
                   Guardar Envío
@@ -324,7 +324,7 @@ export const ClientNewShipment = () => {
               <FontAwesomeIcon className="faTrash" icon={faSave} />
               <Button
                 onClick={() => {
-                  handleSubmit();
+                  handleSubmit()
                 }}
                 className="btn-register btn-delete"
                 variant="primary"
@@ -339,5 +339,5 @@ export const ClientNewShipment = () => {
         ''
       )}
     </div>
-  );
-};
+  )
+}
