@@ -2,6 +2,7 @@ import { Service } from './service'
 
 /** @description Este servicio se encarga de gestionar la creacion y autenticacion de clientes y usuarios */
 export class AuthService extends Service {
+  try
   /** @description Esta funcion permite inciar sesion tanto para un cliente como un transportista a traves del parametro typeAccount */
   static async login(email, password, typeAccount) {
     const url = typeAccount === 'client' ? 'client/login' : 'transport/login'
