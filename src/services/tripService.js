@@ -10,6 +10,11 @@ export class TripService extends Service {
     const trips = await this.get(`trip/${id}`)
     return trips
   }
+
+  static async listforclient(body) {
+    const trips = await this.post(`trip/listforclient/`, body)
+    return trips
+  }
   static async deleteTrip(id) {
     const trips = await this.delete(`trip/${id}`)
     return trips

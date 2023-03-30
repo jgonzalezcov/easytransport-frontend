@@ -21,26 +21,23 @@ export const ClientNewShipment = () => {
 
   const userData = getTokenData()
   const [object, setObject] = useState({
-    trip_id: null,
-    transport_id: null,
-    client_id: userData.id,
-    drive_phone: '',
-    drive_name: '',
-    origin_address: '',
-    destiny_address: '',
-    date_retirement: '',
-    time_ini_retirement: '',
-    time_end_retirement: '',
-    date_delivery: '',
-    time_ini_delivery: '',
-    time_end_delivery: '',
-    type_load_shipping: '',
-    cubic_meters_shipping: 0,
-    weight_shipping: 0,
-    long_load_shipping: 0,
-    wide_load_shipping: 0,
-    high_load_shipping: 0,
-    status: 'No comenzado',
+    type_load_shipping: 'Container',
+    city_destiny: '',
+    city_origin: '',
+    client_id: '',
+    country_destiny: '',
+    country_origin: '',
+    cubic_meters_shipping: '',
+    high_load_shipping: '',
+    long_load_shipping: '',
+    status: 'no iniciado',
+    time_end: '',
+    time_ini: '',
+    trip_date_end: '',
+    trip_date_ini: '',
+    trip_id: '',
+    weight_shipping: '',
+    wide_load_shipping: '',
   })
 
   const navigate = useNavigate()
@@ -51,12 +48,36 @@ export const ClientNewShipment = () => {
   }
   const cancel = (event) => {
     setViewFind(1)
+    setObject({
+      ...object,
+      ...{
+        type_load_shipping: 'Container',
+        city_destiny: '',
+        city_origin: '',
+        client_id: '',
+        country_destiny: '',
+        country_origin: '',
+        cubic_meters_shipping: '',
+        high_load_shipping: '',
+        long_load_shipping: '',
+        status: 'no iniciado',
+        time_end: '',
+        time_ini: '',
+        trip_date_end: '',
+        trip_date_ini: '',
+        trip_id: '',
+        weight_shipping: '',
+        wide_load_shipping: '',
+      },
+    })
   }
   const next = async (event) => {
     event.preventDefault()
     setViewFind(2)
     setIsLoadingTrips(true)
-    const trips = await TripService.allTrips()
+
+    console.log('aca eventos', object)
+    const trips = await TripService.listforclient(object)
     setTrips(trips.data)
     setIsLoadingTrips(false)
   }
@@ -70,7 +91,7 @@ export const ClientNewShipment = () => {
   const handleSubmit = async (event) => {
     setViewFind(1)
     setIsSaving(true)
-    // navigate('/client');
+    navigate('/client')
     console.log(object)
     try {
       await ShippingService.create(object)
@@ -101,10 +122,12 @@ export const ClientNewShipment = () => {
                   onChange={handleSet}
                   name="type_load_shipping"
                 >
-                  <option value="client">Container</option>
-                  <option value="transport">Container refrigerado</option>
-                  <option value="transport">Remolque cerrado</option>
-                  <option value="transport">Remolque abierto</option>
+                  <option value="Container">Container</option>
+                  <option value="Container refrigerado">
+                    Container refrigerado
+                  </option>
+                  <option value="Remolque cerrado">Remolque cerrado</option>
+                  <option value="Remolque abierto">Remolque abierto</option>
                 </Form.Select>
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicText">
@@ -150,7 +173,9 @@ export const ClientNewShipment = () => {
                 <Form.Control
                   onChange={handleSet}
                   name="cubic_meters_shipping"
-                  type="text"
+                  type="number"
+                  min="0"
+                  //step=".5"
                   placeholder="Ingresa los metros cubicos que estaran disponibles"
                 />
               </Form.Group>
@@ -159,7 +184,8 @@ export const ClientNewShipment = () => {
                 <Form.Control
                   onChange={handleSet}
                   name="high_load_shipping"
-                  type="text"
+                  type="number"
+                  //step=".5"
                   placeholder="Ingresa en metros el alto disponible del remolque"
                 />
               </Form.Group>
@@ -168,7 +194,8 @@ export const ClientNewShipment = () => {
                 <Form.Control
                   onChange={handleSet}
                   name="wide_load_shipping"
-                  type="text"
+                  type="number"
+                  step=".5"
                   placeholder="Ingresa en metros el ancho disponible del remolque"
                 />
               </Form.Group>
@@ -177,7 +204,8 @@ export const ClientNewShipment = () => {
                 <Form.Control
                   onChange={handleSet}
                   name="long_load_shipping"
-                  type="text"
+                  type="number"
+                  //step=".5"
                   placeholder="Ingresa en metros el largo disponible del remolque"
                 />
               </Form.Group>
@@ -186,7 +214,8 @@ export const ClientNewShipment = () => {
                 <Form.Control
                   onChange={handleSet}
                   name="weight_shipping"
-                  type="text"
+                  type="number"
+                  //step=".5"
                   placeholder="Ingresa el peso máximo disponoble de carga"
                 />
               </Form.Group>
@@ -254,6 +283,8 @@ export const ClientNewShipment = () => {
                     <th>Conductor</th>
                     <th>Origen</th>
                     <th>Destino</th>
+                    <th>Inicio viaje</th>
+                    <th>LLegada aprox. destino</th>
                     <th>Estado</th>
                     <th>Seleccionar viaje</th>
                     <th>&nbsp;</th>
@@ -264,17 +295,19 @@ export const ClientNewShipment = () => {
                     <tr key={e.id}>
                       <td>
                         <UserData
-                          userName={e.drive_name}
+                          userName={e.driver_name}
                           extraInfo={
                             <div>
                               <FontAwesomeIcon icon={faPhone} /> Contacto:{' '}
-                              <b>{e.drive_phone}</b>
+                              <b>{e.phone}</b>
                             </div>
                           }
                         />
                       </td>
-                      <td className="cell">{e.origin}</td>
-                      <td className="cell">{e.destiny}</td>
+                      <td className="cell">{`${e.country_origin}/${e.city_origin}`}</td>
+                      <td className="cell">{`${e.country_destiny}/${e.city_destiny}`}</td>
+                      <td className="cell">{`${e.trip_date_ini}/${e.time_ini}`}</td>
+                      <td className="cell">{`${e.trip_date_end}/${e.time_end}`}</td>
                       <td className="cell">
                         <Status text={e.status} status={getStatus(e.status)} />
                       </td>
