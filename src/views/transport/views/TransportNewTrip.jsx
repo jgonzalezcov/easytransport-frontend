@@ -35,7 +35,7 @@ export const TransportNewTrip = () => {
     register()
   }
   useEffect(() => {
-    if (drivers.length > 0 && trucks.length) {
+    if (drivers.length > 0 && trucks.length > 0) {
       setObject({
         ...object,
         ...{
@@ -73,11 +73,7 @@ export const TransportNewTrip = () => {
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Tipo de Transporte</Form.Label>
-                <Form.Select
-                  size="md"
-                  onChange={handleSet}
-                  name="type_load_trip"
-                >
+                <Form.Select size="md" onChange={handleSet} name="type_load">
                   <option value="container">Container</option>
                   <option value="container refrigerado">
                     Container refrigerado
