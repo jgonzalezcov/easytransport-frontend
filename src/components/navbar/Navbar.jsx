@@ -25,8 +25,8 @@ function NavbarPage() {
       {typeProfile === 'none' ? (
         <Navbar className="navbar" expand="lg">
           <Container>
-            <div className="container-logo">
-              <div onClick={switchMenu} className="name-company">
+            <div onClick={switchMenu} className="container-logo">
+              <div className="name-company">
                 <div className="container-link-logo">
                   <img
                     className="link-logo"
@@ -46,9 +46,6 @@ function NavbarPage() {
             />
             <Navbar.Collapse className="menu-desktop" id="basic-navbar-nav">
               <Nav className="me-auto">
-                <Nav.Link className="text-menu home" href="/">
-                  Home
-                </Nav.Link>
                 <Nav.Link className="text-menu register" href="/register">
                   Regístrate
                 </Nav.Link>
@@ -59,8 +56,8 @@ function NavbarPage() {
       ) : typeProfile === 'transport' ? (
         <Navbar className="navbar" expand="lg">
           <Container fluid>
-            <div className="container-logo">
-              <div onClick={switchMenu} className="name-company">
+            <div onClick={switchMenu} className="container-logo">
+              <div className="name-company">
                 <div className="container-link-logo">
                   <img
                     className="link-logo"
@@ -89,8 +86,8 @@ function NavbarPage() {
       ) : typeProfile === 'client' ? (
         <Navbar className="navbar" expand="lg">
           <Container fluid>
-            <div className="container-logo">
-              <div onClick={switchMenu} className="name-company">
+            <div onClick={switchMenu} className="container-logo">
+              <div className="name-company">
                 <div className="container-link-logo">
                   <img
                     className="link-logo"
@@ -122,4 +119,4 @@ function NavbarPage() {
   )
 }
 
-export default NavbarPage;
+export default NavbarPage

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import { useNavigate } from 'react-router-dom'
@@ -8,23 +8,25 @@ import { Container, Table } from 'react-bootstrap'
 import { Status } from '../../../components/status/Status'
 import { UserData } from '../../../components/userData/UserData'
 import { Loader } from '../../../components/loader/Loader'
-import { getTokenData } from '../../../helpers/Token.helper'
 import { TripService } from '../../../services/tripService'
 import { ShippingService } from '../../../services/shippingService'
+import { getTokenData } from '../../../helpers/Token.helper'
 
 export const ClientNewShipment = () => {
   const [id, setId] = useState(0)
+  const [transportId, setTransportId] = useState(0)
   const [viewFind, setViewFind] = useState(1)
   const [isSaving, setIsSaving] = useState(false)
   const [trips, setTrips] = useState([])
   const [isLoadingTrip, setIsLoadingTrips] = useState(false)
-
-  const userData = getTokenData()
+  const getToken = getTokenData()
   const [object, setObject] = useState({
     type_load_shipping: 'Container',
     city_destiny: '',
     city_origin: '',
-    client_id: '',
+    client_id: getToken.id,
+    trip_id: id,
+    transport_id: 0,
     country_destiny: '',
     country_origin: '',
     cubic_meters_shipping: '',
@@ -35,26 +37,31 @@ export const ClientNewShipment = () => {
     time_ini: '',
     trip_date_end: '',
     trip_date_ini: '',
-    trip_id: '',
     weight_shipping: '',
     wide_load_shipping: '',
   })
 
   const navigate = useNavigate()
+
   const handleSet = ({ target: { value, name } }) => {
     const field = {}
     field[name] = value
     setObject({ ...object, ...field })
   }
+
   const cancel = (event) => {
     setViewFind(1)
+    setId(0)
+    setObject({})
     setObject({
       ...object,
       ...{
         type_load_shipping: 'Container',
         city_destiny: '',
         city_origin: '',
-        client_id: '',
+        client_id: getToken.id,
+        trip_id: id,
+        transport_id: 0,
         country_destiny: '',
         country_origin: '',
         cubic_meters_shipping: '',
@@ -65,9 +72,11 @@ export const ClientNewShipment = () => {
         time_ini: '',
         trip_date_end: '',
         trip_date_ini: '',
-        trip_id: '',
         weight_shipping: '',
         wide_load_shipping: '',
+        origin_address: '',
+        destiny_address: '',
+        description: '',
       },
     })
   }
@@ -75,26 +84,34 @@ export const ClientNewShipment = () => {
     event.preventDefault()
     setViewFind(2)
     setIsLoadingTrips(true)
-
-    console.log('aca eventos', object)
     const trips = await TripService.listforclient(object)
     setTrips(trips.data)
     setIsLoadingTrips(false)
   }
-  const next2 = (event) => {
-    setObject({ ...object, trip_id: id })
+  const next2 = () => {
+    //Aca revisar porque no es pasado al backend
+    setObject({ ...object, trip_id: id, transport_id: transportId })
+    delete object.city_destiny
+
     setViewFind(3)
   }
   const selectTrip = (shipping) => {
     setId(shipping.id)
+    setTransportId(shipping.transport_id)
   }
-  const handleSubmit = async (event) => {
-    setViewFind(1)
-    setIsSaving(true)
-    navigate('/client')
-    console.log(object)
+  const handleSubmit = async () => {
+    delete object.city_origin
+    delete object.city_destiny
+    delete object.country_destiny
+    delete object.country_origin
+    delete object.time_end
+    delete object.time_ini
+    delete object.trip_date_end
+    delete object.trip_date_ini
     try {
       await ShippingService.create(object)
+      setViewFind(1)
+      setIsSaving(true)
       navigate('/client/listShipment')
     } catch (e) {
       console.log(e)
@@ -149,12 +166,21 @@ export const ClientNewShipment = () => {
                 />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicText">
+                <Form.Label>Dirección de carga</Form.Label>
+                <Form.Control
+                  onChange={handleSet}
+                  name="origin_address"
+                  type="text"
+                  placeholder="Ingresa la dirección en donde estaras disponible"
+                />
+              </Form.Group>
+              <Form.Group className="mb-3" controlId="formBasicText">
                 <Form.Label>Pais destino</Form.Label>
                 <Form.Control
                   onChange={handleSet}
                   name="country_destiny"
                   type="text"
-                  placeholder="Ingresa el pais de destino del viaje que ofreces"
+                  placeholder="Ingresa el pais de destino"
                 />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicText">
@@ -168,6 +194,15 @@ export const ClientNewShipment = () => {
               </Form.Group>
             </div>
             <div className="container-b">
+              <Form.Group className="mb-3" controlId="formBasicText">
+                <Form.Label>Dirección de destino</Form.Label>
+                <Form.Control
+                  onChange={handleSet}
+                  name="destiny_address"
+                  type="text"
+                  placeholder="Ingresa la ciudad de retiro"
+                />
+              </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicText">
                 <Form.Label>Metros cúbicos del envío</Form.Label>
                 <Form.Control
@@ -251,6 +286,15 @@ export const ClientNewShipment = () => {
                   type="time"
                   onChange={handleSet}
                   name="time_end"
+                />
+              </Form.Group>
+              <Form.Group className="mb-3 mb-5" controlId="formBasicText">
+                <Form.Label>Descripción de carga</Form.Label>
+                <Form.Control
+                  onChange={handleSet}
+                  name="description"
+                  type="text"
+                  placeholder="Ingresa la dirección en donde estaras disponible"
                 />
               </Form.Group>
             </div>

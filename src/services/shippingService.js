@@ -35,8 +35,8 @@ export class ShippingService extends Service {
 
   static async create(body) {
     try {
-      const shippings = await this.post(`shipping`, body)
-      return shippings.data
+      const trips = await this.post(`shipping`, body)
+      return trips
     } catch (error) {
       toast('Ha ocurrido un error')
       return null

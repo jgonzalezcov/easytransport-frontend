@@ -23,7 +23,6 @@ export const TransportEditDriver = () => {
     const driverEdit = drivers.filter(
       (t) => t.id === Number.parseInt(id, 10)
     )[0]
-    console.log(driverEdit)
     setObject({})
     setObject({ ...object, ...driverEdit })
   }, [])
@@ -31,7 +30,6 @@ export const TransportEditDriver = () => {
   const editDriver = async () => {
     try {
       const tokenDataId = getToken.id
-      console.log('Enviado al backend')
       await DriverService.updatedriver(object, object.id)
       alert('Conductor editado con éxito')
       navigate('/transport/configDriver')
@@ -47,7 +45,6 @@ export const TransportEditDriver = () => {
   }
   return (
     <Form onSubmit={handleSubmit} className="register-form-driver">
-      {console.log(id)}
       <h3 className="title-register">Editar Conductor</h3>
       <div className="container-input">
         <div className="container-b">
