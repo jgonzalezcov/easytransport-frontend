@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom'
 import { DriverService } from '../../../services/driverService'
 import { getTokenData } from '../../../helpers/Token.helper'
 import { DataContext } from '../../../contexts/DataProvider'
+const Swal = require('sweetalert2')
+
 export const TransportNewDriver = () => {
   const { setDrivers } = useContext(DataContext)
   const getToken = getTokenData()
@@ -20,7 +22,13 @@ export const TransportNewDriver = () => {
     try {
       const tokenDataId = getToken.id
       await DriverService.createdriver(object)
-      alert('Conductor registrado con éxito')
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Conductor registrado con éxito',
+        showConfirmButton: false,
+        timer: 2500
+      });
       const respDrivers = await DriverService.list(tokenDataId)
       setDrivers(respDrivers.data)
       navigate('/transport/configDriver')
@@ -92,4 +100,4 @@ export const TransportNewDriver = () => {
       </div>
     </Form>
   )
-}
+};

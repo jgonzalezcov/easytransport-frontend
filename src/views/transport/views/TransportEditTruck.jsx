@@ -1,46 +1,54 @@
-import React, { useState, useEffect, useContext } from 'react'
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
-import { useNavigate } from 'react-router-dom'
-import { useParams } from 'react-router-dom'
-import { DataContext } from '../../../contexts/DataProvider'
-import { getTokenData } from '../../../helpers/Token.helper'
-import { TruckService } from '../../../services/truckService'
+import React, { useState, useEffect, useContext } from 'react';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { DataContext } from '../../../contexts/DataProvider';
+import { getTokenData } from '../../../helpers/Token.helper';
+import { TruckService } from '../../../services/truckService';
+const Swal = require('sweetalert2');
+
 export const TransportEditTruck = () => {
-  const { trucks, setTrucks } = useContext(DataContext)
-  const [object, setObject] = useState({})
-  const getToken = getTokenData()
-  const { id } = useParams() //Este id es para entregar el valor de id al backend
-  const navigate = useNavigate()
+  const { trucks, setTrucks } = useContext(DataContext);
+  const [object, setObject] = useState({});
+  const getToken = getTokenData();
+  const { id } = useParams(); //Este id es para entregar el valor de id al backend
+  const navigate = useNavigate();
   const handleSet = ({ target: { value, name } }) => {
-    const field = {}
-    field[name] = value
-    setObject({ ...object, ...field })
-  }
+    const field = {};
+    field[name] = value;
+    setObject({ ...object, ...field });
+  };
 
   useEffect(() => {
-    setObject({ ...object, ...{ id: id } })
-    const truckEdit = trucks.filter((t) => t.id === Number.parseInt(id, 10))[0]
-    setObject({})
-    setObject({ ...object, ...truckEdit })
-  }, [])
+    setObject({ ...object, ...{ id: id } });
+    const truckEdit = trucks.filter((t) => t.id === Number.parseInt(id, 10))[0];
+    setObject({});
+    setObject({ ...object, ...truckEdit });
+  }, []);
 
   const editTruck = async () => {
     try {
-      const tokenDataId = getToken.id
-      await TruckService.updatetruck(object, object.id)
-      alert('Camion editado con éxito')
-      navigate('/transport/configTruck')
-      const respTrucks = await TruckService.list(tokenDataId)
-      setTrucks(respTrucks.data)
+      const tokenDataId = getToken.id;
+      await TruckService.updatetruck(object, object.id);
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Camión editado con éxito',
+        showConfirmButton: false,
+        timer: 2500,
+      });
+      navigate('/transport/configTruck');
+      const respTrucks = await TruckService.list(tokenDataId);
+      setTrucks(respTrucks.data);
     } catch (error) {
-      alert(error.response.data.message)
+      alert(error.response.data.message);
     }
-  }
+  };
   const handleSubmit = (event) => {
-    event.preventDefault()
-    editTruck()
-  }
+    event.preventDefault();
+    editTruck();
+  };
   return (
     <Form onSubmit={handleSubmit} className="register-form-truck">
       <h3 className="title-register">Editar camión.</h3>
@@ -64,7 +72,7 @@ export const TransportEditTruck = () => {
               size="md"
               name="type_load"
             >
-              <option value="client">Conatainer</option>
+              <option value="client">Container</option>
               <option value="transport">Container refrigerado</option>
               <option value="transport">Remolque cerrado</option>
               <option value="transport">Remolque abierto</option>
@@ -182,5 +190,5 @@ export const TransportEditTruck = () => {
         </Button>
       </div>
     </Form>
-  )
-}
+  );
+};
