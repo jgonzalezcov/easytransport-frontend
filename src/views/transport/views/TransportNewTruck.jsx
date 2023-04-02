@@ -62,6 +62,7 @@ export const TransportNewTruck = () => {
       navigate('/transport/configTruck');
       const respTrucks = await TruckService.list(tokenDataId);
       setTrucks(respTrucks.data);
+
     } catch (error) {
       alert(error.response.data.message);
     }

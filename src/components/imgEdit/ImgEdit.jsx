@@ -21,7 +21,6 @@ function ImgEdit({ viewEdit, setViewEdit }) {
 
   return (
     <div className="container-card-component-all">
-      {console.log('soy user')}
       <Card className="container-card-component">
         <div
           className="img-avatar"

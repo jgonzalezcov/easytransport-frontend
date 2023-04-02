@@ -57,9 +57,11 @@ export const TransportNewTrip = () => {
 
   const register = async () => {
     try {
+
       if (!validateForm()) return;
       await TripService.createTrip(object);
       alert('Creación de viaje exitoso');
+
 
       navigate('/transport');
     } catch (error) {
