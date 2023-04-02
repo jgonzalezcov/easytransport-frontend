@@ -8,7 +8,6 @@ import { DataContext } from '../../../contexts/DataProvider';
 import { faFaceSadTear } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import toast, { Toaster } from 'react-hot-toast';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const Swal = require('sweetalert2');
 
 export const TransportNewTrip = () => {
