@@ -61,8 +61,13 @@ export const TransportNewTrip = () => {
     try {
       if (!validateForm()) return;
       await TripService.createTrip(object);
-      alert('Creación de viaje exitoso');
-
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Creación de viaje exitoso',
+        showConfirmButton: false,
+        timer: 2500,
+      });
       navigate('/transport');
       console.log('Enviado al backend');
       await TripService.createTrip(object);
