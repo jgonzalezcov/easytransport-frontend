@@ -32,10 +32,7 @@ export const AppRouter = () => {
   const isTransport = tokenData && tokenData.role === 'transport'
   const isClient = tokenData && tokenData.role === 'client'
 
-  useEffect(() => {
-    console.log('isTransport', isTransport)
-    console.log('isClient', isClient)
-  }, [isAuth])
+  useEffect(() => {}, [isAuth])
 
   return (
     <BrowserRouter>

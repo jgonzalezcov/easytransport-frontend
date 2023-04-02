@@ -23,7 +23,6 @@ const Register = () => {
 
   const registerUsuario = async () => {
     try {
-      console.log('Enviado al backend:', typeAccount)
       await AuthService.singin(user, typeAccount)
       alert('Usuario registrado con éxito')
       navigate('/')
@@ -50,7 +49,6 @@ const Register = () => {
                 size="md"
                 onChange={(e) => {
                   setTypeAccount(e.target.value)
-                  console.log('target:', typeAccount)
                 }}
               >
                 <option value="client">Cliente</option>

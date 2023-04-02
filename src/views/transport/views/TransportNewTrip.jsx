@@ -8,7 +8,7 @@ import { DataContext } from '../../../contexts/DataProvider'
 import { faFaceSadTear } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 export const TransportNewTrip = () => {
-  const { setTrips, trucks, drivers } = useContext(DataContext)
+  const { trucks, drivers } = useContext(DataContext)
   const getToken = getTokenData()
   const navigate = useNavigate()
   const [object, setObject] = useState({ type_load: 'Container' })
@@ -20,7 +20,6 @@ export const TransportNewTrip = () => {
 
   const register = async () => {
     try {
-      console.log('Enviado al backend')
       await TripService.createTrip(object)
       alert('Creación de viaje exitoso')
 

@@ -19,7 +19,6 @@ export const TransportNewTruck = () => {
   const registerTruck = async () => {
     try {
       const tokenDataId = getToken.id
-      console.log('Enviado al backend')
       await TruckService.createtruck(object)
       alert('Camion registrado con éxito')
       navigate('/transport/configTruck')

@@ -21,7 +21,6 @@ export const TransportEditTrip = () => {
   useEffect(() => {
     setObject({ ...object, ...{ id: id } })
     const tripEdit = trips.filter((t) => t.id === Number.parseInt(id, 10))[0]
-    console.log(tripEdit)
     setObject({})
     setObject({ ...object, ...tripEdit })
   }, [])
@@ -29,7 +28,6 @@ export const TransportEditTrip = () => {
   const editTrip = async () => {
     try {
       const tokenDataId = getToken.id
-      console.log('Enviado al backend')
       await TripService.updateTrip(object, object.id)
       alert('Viaje editado con éxito')
       const respTrips = await TripService.list(tokenDataId)

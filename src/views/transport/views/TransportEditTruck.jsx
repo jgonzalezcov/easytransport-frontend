@@ -21,7 +21,6 @@ export const TransportEditTruck = () => {
   useEffect(() => {
     setObject({ ...object, ...{ id: id } })
     const truckEdit = trucks.filter((t) => t.id === Number.parseInt(id, 10))[0]
-    console.log(truckEdit)
     setObject({})
     setObject({ ...object, ...truckEdit })
   }, [])
@@ -29,7 +28,6 @@ export const TransportEditTruck = () => {
   const editTruck = async () => {
     try {
       const tokenDataId = getToken.id
-      console.log('Enviado al backend')
       await TruckService.updatetruck(object, object.id)
       alert('Camion editado con éxito')
       navigate('/transport/configTruck')
@@ -67,7 +65,7 @@ export const TransportEditTruck = () => {
               name="type_load"
             >
               <option value="client">Conatainer</option>
-              <option value="transport">Conatainer refrigerado</option>
+              <option value="transport">Container refrigerado</option>
               <option value="transport">Remolque cerrado</option>
               <option value="transport">Remolque abierto</option>
             </Form.Select>
