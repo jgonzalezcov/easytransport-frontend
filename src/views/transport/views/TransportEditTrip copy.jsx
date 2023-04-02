@@ -6,6 +6,8 @@ import { useParams } from 'react-router-dom'
 import { DataContext } from '../../../contexts/DataProvider'
 import { getTokenData } from '../../../helpers/Token.helper'
 import { TripService } from '../../../services/tripService'
+const Swal = require('sweetalert2')
+
 export const TransportEditTrip = () => {
   const { trips, setTrips, trucks, drivers } = useContext(DataContext)
   const [object, setObject] = useState({})
@@ -29,7 +31,13 @@ export const TransportEditTrip = () => {
     try {
       const tokenDataId = getToken.id
       await TripService.updateTrip(object, object.id)
-      alert('Viaje editado con éxito')
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Viaje editado con éxito',
+        showConfirmButton: false,
+        timer: 2500
+      });
       const respTrips = await TripService.list(tokenDataId)
       setTrips(respTrips.data)
       navigate(`/transport/listTrip`)

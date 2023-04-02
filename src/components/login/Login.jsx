@@ -10,6 +10,7 @@ import { TruckService } from '../../services/truckService'
 import { DriverService } from '../../services/driverService'
 import { useNavigate } from 'react-router-dom'
 import { getTokenData } from '../../helpers/Token.helper'
+const Swal = require('sweetalert2')
 function Login(props) {
   const navigate = useNavigate()
 
@@ -50,9 +51,14 @@ function Login(props) {
       SetTypeProfile(accountType)
       redirectUserHome(accountType)
     } catch (error) {
-      alert('No se logro iniciar tu sesion')
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'No se logro iniciar tu sesion!',
+        footer: '<a href="">Vuelve a revisar tus datos</a>'
+      })
     }
-  }
+  };
 
   return (
     <Form onSubmit={handleSubmit} className="login-form">
@@ -100,4 +106,4 @@ function Login(props) {
   )
 }
 
-export default Login
+export default Login;
