@@ -29,7 +29,6 @@ const EditRegister = (type) => {
   const editUser = async () => {
     try {
       const id = tokenData.id
-      console.log('Enviado al backend:', typeAccount)
       await AuthService.editUser(user, id, typeAccount)
       setUser({})
       alert('Usuario editado con éxito')
@@ -42,7 +41,6 @@ const EditRegister = (type) => {
   const editPassword = async () => {
     try {
       const id = tokenData.id
-      console.log('Enviado al backend:', typeAccount)
       await AuthService.editPasword(passw, id, typeAccount)
       setPass({})
       setRetryPassword('')
@@ -67,12 +65,8 @@ const EditRegister = (type) => {
   }, [viewEdit])
 
   const handleSubmit = (event) => {
-    console.log(tokenData)
     if (viewEdit === 'ini') {
-      console.log('ini')
     } else if (viewEdit === 'picture') {
-      console.log('picture')
-      console.log(user.img)
     } else if (viewEdit === 'password') {
       if (retryPassword !== passw.password) {
         alert('La confirmación de contraseña no es igual a la contraseña')
@@ -81,7 +75,6 @@ const EditRegister = (type) => {
       }
     } else if (viewEdit === 'edit') {
       editUser()
-      console.log('edit')
     }
     setViewEdit('ini')
     event.preventDefault()

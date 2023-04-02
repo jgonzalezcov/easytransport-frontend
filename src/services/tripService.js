@@ -21,7 +21,6 @@ export class TripService extends Service {
   }
   static async createTrip(body) {
     const trips = await this.post(`trip`, body)
-    console.log('Holaaaaaa')
     return trips
   }
   static async updateTrip(body, id) {

@@ -140,7 +140,6 @@ export const TransportListTrip = () => {
     const tokenDataId = getToken.id
     const respTrips = await TripService.list(tokenDataId)
     setTrips(respTrips.data)
-    console.log(respTrips)
   }
 
   useEffect(() => {
@@ -156,7 +155,6 @@ export const TransportListTrip = () => {
   return (
     <Container fluid className="mx-0 trip-list-container">
       <h3 className="title-register">Listado de Viajes</h3>
-      {console.log('Holas soy trips', trips)}
       <div className="view-body">
         <Table hover responsive size="sm">
           <thead>
@@ -234,7 +232,9 @@ export const TransportListTrip = () => {
               />
             </div>
 
-            <h3 className="view-delete">¿Estas seguro de eliminar este viaje?</h3>
+            <h3 className="view-delete">
+              ¿Estas seguro de eliminar este viaje?
+            </h3>
             <div className="container-btn-delete">
               <FontAwesomeIcon className="faTrash" icon={faTrash} />
               <Button

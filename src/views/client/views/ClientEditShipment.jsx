@@ -1,51 +1,50 @@
-import React, { useState, useEffect } from 'react';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import { useNavigate } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
-import { Loader } from '../../../components/loader/Loader';
-import { ShippingService } from '../../../services/shippingService';
-import toast, { Toaster } from 'react-hot-toast';
+import React, { useState, useEffect } from 'react'
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
+import { useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import { Loader } from '../../../components/loader/Loader'
+import { ShippingService } from '../../../services/shippingService'
+import { Toaster } from 'react-hot-toast'
 
 export const ClientEditShipment = () => {
-  const navigate = useNavigate();
-  const [isSaving, setIsSaving] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const { id } = useParams(); //Este id es para entregar el valor de id al backend
+  const navigate = useNavigate()
+  const [isSaving, setIsSaving] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+  const { id } = useParams() //Este id es para entregar el valor de id al backend
   const [object, setObject] = useState({
     id: id,
     cubic_meters_shipping: 0,
     high_load_shipping: 0,
     long_load_shipping: 0,
     wide_load_shipping: 0,
-    high_load_shipping: 0,
-  });
+  })
 
   const handleSet = ({ target: { value, name } }) => {
-    const field = { ...object };
-    field[name] = value;
-    setObject(field);
-  };
+    const field = { ...object }
+    field[name] = value
+    setObject(field)
+  }
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    setIsSaving(true);
-    const response = await ShippingService.updateShipping(id, object);
-    setIsSaving(false);
+    event.preventDefault()
+    setIsSaving(true)
+    const response = await ShippingService.updateShipping(id, object)
+    setIsSaving(false)
     if (response) {
-      navigate('/client/listShipment');
+      navigate('/client/listShipment')
     }
-  };
+  }
 
   const init = async () => {
-    const shipping = await ShippingService.getById(id);
-    setIsLoading(false);
-    setObject(shipping);
-  };
+    const shipping = await ShippingService.getById(id)
+    setIsLoading(false)
+    setObject(shipping)
+  }
 
   useEffect(() => {
-    init();
-  }, []);
+    init()
+  }, [])
 
   return (
     <div>
@@ -131,5 +130,5 @@ export const ClientEditShipment = () => {
         )}
       </Form>
     </div>
-  );
-};
+  )
+}

@@ -19,8 +19,6 @@ export const TransportNewDriver = () => {
   const registerDriver = async () => {
     try {
       const tokenDataId = getToken.id
-      console.log('Enviado al backend')
-      console.log(object)
       await DriverService.createdriver(object)
       alert('Conductor registrado con éxito')
       const respDrivers = await DriverService.list(tokenDataId)
