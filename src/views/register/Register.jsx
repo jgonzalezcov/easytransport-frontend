@@ -9,7 +9,7 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import { useNavigate } from 'react-router-dom'
 import { AuthService } from '../../services/authService'
-
+const Swal = require('sweetalert2')
 const Register = () => {
   const navigate = useNavigate()
   const [user, setUser] = useState({})
@@ -24,7 +24,13 @@ const Register = () => {
   const registerUsuario = async () => {
     try {
       await AuthService.singin(user, typeAccount)
-      alert('Usuario registrado con éxito')
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Usuario Registrado con éxito',
+        showConfirmButton: false,
+        timer: 2500
+      })
       navigate('/')
     } catch (error) {
       alert(error.response.data.message)
@@ -33,7 +39,7 @@ const Register = () => {
 
   const handleSubmit = (event) => {
     retryPassword !== user.password
-      ? alert('La confirmación de contraseña no es igual a la contraseña')
+      ? Swal.fire('La confirmación de contraseña no coincide!')
       : registerUsuario()
     event.preventDefault()
   }
@@ -148,6 +154,5 @@ const Register = () => {
       </Form>
     </>
   )
-}
-
-export default Register
+};
+export default Register;

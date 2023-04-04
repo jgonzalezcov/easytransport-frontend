@@ -42,4 +42,14 @@ export class ShippingService extends Service {
       return null
     }
   }
+
+  static async listTrip(id) {
+    try {
+      const trips = await this.get(`shipping/intrip/${id}`)
+      return trips
+    } catch (error) {
+      toast('Ha ocurrido un error')
+      return null
+    }
+  }
 }

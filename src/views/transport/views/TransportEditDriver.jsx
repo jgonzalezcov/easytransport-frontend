@@ -6,7 +6,10 @@ import { useParams } from 'react-router-dom'
 import { DataContext } from '../../../contexts/DataProvider'
 import { getTokenData } from '../../../helpers/Token.helper'
 import { DriverService } from '../../../services/driverService'
+const Swal = require('sweetalert2')
+
 export const TransportEditDriver = () => {
+
   const { drivers, setDrivers } = useContext(DataContext)
   const [object, setObject] = useState({})
   const getToken = getTokenData()
@@ -31,7 +34,13 @@ export const TransportEditDriver = () => {
     try {
       const tokenDataId = getToken.id
       await DriverService.updatedriver(object, object.id)
-      alert('Conductor editado con éxito')
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Conductor editado con éxito',
+        showConfirmButton: false,
+        timer: 2500
+      });
       navigate('/transport/configDriver')
       const respDrivers = await DriverService.list(tokenDataId)
       setDrivers(respDrivers.data)
@@ -108,4 +117,4 @@ export const TransportEditDriver = () => {
       </div>
     </Form>
   )
-}
+};

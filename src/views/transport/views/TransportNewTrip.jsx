@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -8,71 +9,80 @@ import { DataContext } from '../../../contexts/DataProvider';
 import { faFaceSadTear } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import toast, { Toaster } from 'react-hot-toast';
+const Swal = require('sweetalert2');
+
 
 export const TransportNewTrip = () => {
-  const { setTrips, trucks, drivers } = useContext(DataContext);
-  const getToken = getTokenData();
-  const navigate = useNavigate();
-  const [object, setObject] = useState({ type_load: 'Container' });
+  const { setTrips, trucks, drivers } = useContext(DataContext)
+  const getToken = getTokenData()
+  const navigate = useNavigate()
+  const [object, setObject] = useState({ type_load: 'Container' })
   const handleSet = ({ target: { value, name } }) => {
-    const field = {};
-    field[name] = value;
-    setObject({ ...object, ...field });
-  };
+    const field = {}
+    field[name] = value
+    setObject({ ...object, ...field })
+  }
 
   const validateForm = () => {
     try {
       if (object.cubic_meters_trip > 184.5) {
         toast(
           'Los metros cúbicos no pueden exceder el máximo legal establecido (184,5 metros cúbicos)'
-        );
-        return false;
+        )
+        return false
       } else if (object.max_weight > 31000) {
         toast(
           'La carga no puede exceder el máximo legal establecido (31.000 kilos).'
-        );
-        return false;
+        )
+        return false
       } else if (object.long_load_trip > 16.5) {
         toast(
           'La carga no puede exceder el largo legal establecido (16,5 metros).'
-        );
-        return false;
+        )
+        return false
       } else if (object.wide_load_trip > 2.6) {
         toast(
           'El ancho del camión no puede superar el ancho legal establecido (2,6 metros).'
-        );
-        return false;
+        )
+        return false
       } else if (object.high_load_trip > 4.3) {
         toast(
           'El alto del camión no puede superar el alto legal establecido (4,3 metros).'
-        );
+        )
       } else {
-        return true;
+        return true
       }
     } catch (e) {
-      toast('Falta ingresar campos');
-      return false;
+      toast('Falta ingresar campos')
+      return false
     }
-  };
+  }
 
   const register = async () => {
     try {
-
       if (!validateForm()) return;
       await TripService.createTrip(object);
       alert('Creación de viaje exitoso');
-
-
+      navigate('/transport');
+      console.log('Enviado al backend');
+      await TripService.createTrip(object);
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Creación de viaje exitoso',
+        showConfirmButton: false,
+        timer: 2500,
+      });
       navigate('/transport');
     } catch (error) {
-      alert(error.response.data.message);
+      alert(error.response.data.message)
     }
-  };
+  }
 
   const handleSubmit = (event) => {
-    event.preventDefault();
-    register();
-  };
+    event.preventDefault()
+    register()
+  }
   useEffect(() => {
     if (drivers.length > 0 && trucks.length > 0) {
       setObject({
@@ -80,16 +90,16 @@ export const TransportNewTrip = () => {
         ...{
           transport_id: getToken.id,
           driver_id: drivers.sort((a, b) => {
-            return Number.parseInt(b.value) - Number.parseInt(a.value);
+            return Number.parseInt(b.value) - Number.parseInt(a.value)
           })[0].id,
 
           truck_id: trucks.sort((a, b) => {
-            return Number.parseInt(b.value) - Number.parseInt(a.value);
+            return Number.parseInt(b.value) - Number.parseInt(a.value)
           })[0].id,
         },
-      });
+      })
     }
-  }, []);
+  }, [])
 
   return (
     <>
@@ -105,9 +115,7 @@ export const TransportNewTrip = () => {
                 <Form.Select size="md" onChange={handleSet} name="truck_id">
                   {trucks
                     .sort((a, b) => {
-                      return (
-                        Number.parseInt(b.value) - Number.parseInt(a.value)
-                      );
+                      return Number.parseInt(b.value) - Number.parseInt(a.value)
                     })
                     .map((e) => (
                       <option value={e.id}>{e.name}</option>
@@ -121,8 +129,8 @@ export const TransportNewTrip = () => {
                   <option value="container refrigerado">
                     Container refrigerado
                   </option>
-                  <option value="Remolque cerrado">Remolque cerrado</option>
-                  <option value="Remolque abierto">Remolque abierto</option>
+                  <option value="remolque cerrado">Remolque cerrado</option>
+                  <option value="remolque abierto">Remolque abierto</option>
                 </Form.Select>
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicText">
@@ -130,9 +138,7 @@ export const TransportNewTrip = () => {
                 <Form.Select size="md" onChange={handleSet} name="driver_id">
                   {drivers
                     .sort((a, b) => {
-                      return (
-                        Number.parseInt(b.value) - Number.parseInt(a.value)
-                      );
+                      return Number.parseInt(b.value) - Number.parseInt(a.value)
                     })
                     .map((e) => (
                       <option value={e.id}>{`${e.name} ${e.last_name}`}</option>
@@ -271,11 +277,11 @@ export const TransportNewTrip = () => {
             className="icon-not-authorized"
           />
           <h3 className="title-register title-not-authorized">
-            Debe al menos tener un camión y conductore registrado para crear un
+            Debe al menos tener un camión y conductor registrado para crear un
             nuevo viaje.
           </h3>
         </div>
       )}
     </>
-  );
-};
+  )
+}
