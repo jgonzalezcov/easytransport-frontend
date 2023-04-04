@@ -8,6 +8,7 @@ import { DataContext } from '../../../contexts/DataProvider';
 import { faFaceSadTear } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import toast, { Toaster } from 'react-hot-toast';
+const Swal = require('sweetalert2');
 
 export const TransportNewTrip = () => {
   const { setTrips, trucks, drivers } = useContext(DataContext);
@@ -57,12 +58,18 @@ export const TransportNewTrip = () => {
 
   const register = async () => {
     try {
-
       if (!validateForm()) return;
       await TripService.createTrip(object);
-      alert('Creación de viaje exitoso');
-
-
+      navigate('/transport');
+      console.log('Enviado al backend');
+      await TripService.createTrip(object);
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Creación de viaje exitoso',
+        showConfirmButton: false,
+        timer: 2500,
+      });
       navigate('/transport');
     } catch (error) {
       alert(error.response.data.message);
@@ -121,8 +128,8 @@ export const TransportNewTrip = () => {
                   <option value="container refrigerado">
                     Container refrigerado
                   </option>
-                  <option value="Remolque cerrado">Remolque cerrado</option>
-                  <option value="Remolque abierto">Remolque abierto</option>
+                  <option value="remolque cerrado">Remolque cerrado</option>
+                  <option value="remolque abierto">Remolque abierto</option>
                 </Form.Select>
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicText">
@@ -271,7 +278,7 @@ export const TransportNewTrip = () => {
             className="icon-not-authorized"
           />
           <h3 className="title-register title-not-authorized">
-            Debe al menos tener un camión y conductore registrado para crear un
+            Debe al menos tener un camión y conductor registrado para crear un
             nuevo viaje.
           </h3>
         </div>

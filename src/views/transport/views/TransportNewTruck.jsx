@@ -6,6 +6,7 @@ import { getTokenData } from '../../../helpers/Token.helper';
 import { TruckService } from '../../../services/truckService';
 import { DataContext } from '../../../contexts/DataProvider';
 import toast, { Toaster } from 'react-hot-toast';
+const Swal = require('sweetalert2');
 
 export const TransportNewTruck = () => {
   const { setTrucks } = useContext(DataContext);
@@ -56,13 +57,17 @@ export const TransportNewTruck = () => {
     try {
       if (!validateForm()) return;
       const tokenDataId = getToken.id;
-      console.log('Enviado al backend');
       await TruckService.createtruck(object);
-      alert('Camion registrado con éxito');
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Camión registrado con éxito',
+        showConfirmButton: false,
+        timer: 2500,
+      });
       navigate('/transport/configTruck');
       const respTrucks = await TruckService.list(tokenDataId);
       setTrucks(respTrucks.data);
-
     } catch (error) {
       alert(error.response.data.message);
     }

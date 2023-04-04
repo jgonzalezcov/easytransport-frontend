@@ -3,6 +3,7 @@ import {
   faPhone,
   faTrash,
   faBan,
+  faDolly,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconButton } from '@mui/material'
@@ -16,110 +17,23 @@ import CloseButton from 'react-bootstrap/CloseButton'
 import { DataContext } from '../../../contexts/DataProvider'
 import { TripService } from '../../../services/tripService'
 import { getTokenData } from '../../../helpers/Token.helper'
-/**
- * id
- * transport_id
- * truck_id
- * drive_id
- * drive_phone
- * drive_name
- * origin
- * destiny
- * trip_date_ini
- * time_ini
- * time_end
- * time_date_end
- * type_load_trip
- * cubic_meters_trip
- * max_height_trip
- * long_load_trip
- * wide_load_trip
- * height_load_trip
- * status
- * created_at
- * updated_at
- * deleted_at
- * */
-
-const tripss = [
-  {
-    id: 1,
-    transport_id: 1,
-    truck_id: 1,
-    drive_id: 1,
-    drive_phone: '12345678',
-    drive_name: 'Aquiles Baeza',
-    origin: 'Valdivia',
-    destiny: 'Santiago',
-    trip_date_ini: '2023-01-01',
-    time_ini: '06:00',
-    time_end: '16:00',
-    time_date_end: '06:00',
-    type_load_trip: '',
-    cubic_meters_trip: 20,
-    max_height_trip: 1,
-    long_load_trip: 1,
-    wide_load_trip: 1,
-    height_load_trip: 1,
-    status: 'En progreso',
-  },
-  {
-    id: 2,
-    transport_id: 1,
-    truck_id: 1,
-    drive_id: 1,
-    drive_phone: '12345678',
-    drive_name: 'Alan brito',
-    origin: 'Puerto Mont',
-    destiny: 'San antonio',
-    trip_date_ini: '2023-01-01',
-    time_ini: '06:00',
-    time_end: '16:00',
-    time_date_end: '06:00',
-    type_load_trip: '',
-    cubic_meters_trip: 20,
-    max_height_trip: 1,
-    long_load_trip: 1,
-    wide_load_trip: 1,
-    height_load_trip: 1,
-    status: 'Finalizado',
-  },
-  {
-    id: 3,
-    transport_id: 1,
-    truck_id: 1,
-    drive_id: 1,
-    drive_phone: '12345678',
-    drive_name: 'Elba Lazo',
-    origin: 'Arica',
-    destiny: 'Valparaíso',
-    trip_date_ini: '2023-01-01',
-    time_ini: '06:00',
-    time_end: '16:00',
-    time_date_end: '06:00',
-    type_load_trip: '',
-    cubic_meters_trip: 20,
-    max_height_trip: 1,
-    long_load_trip: 1,
-    wide_load_trip: 1,
-    height_load_trip: 1,
-    status: 'No comenzado',
-  },
-]
 
 export const TransportListTrip = () => {
   const getStatus = (status) => {
-    if (status === 'No comenzado') return 'not_started'
-    if (status === 'En progreso') return 'in_progress'
-    if (status === 'Finalizado') return 'finalized'
+    if (status === 'no iniciado') return 'not_started'
+    if (status === 'en progreso') return 'in_progress'
+    if (status === 'finalizado') return 'finalized'
+    if (status === 'asignado') return 'assigned'
     return ''
   }
+
   const getToken = getTokenData()
   const { trips, setTrips } = useContext(DataContext)
   const [idDelete, setIdDelete] = useState(0)
   const navigate = useNavigate()
   const [viewDelete, setViewDelete] = useState(false)
   const [id, setId] = useState(0)
+  const [idView, setIdView] = useState(0)
   const deleteTrip = async () => {
     const tokenDataId = getToken.id
     await TripService.deleteTrip(idDelete)
@@ -132,13 +46,29 @@ export const TransportListTrip = () => {
     setViewDelete(true)
     setIdDelete(id)
   }
-
+  const setState = async (id, state) => {
+    let body = {}
+    if (state === 'no iniciado') {
+      body = { status: 'en progreso' }
+    } else if (state === 'en progreso') {
+      body = { status: 'finalizado' }
+    }
+    await TripService.updateTripState(body, id)
+    const tokenDataId = getToken.id
+    const respTrips = await TripService.list(tokenDataId)
+    setTrips(respTrips.data)
+  }
   const updateTrip = (idTrip) => {
     setId(idTrip)
+  }
+
+  const viewShipping = (idTrip) => {
+    setIdView(idTrip)
   }
   const viewTrips = async () => {
     const tokenDataId = getToken.id
     const respTrips = await TripService.list(tokenDataId)
+    console.log(respTrips)
     setTrips(respTrips.data)
   }
 
@@ -150,7 +80,10 @@ export const TransportListTrip = () => {
     if (id !== 0) {
       navigate(`/transport/editTrip/${id}`)
     }
-  }, [id, trips])
+    if (idView !== 0) {
+      navigate(`/transport/viewShippingTrip/${idView}`)
+    }
+  }, [id, trips, idView])
 
   return (
     <Container fluid className="mx-0 trip-list-container">
@@ -160,6 +93,8 @@ export const TransportListTrip = () => {
           <thead>
             <tr>
               <th>Conductor</th>
+              <th>Camion</th>
+              <th>Numero</th>
               <th>Origen</th>
               <th>Destino</th>
               <th>Estado</th>
@@ -180,13 +115,29 @@ export const TransportListTrip = () => {
                     }
                   />
                 </td>
+                <td className="cell">{e.truck_name}</td>
+                <td className="cell">{e.id}</td>
                 <td className="cell">{e.city_origin}</td>
                 <td className="cell">{e.city_destiny}</td>
-                <td className="cell">
+                <td
+                  className="cell status"
+                  text={e.status}
+                  onClick={() => {
+                    setState(e.id, e.status)
+                  }}
+                >
                   <Status text={e.status} status={getStatus(e.status)} />
                 </td>
                 <td className="cell">
                   <div className="right-cell actions-cell">
+                    <IconButton
+                      onClick={() => {
+                        viewShipping(e.id)
+                      }}
+                    >
+                      <FontAwesomeIcon icon={faDolly} />
+                    </IconButton>
+
                     {e.status === 'no iniciado' ? (
                       <IconButton
                         onClick={() => {

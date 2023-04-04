@@ -139,12 +139,12 @@ export const ClientNewShipment = () => {
                   onChange={handleSet}
                   name="type_load_shipping"
                 >
-                  <option value="Container">Container</option>
-                  <option value="Container refrigerado">
+                  <option value="container">Container</option>
+                  <option value="container refrigerado">
                     Container refrigerado
                   </option>
-                  <option value="Remolque cerrado">Remolque cerrado</option>
-                  <option value="Remolque abierto">Remolque abierto</option>
+                  <option value="remolque cerrado">Remolque cerrado</option>
+                  <option value="remolque abierto">Remolque abierto</option>
                 </Form.Select>
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicText">
@@ -265,7 +265,7 @@ export const ClientNewShipment = () => {
                 />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicText">
-                <Form.Label>Desde hora</Form.Label>
+                <Form.Label>Desde: hora</Form.Label>
                 <Form.Control
                   type="time"
                   onChange={handleSet}
@@ -273,7 +273,7 @@ export const ClientNewShipment = () => {
                 />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicText">
-                <Form.Label>Hasta fecha</Form.Label>
+                <Form.Label>Hasta: fecha</Form.Label>
                 <Form.Control
                   type="date"
                   onChange={handleSet}
