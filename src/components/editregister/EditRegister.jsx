@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form'
 import { getTokenData } from '../../helpers/Token.helper'
 import { AuthService } from '../../services/authService'
 import ImgEdit from '../imgEdit/ImgEdit'
+const Swal = require('sweetalert2')
 
 const EditRegister = (type) => {
   const tokenData = getTokenData()
@@ -31,7 +32,13 @@ const EditRegister = (type) => {
       const id = tokenData.id
       await AuthService.editUser(user, id, typeAccount)
       setUser({})
-      alert('Usuario editado con éxito')
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Usuario editado con éxito',
+        showConfirmButton: false,
+        timer: 2500
+      });
     } catch (error) {
       alert(error.response.data.message)
       setUser({})
@@ -44,7 +51,13 @@ const EditRegister = (type) => {
       await AuthService.editPasword(passw, id, typeAccount)
       setPass({})
       setRetryPassword('')
-      alert('Contraseña modificada con éxito')
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Contraseña modificada con éxito',
+        showConfirmButton: false,
+        timer: 2500
+      });
     } catch (error) {
       alert(error.response.data.message)
       setPass({})
@@ -69,7 +82,7 @@ const EditRegister = (type) => {
     } else if (viewEdit === 'picture') {
     } else if (viewEdit === 'password') {
       if (retryPassword !== passw.password) {
-        alert('La confirmación de contraseña no es igual a la contraseña')
+        Swal.fire('La confirmación de contraseña no coincide!')
       } else {
         editPassword()
       }
@@ -176,4 +189,4 @@ const EditRegister = (type) => {
   )
 }
 
-export default EditRegister
+export default EditRegister;

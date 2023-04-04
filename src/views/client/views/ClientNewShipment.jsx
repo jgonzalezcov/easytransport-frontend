@@ -265,7 +265,7 @@ export const ClientNewShipment = () => {
                 />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicText">
-                <Form.Label>Desde hora</Form.Label>
+                <Form.Label>Desde: hora</Form.Label>
                 <Form.Control
                   type="time"
                   onChange={handleSet}
@@ -273,7 +273,7 @@ export const ClientNewShipment = () => {
                 />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicText">
-                <Form.Label>Hasta fecha</Form.Label>
+                <Form.Label>Hasta: fecha</Form.Label>
                 <Form.Control
                   type="date"
                   onChange={handleSet}

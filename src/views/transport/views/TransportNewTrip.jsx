@@ -1,13 +1,16 @@
-import React, { useState, useEffect, useContext } from 'react'
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
-import { useNavigate } from 'react-router-dom'
-import { getTokenData } from '../../../helpers/Token.helper'
-import { TripService } from '../../../services/tripService'
-import { DataContext } from '../../../contexts/DataProvider'
-import { faFaceSadTear } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import toast, { Toaster } from 'react-hot-toast'
+
+import React, { useState, useEffect, useContext } from 'react';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import { useNavigate } from 'react-router-dom';
+import { getTokenData } from '../../../helpers/Token.helper';
+import { TripService } from '../../../services/tripService';
+import { DataContext } from '../../../contexts/DataProvider';
+import { faFaceSadTear } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import toast, { Toaster } from 'react-hot-toast';
+const Swal = require('sweetalert2');
+
 
 export const TransportNewTrip = () => {
   const { setTrips, trucks, drivers } = useContext(DataContext)
@@ -57,11 +60,20 @@ export const TransportNewTrip = () => {
 
   const register = async () => {
     try {
-      if (!validateForm()) return
-      await TripService.createTrip(object)
-      alert('Creación de viaje exitoso')
-
-      navigate('/transport')
+      if (!validateForm()) return;
+      await TripService.createTrip(object);
+      alert('Creación de viaje exitoso');
+      navigate('/transport');
+      console.log('Enviado al backend');
+      await TripService.createTrip(object);
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Creación de viaje exitoso',
+        showConfirmButton: false,
+        timer: 2500,
+      });
+      navigate('/transport');
     } catch (error) {
       alert(error.response.data.message)
     }
@@ -265,7 +277,7 @@ export const TransportNewTrip = () => {
             className="icon-not-authorized"
           />
           <h3 className="title-register title-not-authorized">
-            Debe al menos tener un camión y conductore registrado para crear un
+            Debe al menos tener un camión y conductor registrado para crear un
             nuevo viaje.
           </h3>
         </div>
