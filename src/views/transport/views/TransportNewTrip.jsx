@@ -60,9 +60,6 @@ export const TransportNewTrip = () => {
     try {
       if (!validateForm()) return;
       await TripService.createTrip(object);
-      navigate('/transport');
-      console.log('Enviado al backend');
-      await TripService.createTrip(object);
       Swal.fire({
         position: 'center',
         icon: 'success',
