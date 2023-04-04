@@ -18,5 +18,8 @@
     &[class~='finalized'] {
       background-color: var(--finalized-color);
     }
+    &[class~='assigned'] {
+      background-color: var(--assigned-color);
+    }
   }
 }

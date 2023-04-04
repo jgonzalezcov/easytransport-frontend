@@ -1,10 +1,9 @@
-import React from 'react';
-import { DataContext } from '../../contexts/DataProvider';
-import './transportStyle.css';
-import { Outlet } from 'react-router-dom';
-import DrawerMenu from '../../components/drawerMenu/Drawer';
-import { getMenu } from '../../helpers/Menu.helpers';
-const menus = getMenu('transport');
+import React from 'react'
+import './transportStyle.css'
+import { Outlet } from 'react-router-dom'
+import DrawerMenu from '../../components/drawerMenu/Drawer'
+import { getMenu } from '../../helpers/Menu.helpers'
+const menus = getMenu('transport')
 
 const Transport = () => {
   return (
@@ -15,7 +14,7 @@ const Transport = () => {
         <Outlet />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Transport;
+export default Transport
