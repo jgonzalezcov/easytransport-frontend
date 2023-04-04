@@ -28,6 +28,7 @@ export const ClientNewShipment = () => {
     trip_id: id,
     transport_id: 0,
     country_destiny: '',
+    description: '',
     country_origin: '',
     cubic_meters_shipping: '',
     high_load_shipping: '',
