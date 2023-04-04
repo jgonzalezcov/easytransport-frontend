@@ -24,6 +24,7 @@ import { TransportEditTrip } from '../views/transport/views/TransportEditTrip co
 import { TransportEditDriver } from '../views/transport/views/TransportEditDriver'
 import NotAuthorized from '../views/notAuthorized/NotAuthorized'
 import { getTokenData } from '../helpers/Token.helper'
+import { TransportListShipment } from '../views/transport/views/TransportListShipment'
 
 export const AppRouter = () => {
   const { isAuth } = useContext(DataContext)
@@ -46,6 +47,11 @@ export const AppRouter = () => {
               <Route path="newTrip" element={<TransportNewTrip />} />
               <Route path="listTrip" element={<TransportListTrip />} />
               <Route path="newTruck" element={<TransportNewTruck />} />
+              <Route
+                path="viewShippingTrip/:id"
+                element={<TransportListShipment />}
+              />
+
               <Route path="editTrip/:id" element={<TransportEditTrip />} />
               <Route path="editTruck/:id" element={<TransportEditTruck />} />
               <Route path="configTruck" element={<TransportConfigTruck />} />

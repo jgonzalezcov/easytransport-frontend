@@ -38,6 +38,9 @@
   align-items: center;
   justify-content: center;
 }
+.status:hover {
+  cursor: pointer;
+}
 .btn-register:hover {
   background-color: var(--bg-hover-color);
   cursor: pointer;
@@ -45,6 +48,10 @@
 .btn-register {
   background-color: var(--second-bg-color);
   width: 150px;
+  margin-top: 10px;
+}
+.btn-register-2 {
+  margin-top: 30px;
 }
 .container-bt-register {
   margin-top: 25px;

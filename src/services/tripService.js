@@ -27,6 +27,10 @@ export class TripService extends Service {
     const trips = await this.put(`trip/${id}`, body)
     return trips
   }
+  static async updateTripState(body, id) {
+    const trips = await this.put(`trip/state/${id}`, body)
+    return trips
+  }
   static async allTrips() {
     const trips = await this.get('trip/all')
     return trips

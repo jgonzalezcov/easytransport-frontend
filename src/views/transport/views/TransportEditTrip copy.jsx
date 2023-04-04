@@ -68,7 +68,9 @@ export const TransportEditTrip = () => {
                   return Number.parseInt(b.value) - Number.parseInt(a.value)
                 })
                 .map((e) => (
-                  <option value={e.id}>{e.name}</option>
+                  <option key={e.id} value={e.id}>
+                    {e.name}
+                  </option>
                 ))}
             </Form.Select>
           </Form.Group>
@@ -101,7 +103,10 @@ export const TransportEditTrip = () => {
                   return Number.parseInt(b.value) - Number.parseInt(a.value)
                 })
                 .map((e) => (
-                  <option value={e.id}>{`${e.name} ${e.last_name}`}</option>
+                  <option
+                    key={e.id}
+                    value={e.id}
+                  >{`${e.name} ${e.last_name}`}</option>
                 ))}
             </Form.Select>
           </Form.Group>
