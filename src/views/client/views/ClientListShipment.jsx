@@ -3,57 +3,57 @@ import {
   faPhone,
   faTrash,
   faBan,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IconButton } from '@mui/material';
-import React from 'react';
-import { useState, useEffect } from 'react';
-import { Container, Table } from 'react-bootstrap';
-import { Status } from '../../../components/status/Status';
-import { UserData } from '../../../components/userData/UserData';
-import Button from 'react-bootstrap/Button';
-import { useNavigate } from 'react-router-dom';
-import CloseButton from 'react-bootstrap/CloseButton';
-import { ShippingService } from '../../../services/shippingService';
-import { getTokenData } from '../../../helpers/Token.helper';
-import { Loader } from '../../../components/loader/Loader';
-import { NoData } from '../../../components/noData/NoData';
+} from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { IconButton } from '@mui/material'
+import React from 'react'
+import { useState, useEffect } from 'react'
+import { Container, Table } from 'react-bootstrap'
+import { Status } from '../../../components/status/Status'
+import { UserData } from '../../../components/userData/UserData'
+import Button from 'react-bootstrap/Button'
+import { useNavigate } from 'react-router-dom'
+import CloseButton from 'react-bootstrap/CloseButton'
+import { ShippingService } from '../../../services/shippingService'
+import { getTokenData } from '../../../helpers/Token.helper'
+import { Loader } from '../../../components/loader/Loader'
+import { NoData } from '../../../components/noData/NoData'
 
 export const ClientListShipment = () => {
-  const clientData = getTokenData();
-  const [viewDelete, setViewDelete] = useState(false);
-  const [shippings, setShippings] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const navigate = useNavigate();
+  const clientData = getTokenData()
+  const [viewDelete, setViewDelete] = useState(false)
+  const [shippings, setShippings] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+  const navigate = useNavigate()
   const getStatus = (status) => {
-    if (status === 'No comenzado') return 'not_started';
-    if (status === 'asignado') return 'in_progress';
-    if (status === 'finalizado') return 'finalized';
-    return '';
-  };
+    if (status === 'No comenzado') return 'not_started'
+    if (status === 'asignado') return 'in_progress'
+    if (status === 'finalizado') return 'finalized'
+    return ''
+  }
   const deleteShipment = (idShipment) => {
-    setViewDelete(false);
-  };
+    setViewDelete(false)
+  }
 
-  const [id, setId] = useState(0);
+  const [id, setId] = useState(0)
 
   const updateShipment = (idShipment) => {
-    setId(idShipment);
-  };
+    setId(idShipment)
+  }
 
   const init = async () => {
-    const shipp = await ShippingService.getByClient(clientData.id);
-    setShippings(shipp);
-    setIsLoading(false);
-  };
+    const shipp = await ShippingService.getByClient(clientData.id)
+    setShippings(shipp)
+    setIsLoading(false)
+  }
 
   useEffect(() => {
     if (id !== 0) {
-      navigate(`/client/editShipment/${id}`);
+      navigate(`/client/editShipment/${id}`)
     } else {
-      init();
+      init()
     }
-  }, [id]);
+  }, [id])
 
   return (
     <Container fluid className="mx-0 trip-list-container">
@@ -102,7 +102,7 @@ export const ClientListShipment = () => {
                         {e.status === 'No comenzado' ? (
                           <IconButton
                             onClick={() => {
-                              updateShipment(e.id);
+                              updateShipment(e.id)
                             }}
                           >
                             <FontAwesomeIcon icon={faPen} />
@@ -130,7 +130,7 @@ export const ClientListShipment = () => {
             <div className="container-close-button">
               <CloseButton
                 onClick={() => {
-                  setViewDelete(false);
+                  setViewDelete(false)
                 }}
               />
             </div>
@@ -142,7 +142,7 @@ export const ClientListShipment = () => {
               <FontAwesomeIcon className="faTrash" icon={faTrash} />
               <Button
                 onClick={() => {
-                  deleteShipment();
+                  deleteShipment()
                 }}
                 className="btn-register btn-delete"
                 variant="primary"
@@ -157,5 +157,5 @@ export const ClientListShipment = () => {
         ''
       )}
     </Container>
-  );
-};
+  )
+}
